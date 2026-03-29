@@ -1,0 +1,11 @@
+{
+  "@@locale": "en",
+  "appBrandTitle": "Paradise",
+  "@appBrandTitle": {
+    "description": "App brand name shown on welcome screen"
+  },
+  "welcomeTaglineLine1": "Furniture and decor for your home",
+  "welcomeTaglineLine2": "Living room, bedroom, kitchen — all in one place",
+  "welcomePrimaryCta": "Browse catalog",
+  "welcomeSecondaryCta": "I already have an account"
+}

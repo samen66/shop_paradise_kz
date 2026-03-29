@@ -1,66 +1,41 @@
 import 'package:flutter/material.dart';
 
+import 'core/locale/locale_resolution.dart';
 import 'core/theme/app_theme.dart';
+import 'features/welcome/presentation/welcome_page.dart';
+import 'l10n/app_localizations.dart';
 
 void main() {
   runApp(const ShopParadiseApp());
 }
 
-/// Root widget: applies [AppTheme.light] for preview and future screens.
+/// Root widget: theme, i18n (en / ru / kk), and locale resolution.
 class ShopParadiseApp extends StatelessWidget {
-  const ShopParadiseApp({super.key});
+  const ShopParadiseApp({super.key, this.locale, this.themeMode});
+
+  /// Overrides device locale (e.g. in tests).
+  final Locale? locale;
+
+  /// Overrides theme mode (e.g. in tests). Null uses [ThemeMode.system].
+  final ThemeMode? themeMode;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Shop Paradise',
       theme: AppTheme.light,
-      home: const _ThemePreviewHome(),
-    );
-  }
-}
-
-/// Minimal scaffold to verify colors, typography, and pill controls.
-class _ThemePreviewHome extends StatelessWidget {
-  const _ThemePreviewHome();
-
-  @override
-  Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    return Scaffold(
-      appBar: AppBar(title: const Text('Shop Paradise')),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Text('Login', style: theme.textTheme.headlineMedium),
-              const SizedBox(height: 8),
-              Text(
-                'Good to see you back!',
-                style: theme.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 24),
-              TextField(
-                decoration: const InputDecoration(
-                  hintText: 'Email',
-                ),
-              ),
-              const SizedBox(height: 16),
-              FilledButton(
-                onPressed: () {},
-                child: const Text('Next'),
-              ),
-              const SizedBox(height: 12),
-              TextButton(
-                onPressed: () {},
-                child: const Text('Cancel'),
-              ),
-            ],
-          ),
-        ),
-      ),
+      darkTheme: AppTheme.dark,
+      themeMode: themeMode ?? ThemeMode.system,
+      locale: locale,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      localeListResolutionCallback: (
+        List<Locale>? locales,
+        Iterable<Locale> supportedLocales,
+      ) {
+        return resolveAppLocale(locales, supportedLocales);
+      },
+      home: const WelcomePage(),
     );
   }
 }

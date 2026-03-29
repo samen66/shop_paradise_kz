@@ -1,0 +1,40 @@
+import 'dart:developer' as developer;
+
+import 'package:flutter/material.dart';
+
+import '../../../../l10n/app_localizations.dart';
+import 'welcome_secondary_row.dart';
+
+/// Primary and secondary actions for the welcome flow.
+class WelcomeActions extends StatelessWidget {
+  const WelcomeActions({super.key, required this.l10n});
+
+  final AppLocalizations l10n;
+
+  static const double _ctaRadius = 14;
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        FilledButton(
+          onPressed: () {
+            developer.log('welcome_primary_cta');
+          },
+          style: FilledButton.styleFrom(
+            minimumSize: const Size(double.infinity, 52),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(_ctaRadius),
+            ),
+          ),
+          child: Text(l10n.welcomePrimaryCta),
+        ),
+        const SizedBox(height: 20),
+        WelcomeSecondaryRow(l10n: l10n, theme: theme),
+      ],
+    );
+  }
+}

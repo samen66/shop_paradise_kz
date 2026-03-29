@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Brand and semantic colors for the furniture store light theme.
+/// Brand and semantic colors for light and dark themes.
 abstract final class AppColors {
   static const Color primary = Color(0xFF0055FF);
   static const Color onPrimary = Color(0xFFFFFFFF);
@@ -13,4 +13,11 @@ abstract final class AppColors {
   static const Color hint = Color(0xFFBDBDBD);
   static const Color error = Color(0xFFB3261E);
   static const Color onError = Color(0xFFFFFFFF);
+
+  static const Color darkSurface = Color(0xFF121212);
+  static const Color darkOnSurface = Color(0xFFE8E8E8);
+  static const Color darkOnSurfaceVariant = Color(0xFFCACACA);
+  static const Color darkSurfaceContainerHighest = Color(0xFF2C2C2E);
+  static const Color darkOutlineVariant = Color(0xFF424242);
+  static const Color darkHint = Color(0xFF888888);
 }
