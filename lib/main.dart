@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'core/locale/locale_resolution.dart';
 import 'core/theme/app_theme.dart';
@@ -8,7 +9,11 @@ import 'features/welcome/presentation/welcome_page.dart';
 import 'l10n/app_localizations.dart';
 
 void main() {
-  runApp(const ShopParadiseApp());
+  runApp(
+    const ProviderScope(
+      child: ShopParadiseApp(),
+    ),
+  );
 }
 
 /// Root widget: theme, i18n, then Welcome (no bottom bar) or main shell.

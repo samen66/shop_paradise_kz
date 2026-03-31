@@ -2,17 +2,30 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:shop_paradise_kz/features/shell/presentation/widgets/app_bottom_nav.dart';
 import 'package:shop_paradise_kz/features/shell/presentation/widgets/app_top_nav.dart';
 import 'package:shop_paradise_kz/main.dart';
 
 void main() {
+  Future<void> pumpApp(
+    WidgetTester tester, {
+    required ShopParadiseApp app,
+  }) async {
+    await tester.pumpWidget(
+      ProviderScope(
+        child: app,
+      ),
+    );
+  }
+
   testWidgets('Welcome shows Russian CTA when locale is ru', (
     WidgetTester tester,
   ) async {
-    await tester.pumpWidget(
-      const ShopParadiseApp(
+    await pumpApp(
+      tester,
+      app: const ShopParadiseApp(
         locale: Locale('ru'),
         themeMode: ThemeMode.light,
       ),
@@ -25,8 +38,9 @@ void main() {
   testWidgets('Welcome shows English CTA when locale is en', (
     WidgetTester tester,
   ) async {
-    await tester.pumpWidget(
-      const ShopParadiseApp(
+    await pumpApp(
+      tester,
+      app: const ShopParadiseApp(
         locale: Locale('en'),
         themeMode: ThemeMode.light,
       ),
@@ -39,8 +53,9 @@ void main() {
   testWidgets('Welcome shows Kazakh CTA when locale is kk', (
     WidgetTester tester,
   ) async {
-    await tester.pumpWidget(
-      const ShopParadiseApp(
+    await pumpApp(
+      tester,
+      app: const ShopParadiseApp(
         locale: Locale('kk'),
         themeMode: ThemeMode.light,
       ),
@@ -53,8 +68,9 @@ void main() {
   testWidgets('Welcome shows brand in dark theme', (
     WidgetTester tester,
   ) async {
-    await tester.pumpWidget(
-      const ShopParadiseApp(
+    await pumpApp(
+      tester,
+      app: const ShopParadiseApp(
         locale: Locale('ru'),
         themeMode: ThemeMode.dark,
       ),
@@ -67,15 +83,20 @@ void main() {
   testWidgets('Bottom nav switches to Wishlist tab', (
     WidgetTester tester,
   ) async {
-    await tester.pumpWidget(
-      const ShopParadiseApp(
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    await pumpApp(
+      tester,
+      app: const ShopParadiseApp(
         locale: Locale('en'),
         themeMode: ThemeMode.light,
         initialSessionStarted: true,
       ),
     );
     await tester.pumpAndSettle();
-    expect(find.text('Home'), findsWidgets);
+    expect(find.byType(AppBottomNav), findsOneWidget);
     await tester.tap(find.byKey(const Key('bottom_nav_1')));
     await tester.pumpAndSettle();
     expect(find.text('Wishlist'), findsWidgets);
@@ -84,8 +105,13 @@ void main() {
   testWidgets('Bottom nav switches to Orders then back to Home', (
     WidgetTester tester,
   ) async {
-    await tester.pumpWidget(
-      const ShopParadiseApp(
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    await pumpApp(
+      tester,
+      app: const ShopParadiseApp(
         locale: Locale('en'),
         themeMode: ThemeMode.light,
         initialSessionStarted: true,
@@ -97,14 +123,19 @@ void main() {
     expect(find.text('Orders'), findsWidgets);
     await tester.tap(find.byKey(const Key('bottom_nav_0')));
     await tester.pumpAndSettle();
-    expect(find.text('Home'), findsWidgets);
+    expect(find.text('Search'), findsOneWidget);
   });
 
   testWidgets('Welcome primary CTA opens shell with Home', (
     WidgetTester tester,
   ) async {
-    await tester.pumpWidget(
-      const ShopParadiseApp(
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    await pumpApp(
+      tester,
+      app: const ShopParadiseApp(
         locale: Locale('en'),
         themeMode: ThemeMode.light,
       ),
@@ -112,15 +143,16 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Browse catalog'));
     await tester.pumpAndSettle();
-    expect(find.text('Home'), findsWidgets);
+    expect(find.text('Search'), findsOneWidget);
     expect(find.byKey(const Key('bottom_nav_0')), findsOneWidget);
   });
 
   testWidgets('Welcome secondary arrow opens login dialog', (
     WidgetTester tester,
   ) async {
-    await tester.pumpWidget(
-      const ShopParadiseApp(
+    await pumpApp(
+      tester,
+      app: const ShopParadiseApp(
         locale: Locale('en'),
         themeMode: ThemeMode.light,
       ),
@@ -139,8 +171,9 @@ void main() {
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
-    await tester.pumpWidget(
-      const ShopParadiseApp(
+    await pumpApp(
+      tester,
+      app: const ShopParadiseApp(
         locale: Locale('en'),
         themeMode: ThemeMode.light,
         initialSessionStarted: true,
