@@ -23,4 +23,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get welcomeSecondaryCta => 'I already have an account';
+
+  @override
+  String get loginTitle => 'Sign in';
+
+  @override
+  String get loginEmailLabel => 'Email';
+
+  @override
+  String get loginPasswordLabel => 'Password';
+
+  @override
+  String get loginCloseAction => 'Close';
+
+  @override
+  String get webHeaderCatalog => 'Catalog';
+
+  @override
+  String get webHeaderSearchPlaceholder => 'Enter query';
+
+  @override
+  String get webHeaderLinkPromotions => 'Promotions';
+
+  @override
+  String get webHeaderLinkMagazine => 'Magazine';
+
+  @override
+  String get webHeaderLinkShowrooms => 'Showrooms';
 }

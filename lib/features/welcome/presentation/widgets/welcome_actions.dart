@@ -3,13 +3,19 @@ import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
 
 import '../../../../l10n/app_localizations.dart';
+import 'welcome_login_dialog.dart';
 import 'welcome_secondary_row.dart';
 
 /// Primary and secondary actions for the welcome flow.
 class WelcomeActions extends StatelessWidget {
-  const WelcomeActions({super.key, required this.l10n});
+  const WelcomeActions({
+    super.key,
+    required this.l10n,
+    required this.onContinueToShop,
+  });
 
   final AppLocalizations l10n;
+  final VoidCallback onContinueToShop;
 
   static const double _ctaRadius = 14;
 
@@ -23,6 +29,7 @@ class WelcomeActions extends StatelessWidget {
         FilledButton(
           onPressed: () {
             developer.log('welcome_primary_cta');
+            onContinueToShop();
           },
           style: FilledButton.styleFrom(
             minimumSize: const Size(double.infinity, 52),
@@ -33,7 +40,14 @@ class WelcomeActions extends StatelessWidget {
           child: Text(l10n.welcomePrimaryCta),
         ),
         const SizedBox(height: 20),
-        WelcomeSecondaryRow(l10n: l10n, theme: theme),
+        WelcomeSecondaryRow(
+          l10n: l10n,
+          theme: theme,
+          onOpenLogin: () {
+            developer.log('welcome_secondary_cta');
+            showWelcomeLoginDialog(context, l10n);
+          },
+        ),
       ],
     );
   }

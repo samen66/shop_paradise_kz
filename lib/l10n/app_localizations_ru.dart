@@ -23,4 +23,31 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get welcomeSecondaryCta => 'У меня уже есть аккаунт';
+
+  @override
+  String get loginTitle => 'Вход';
+
+  @override
+  String get loginEmailLabel => 'Эл. почта';
+
+  @override
+  String get loginPasswordLabel => 'Пароль';
+
+  @override
+  String get loginCloseAction => 'Закрыть';
+
+  @override
+  String get webHeaderCatalog => 'Каталог';
+
+  @override
+  String get webHeaderSearchPlaceholder => 'Введите запрос';
+
+  @override
+  String get webHeaderLinkPromotions => 'Акции';
+
+  @override
+  String get webHeaderLinkMagazine => 'Журнал';
+
+  @override
+  String get webHeaderLinkShowrooms => 'Шоурумы';
 }

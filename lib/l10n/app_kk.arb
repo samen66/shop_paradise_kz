@@ -4,5 +4,14 @@
   "welcomeTaglineLine1": "Үйге арналған жиһаз бен интерьер",
   "welcomeTaglineLine2": "Бір жерден таңдаңыз",
   "welcomePrimaryCta": "Каталогты ашу",
-  "welcomeSecondaryCta": "Менің аккаунтым бар"
+  "welcomeSecondaryCta": "Менің аккаунтым бар",
+  "loginTitle": "Кіру",
+  "loginEmailLabel": "Электрондық пошта",
+  "loginPasswordLabel": "Құпия сөз",
+  "loginCloseAction": "Жабу",
+  "webHeaderCatalog": "Каталог",
+  "webHeaderSearchPlaceholder": "Сұрау енгізіңіз",
+  "webHeaderLinkPromotions": "Акциялар",
+  "webHeaderLinkMagazine": "Журнал",
+  "webHeaderLinkShowrooms": "Шоурумдар"
 }

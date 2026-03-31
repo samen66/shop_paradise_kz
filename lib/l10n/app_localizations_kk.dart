@@ -22,4 +22,31 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get welcomeSecondaryCta => 'Менің аккаунтым бар';
+
+  @override
+  String get loginTitle => 'Кіру';
+
+  @override
+  String get loginEmailLabel => 'Электрондық пошта';
+
+  @override
+  String get loginPasswordLabel => 'Құпия сөз';
+
+  @override
+  String get loginCloseAction => 'Жабу';
+
+  @override
+  String get webHeaderCatalog => 'Каталог';
+
+  @override
+  String get webHeaderSearchPlaceholder => 'Сұрау енгізіңіз';
+
+  @override
+  String get webHeaderLinkPromotions => 'Акциялар';
+
+  @override
+  String get webHeaderLinkMagazine => 'Журнал';
+
+  @override
+  String get webHeaderLinkShowrooms => 'Шоурумдар';
 }

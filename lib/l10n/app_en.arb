@@ -7,5 +7,14 @@
   "welcomeTaglineLine1": "Furniture and decor for your home",
   "welcomeTaglineLine2": "Living room, bedroom, kitchen — all in one place",
   "welcomePrimaryCta": "Browse catalog",
-  "welcomeSecondaryCta": "I already have an account"
+  "welcomeSecondaryCta": "I already have an account",
+  "loginTitle": "Sign in",
+  "loginEmailLabel": "Email",
+  "loginPasswordLabel": "Password",
+  "loginCloseAction": "Close",
+  "webHeaderCatalog": "Catalog",
+  "webHeaderSearchPlaceholder": "Enter query",
+  "webHeaderLinkPromotions": "Promotions",
+  "webHeaderLinkMagazine": "Magazine",
+  "webHeaderLinkShowrooms": "Showrooms"
 }
