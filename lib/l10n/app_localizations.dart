@@ -129,6 +129,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'I already have an account'**
   String get welcomeSecondaryCta;
+
+  /// No description provided for @loginTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in'**
+  String get loginTitle;
+
+  /// No description provided for @loginEmailLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get loginEmailLabel;
+
+  /// No description provided for @loginPasswordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get loginPasswordLabel;
+
+  /// No description provided for @loginCloseAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get loginCloseAction;
+
+  /// No description provided for @webHeaderCatalog.
+  ///
+  /// In en, this message translates to:
+  /// **'Catalog'**
+  String get webHeaderCatalog;
+
+  /// No description provided for @webHeaderSearchPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter query'**
+  String get webHeaderSearchPlaceholder;
+
+  /// No description provided for @webHeaderLinkPromotions.
+  ///
+  /// In en, this message translates to:
+  /// **'Promotions'**
+  String get webHeaderLinkPromotions;
+
+  /// No description provided for @webHeaderLinkMagazine.
+  ///
+  /// In en, this message translates to:
+  /// **'Magazine'**
+  String get webHeaderLinkMagazine;
+
+  /// No description provided for @webHeaderLinkShowrooms.
+  ///
+  /// In en, this message translates to:
+  /// **'Showrooms'**
+  String get webHeaderLinkShowrooms;
 }
 
 class _AppLocalizationsDelegate

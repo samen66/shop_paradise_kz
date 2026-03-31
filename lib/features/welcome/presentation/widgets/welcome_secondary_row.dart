@@ -1,19 +1,19 @@
-import 'dart:developer' as developer;
-
 import 'package:flutter/material.dart';
 
 import '../../../../l10n/app_localizations.dart';
 
-/// Secondary CTA: account hint text and circular arrow button.
+/// Secondary CTA: account hint and arrow; opens sign-in dialog.
 class WelcomeSecondaryRow extends StatelessWidget {
   const WelcomeSecondaryRow({
     super.key,
     required this.l10n,
     required this.theme,
+    required this.onOpenLogin,
   });
 
   final AppLocalizations l10n;
   final ThemeData theme;
+  final VoidCallback onOpenLogin;
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +36,7 @@ class WelcomeSecondaryRow extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           child: InkWell(
             customBorder: const CircleBorder(),
-            onTap: () {
-              developer.log('welcome_secondary_cta');
-            },
+            onTap: onOpenLogin,
             child: Padding(
               padding: const EdgeInsets.all(12),
               child: Icon(

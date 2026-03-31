@@ -5,11 +5,12 @@ import '../../../l10n/app_localizations.dart';
 import 'widgets/welcome_actions.dart';
 import 'widgets/welcome_hero_section.dart';
 
-/// Welcome / onboarding screen (Paradise furniture store layout).
-///
-/// Composes [WelcomeHeroSection] and [WelcomeActions]; localization guard only.
+/// Welcome (no bottom bar). [onContinueToShop] is used by the primary CTA
+/// (e.g. browse catalog → main shell).
 class WelcomePage extends StatelessWidget {
-  const WelcomePage({super.key});
+  const WelcomePage({super.key, required this.onContinueToShop});
+
+  final VoidCallback onContinueToShop;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +47,10 @@ class WelcomePage extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
-              child: WelcomeActions(l10n: l10n),
+              child: WelcomeActions(
+                l10n: l10n,
+                onContinueToShop: onContinueToShop,
+              ),
             ),
           ],
         ),
