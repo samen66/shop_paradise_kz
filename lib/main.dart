@@ -9,11 +9,7 @@ import 'features/welcome/presentation/welcome_page.dart';
 import 'l10n/app_localizations.dart';
 
 void main() {
-  runApp(
-    const ProviderScope(
-      child: ShopParadiseApp(),
-    ),
-  );
+  runApp(const ProviderScope(child: ShopParadiseApp()));
 }
 
 /// Root widget: theme, i18n, then Welcome (no bottom bar) or main shell.
@@ -71,12 +67,10 @@ class _ShopParadiseAppState extends State<ShopParadiseApp> {
       locale: widget.locale,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      localeListResolutionCallback: (
-        List<Locale>? locales,
-        Iterable<Locale> supportedLocales,
-      ) {
-        return resolveAppLocale(locales, supportedLocales);
-      },
+      localeListResolutionCallback:
+          (List<Locale>? locales, Iterable<Locale> supportedLocales) {
+            return resolveAppLocale(locales, supportedLocales);
+          },
       home: _sessionStarted
           ? const AppShellPage()
           : WelcomePage(onContinueToShop: _onContinueFromWelcome),

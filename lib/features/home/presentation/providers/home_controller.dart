@@ -4,9 +4,7 @@ import '../../domain/entities/home_entities.dart';
 import 'home_providers.dart';
 
 final homeControllerProvider =
-    AsyncNotifierProvider<HomeController, HomePageEntity>(
-  HomeController.new,
-);
+    AsyncNotifierProvider<HomeController, HomePageEntity>(HomeController.new);
 
 class HomeController extends AsyncNotifier<HomePageEntity> {
   @override

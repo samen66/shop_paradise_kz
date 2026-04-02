@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../category_filter/presentation/providers/applied_category_filter_notifier.dart';
 import '../../domain/entities/home_entities.dart';
 import 'home_providers.dart';
 
@@ -24,20 +27,19 @@ class JustForYouPaginationState {
     bool? hasMore,
     int? nextPage,
     String? errorMessage,
-  }) =>
-      JustForYouPaginationState(
-        items: items ?? this.items,
-        isLoadingMore: isLoadingMore ?? this.isLoadingMore,
-        hasMore: hasMore ?? this.hasMore,
-        nextPage: nextPage ?? this.nextPage,
-        errorMessage: errorMessage,
-      );
+  }) => JustForYouPaginationState(
+    items: items ?? this.items,
+    isLoadingMore: isLoadingMore ?? this.isLoadingMore,
+    hasMore: hasMore ?? this.hasMore,
+    nextPage: nextPage ?? this.nextPage,
+    errorMessage: errorMessage,
+  );
 }
 
-final justForYouPaginationControllerProvider = NotifierProvider<
-    JustForYouPaginationController, JustForYouPaginationState>(
-  JustForYouPaginationController.new,
-);
+final justForYouPaginationControllerProvider =
+    NotifierProvider<JustForYouPaginationController, JustForYouPaginationState>(
+      JustForYouPaginationController.new,
+    );
 
 class JustForYouPaginationController
     extends Notifier<JustForYouPaginationState> {
@@ -48,20 +50,62 @@ class JustForYouPaginationController
     if (state.items.isNotEmpty) {
       return;
     }
-    state = state.copyWith(
-      items: section.items,
-      hasMore: section.hasMore,
-      nextPage: section.nextPage,
-      errorMessage: null,
-    );
+    final Set<String> applied = ref.read(appliedCategoryFilterProvider);
+    if (applied.isEmpty) {
+      state = state.copyWith(
+        items: section.items,
+        hasMore: section.hasMore,
+        nextPage: section.nextPage,
+        errorMessage: null,
+      );
+    } else {
+      unawaited(refreshFromAppliedFilters());
+    }
   }
 
   void resetAndSeed(HomeSectionEntity section) {
+    final Set<String> applied = ref.read(appliedCategoryFilterProvider);
+    if (applied.isEmpty) {
+      state = JustForYouPaginationState(
+        items: section.items,
+        hasMore: section.hasMore,
+        nextPage: section.nextPage,
+      );
+      return;
+    }
+    if (state.items.isNotEmpty) {
+      return;
+    }
+    unawaited(refreshFromAppliedFilters());
+  }
+
+  /// Refetches page 1 using current [appliedCategoryFilterProvider] ids.
+  Future<void> refreshFromAppliedFilters() async {
+    final List<String> categoryIds =
+        ref.read(appliedCategoryFilterProvider).toList()..sort();
     state = JustForYouPaginationState(
-      items: section.items,
-      hasMore: section.hasMore,
-      nextPage: section.nextPage,
+      items: const <HomeItemEntity>[],
+      isLoadingMore: true,
+      hasMore: false,
+      nextPage: 2,
+      errorMessage: null,
     );
+    try {
+      final HomeSectionEntity section = await ref
+          .read(getJustForYouPageUseCaseProvider)
+          .call(1, categoryIds: categoryIds);
+      state = JustForYouPaginationState(
+        items: section.items,
+        hasMore: section.hasMore,
+        nextPage: section.nextPage,
+        isLoadingMore: false,
+      );
+    } catch (error) {
+      state = JustForYouPaginationState(
+        isLoadingMore: false,
+        errorMessage: error.toString(),
+      );
+    }
   }
 
   Future<void> loadMore() async {
@@ -69,15 +113,14 @@ class JustForYouPaginationController
       return;
     }
     state = state.copyWith(isLoadingMore: true, errorMessage: null);
+    final List<String> categoryIds =
+        ref.read(appliedCategoryFilterProvider).toList()..sort();
     try {
       final HomeSectionEntity section = await ref
           .read(getJustForYouPageUseCaseProvider)
-          .call(state.nextPage);
+          .call(state.nextPage, categoryIds: categoryIds);
       state = state.copyWith(
-        items: <HomeItemEntity>[
-          ...state.items,
-          ...section.items,
-        ],
+        items: <HomeItemEntity>[...state.items, ...section.items],
         hasMore: section.hasMore,
         nextPage: section.nextPage,
         isLoadingMore: false,

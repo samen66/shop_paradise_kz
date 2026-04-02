@@ -12,10 +12,7 @@ class ShellTabPlaceholderPage extends StatelessWidget {
     return ColoredBox(
       color: scheme.surface,
       child: Center(
-        child: Text(
-          title,
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
+        child: Text(title, style: Theme.of(context).textTheme.titleLarge),
       ),
     );
   }

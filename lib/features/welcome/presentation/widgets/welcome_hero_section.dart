@@ -18,9 +18,7 @@ class WelcomeHeroSection extends StatelessWidget {
         return SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
           child: ConstrainedBox(
-            constraints: BoxConstraints(
-              minHeight: constraints.maxHeight,
-            ),
+            constraints: BoxConstraints(minHeight: constraints.maxHeight),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,

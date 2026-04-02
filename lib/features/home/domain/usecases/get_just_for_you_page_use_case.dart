@@ -6,6 +6,8 @@ class GetJustForYouPageUseCase {
 
   final HomeRepository _repository;
 
-  Future<HomeSectionEntity> call(int page) =>
-      _repository.getJustForYouPage(page);
+  Future<HomeSectionEntity> call(
+    int page, {
+    List<String> categoryIds = const <String>[],
+  }) => _repository.getJustForYouPage(page, categoryIds: categoryIds);
 }

@@ -25,9 +25,15 @@ class HomeRepositoryImpl implements HomeRepository {
   }
 
   @override
-  Future<HomeSectionEntity> getJustForYouPage(int page) async {
+  Future<HomeSectionEntity> getJustForYouPage(
+    int page, {
+    List<String> categoryIds = const <String>[],
+  }) async {
     try {
-      final section = await _remoteDataSource.fetchJustForYouPage(page);
+      final section = await _remoteDataSource.fetchJustForYouPage(
+        page,
+        categoryIds: categoryIds,
+      );
       return section.toEntity();
     } on DioException catch (err) {
       throw mapDioExceptionToFailure(err);

@@ -20,10 +20,7 @@ void main() {
               automaticallyImplyLeading: false,
               toolbarHeight: 0,
               elevation: 0,
-              bottom: AppWebShellHeader(
-                selectedIndex: 0,
-                onSelectTab: (_) {},
-              ),
+              bottom: AppWebShellHeader(selectedIndex: 0, onSelectTab: (_) {}),
             ),
             body: const SizedBox(),
           ),

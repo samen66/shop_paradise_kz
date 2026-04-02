@@ -9,20 +9,21 @@ abstract final class AppTheme {
   static const double _ctaMinHeight = 52;
 
   static ThemeData get light {
-    final ColorScheme colorScheme = ColorScheme.fromSeed(
-      seedColor: AppColors.primary,
-      brightness: Brightness.light,
-      primary: AppColors.primary,
-      onPrimary: AppColors.onPrimary,
-      surface: AppColors.surface,
-      onSurface: AppColors.onSurface,
-      error: AppColors.error,
-      onError: AppColors.onError,
-    ).copyWith(
-      surfaceContainerHighest: AppColors.surfaceContainerHighest,
-      outlineVariant: AppColors.outlineVariant,
-      onSurfaceVariant: AppColors.onSurfaceVariant,
-    );
+    final ColorScheme colorScheme =
+        ColorScheme.fromSeed(
+          seedColor: AppColors.primary,
+          brightness: Brightness.light,
+          primary: AppColors.primary,
+          onPrimary: AppColors.onPrimary,
+          surface: AppColors.surface,
+          onSurface: AppColors.onSurface,
+          error: AppColors.error,
+          onError: AppColors.onError,
+        ).copyWith(
+          surfaceContainerHighest: AppColors.surfaceContainerHighest,
+          outlineVariant: AppColors.outlineVariant,
+          onSurfaceVariant: AppColors.onSurfaceVariant,
+        );
     return _buildTheme(
       colorScheme: colorScheme,
       splashColor: AppColors.primary.withValues(alpha: 0.12),
@@ -32,20 +33,21 @@ abstract final class AppTheme {
   }
 
   static ThemeData get dark {
-    final ColorScheme colorScheme = ColorScheme.fromSeed(
-      seedColor: AppColors.primary,
-      brightness: Brightness.dark,
-      primary: AppColors.primary,
-      onPrimary: AppColors.onPrimary,
-      surface: AppColors.darkSurface,
-      onSurface: AppColors.darkOnSurface,
-      error: AppColors.error,
-      onError: AppColors.onError,
-    ).copyWith(
-      surfaceContainerHighest: AppColors.darkSurfaceContainerHighest,
-      outlineVariant: AppColors.darkOutlineVariant,
-      onSurfaceVariant: AppColors.darkOnSurfaceVariant,
-    );
+    final ColorScheme colorScheme =
+        ColorScheme.fromSeed(
+          seedColor: AppColors.primary,
+          brightness: Brightness.dark,
+          primary: AppColors.primary,
+          onPrimary: AppColors.onPrimary,
+          surface: AppColors.darkSurface,
+          onSurface: AppColors.darkOnSurface,
+          error: AppColors.error,
+          onError: AppColors.onError,
+        ).copyWith(
+          surfaceContainerHighest: AppColors.darkSurfaceContainerHighest,
+          outlineVariant: AppColors.darkOutlineVariant,
+          onSurfaceVariant: AppColors.darkOnSurfaceVariant,
+        );
     return _buildTheme(
       colorScheme: colorScheme,
       splashColor: AppColors.primary.withValues(alpha: 0.24),
@@ -68,26 +70,27 @@ abstract final class AppTheme {
       highlightColor: highlightColor,
     );
 
-    final TextTheme textTheme = GoogleFonts.interTextTheme(base.textTheme).copyWith(
-      headlineLarge: GoogleFonts.inter(
-        fontWeight: FontWeight.w700,
-        color: colorScheme.onSurface,
-      ).merge(base.textTheme.headlineLarge),
-      headlineMedium: GoogleFonts.inter(
-        fontWeight: FontWeight.w700,
-        color: colorScheme.onSurface,
-      ).merge(base.textTheme.headlineMedium),
-      titleLarge: GoogleFonts.inter(
-        fontWeight: FontWeight.w700,
-        color: colorScheme.onSurface,
-      ).merge(base.textTheme.titleLarge),
-      bodyMedium: GoogleFonts.inter(
-        color: colorScheme.onSurfaceVariant,
-      ).merge(base.textTheme.bodyMedium),
-      bodySmall: GoogleFonts.inter(
-        color: colorScheme.onSurfaceVariant,
-      ).merge(base.textTheme.bodySmall),
-    );
+    final TextTheme textTheme = GoogleFonts.interTextTheme(base.textTheme)
+        .copyWith(
+          headlineLarge: GoogleFonts.inter(
+            fontWeight: FontWeight.w700,
+            color: colorScheme.onSurface,
+          ).merge(base.textTheme.headlineLarge),
+          headlineMedium: GoogleFonts.inter(
+            fontWeight: FontWeight.w700,
+            color: colorScheme.onSurface,
+          ).merge(base.textTheme.headlineMedium),
+          titleLarge: GoogleFonts.inter(
+            fontWeight: FontWeight.w700,
+            color: colorScheme.onSurface,
+          ).merge(base.textTheme.titleLarge),
+          bodyMedium: GoogleFonts.inter(
+            color: colorScheme.onSurfaceVariant,
+          ).merge(base.textTheme.bodyMedium),
+          bodySmall: GoogleFonts.inter(
+            color: colorScheme.onSurfaceVariant,
+          ).merge(base.textTheme.bodySmall),
+        );
 
     final ButtonStyle primaryButtonStyle = FilledButton.styleFrom(
       minimumSize: const Size(double.infinity, _ctaMinHeight),

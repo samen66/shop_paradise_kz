@@ -29,31 +29,27 @@ class AppWebShellHeader extends StatelessWidget implements PreferredSizeWidget {
         return SafeArea(
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: List<Widget>.generate(
-              shellNavDestinations.length,
-              (int index) {
-                final ShellNavDestination destination =
-                    shellNavDestinations[index];
-                return ListTile(
-                  leading: Icon(destination.icon),
-                  title: Text(destination.title),
-                  onTap: () {
-                    onSelectTab(index);
-                    Navigator.of(sheetContext).pop();
-                  },
-                );
-              },
-            ),
+            children: List<Widget>.generate(shellNavDestinations.length, (
+              int index,
+            ) {
+              final ShellNavDestination destination =
+                  shellNavDestinations[index];
+              return ListTile(
+                leading: Icon(destination.icon),
+                title: Text(destination.title),
+                onTap: () {
+                  onSelectTab(index);
+                  Navigator.of(sheetContext).pop();
+                },
+              );
+            }),
           ),
         );
       },
     );
   }
 
-  Color _iconColor(
-    BuildContext context,
-    int tabIndex,
-  ) {
+  Color _iconColor(BuildContext context, int tabIndex) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme scheme = theme.colorScheme;
     final bool isActive = selectedIndex == tabIndex;
@@ -125,25 +121,19 @@ class AppWebShellHeader extends StatelessWidget implements PreferredSizeWidget {
                               children: <Widget>[
                                 TextButton(
                                   onPressed: () {
-                                    developer.log(
-                                      'web_header_link_promotions',
-                                    );
+                                    developer.log('web_header_link_promotions');
                                   },
                                   child: Text(l10n.webHeaderLinkPromotions),
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    developer.log(
-                                      'web_header_link_magazine',
-                                    );
+                                    developer.log('web_header_link_magazine');
                                   },
                                   child: Text(l10n.webHeaderLinkMagazine),
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    developer.log(
-                                      'web_header_link_showrooms',
-                                    );
+                                    developer.log('web_header_link_showrooms');
                                   },
                                   child: Text(l10n.webHeaderLinkShowrooms),
                                 ),
@@ -159,10 +149,8 @@ class AppWebShellHeader extends StatelessWidget implements PreferredSizeWidget {
                             child: TextField(
                               readOnly: true,
                               decoration: InputDecoration(
-                                hintText:
-                                    l10n.webHeaderSearchPlaceholder,
-                                contentPadding:
-                                    const EdgeInsets.symmetric(
+                                hintText: l10n.webHeaderSearchPlaceholder,
+                                contentPadding: const EdgeInsets.symmetric(
                                   horizontal: 16,
                                   vertical: 8,
                                 ),
@@ -171,15 +159,13 @@ class AppWebShellHeader extends StatelessWidget implements PreferredSizeWidget {
                                   color: scheme.onSurfaceVariant,
                                 ),
                                 border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.circular(24),
+                                  borderRadius: BorderRadius.circular(24),
                                   borderSide: BorderSide(
                                     color: scheme.outlineVariant,
                                   ),
                                 ),
                                 enabledBorder: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.circular(24),
+                                  borderRadius: BorderRadius.circular(24),
                                   borderSide: BorderSide(
                                     color: scheme.outlineVariant,
                                   ),
