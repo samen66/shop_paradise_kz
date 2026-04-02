@@ -46,7 +46,9 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final AsyncValue<HomePageEntity> homeState = ref.watch(homeControllerProvider);
+    final AsyncValue<HomePageEntity> homeState = ref.watch(
+      homeControllerProvider,
+    );
     return homeState.when(
       loading: () => const HomeLoadingSkeleton(),
       error: (Object err, StackTrace stack) => HomeErrorState(
@@ -57,7 +59,8 @@ class _HomePageState extends ConsumerState<HomePage> {
         final HomeSectionEntity? justForYouSection = homePage.sections
             .cast<HomeSectionEntity?>()
             .firstWhere(
-              (HomeSectionEntity? section) => section?.type.isJustForYou ?? false,
+              (HomeSectionEntity? section) =>
+                  section?.type.isJustForYou ?? false,
               orElse: () => null,
             );
         if (justForYouSection != null) {

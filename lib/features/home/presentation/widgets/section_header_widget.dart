@@ -32,9 +32,7 @@ class SectionHeaderWidget extends StatelessWidget {
             onPressed: onActionTap,
             child: Text(
               actionLabel,
-              style: textTheme.labelLarge?.copyWith(
-                color: colorScheme.primary,
-              ),
+              style: textTheme.labelLarge?.copyWith(color: colorScheme.primary),
             ),
           ),
         ],

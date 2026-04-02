@@ -8,10 +8,7 @@ import 'product_section_widget.dart';
 import 'section_header_widget.dart';
 
 class HomeSectionRenderer extends ConsumerWidget {
-  const HomeSectionRenderer({
-    super.key,
-    required this.section,
-  });
+  const HomeSectionRenderer({super.key, required this.section});
 
   final HomeSectionEntity section;
 
@@ -28,25 +25,44 @@ class HomeSectionRenderer extends ConsumerWidget {
               .seed(section);
         });
       }
+      final bool isJfyLoadingFilters =
+          state.items.isEmpty && state.isLoadingMore;
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SectionHeaderWidget(title: section.title),
-          ProductSectionWidget(
-            items: state.items.isEmpty ? section.items : state.items,
-            layout: section.layout,
-            bottomLoader: state.isLoadingMore
-                ? const Center(child: CircularProgressIndicator(strokeWidth: 2))
-                : null,
-          ),
+          if (isJfyLoadingFilters)
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 48),
+              child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
+            )
+          else
+            ProductSectionWidget(
+              items: state.items.isEmpty ? section.items : state.items,
+              layout: section.layout,
+              bottomLoader: state.isLoadingMore && state.items.isNotEmpty
+                  ? const Center(
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : null,
+            ),
           if (state.errorMessage != null)
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
               child: TextButton(
-                onPressed: () => ref
-                    .read(justForYouPaginationControllerProvider.notifier)
-                    .loadMore(),
-                child: const Text('Retry loading more'),
+                onPressed: () {
+                  final JustForYouPaginationController notifier = ref.read(
+                    justForYouPaginationControllerProvider.notifier,
+                  );
+                  if (state.items.isEmpty) {
+                    notifier.refreshFromAppliedFilters();
+                  } else {
+                    notifier.loadMore();
+                  }
+                },
+                child: Text(
+                  state.items.isEmpty ? 'Retry' : 'Retry loading more',
+                ),
               ),
             ),
         ],
@@ -65,10 +81,7 @@ class HomeSectionRenderer extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         SectionHeaderWidget(title: section.title),
-        ProductSectionWidget(
-          items: section.items,
-          layout: section.layout,
-        ),
+        ProductSectionWidget(items: section.items, layout: section.layout),
       ],
     );
   }

@@ -13,11 +13,7 @@ void main() {
     WidgetTester tester, {
     required ShopParadiseApp app,
   }) async {
-    await tester.pumpWidget(
-      ProviderScope(
-        child: app,
-      ),
-    );
+    await tester.pumpWidget(ProviderScope(child: app));
   }
 
   testWidgets('Welcome shows Russian CTA when locale is ru', (
@@ -65,9 +61,7 @@ void main() {
     expect(find.text('Paradise'), findsOneWidget);
   });
 
-  testWidgets('Welcome shows brand in dark theme', (
-    WidgetTester tester,
-  ) async {
+  testWidgets('Welcome shows brand in dark theme', (WidgetTester tester) async {
     await pumpApp(
       tester,
       app: const ShopParadiseApp(

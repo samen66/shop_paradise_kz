@@ -12,11 +12,7 @@ extension HomeSectionTypeX on HomeSectionType {
   bool get isJustForYou => this == HomeSectionType.justForYou;
 }
 
-enum HomeSectionLayout {
-  horizontal,
-  grid2,
-  circles,
-}
+enum HomeSectionLayout { horizontal, grid2, circles }
 
 class HomeItemEntity {
   const HomeItemEntity({
@@ -26,6 +22,7 @@ class HomeItemEntity {
     this.price,
     this.oldPrice,
     this.discountLabel,
+    this.categoryIds = const <String>[],
   });
 
   final String id;
@@ -34,6 +31,9 @@ class HomeItemEntity {
   final double? price;
   final double? oldPrice;
   final String? discountLabel;
+
+  /// Tags for mock/API filtering (OR match when multiple).
+  final List<String> categoryIds;
 }
 
 class HomeSectionEntity {
@@ -55,9 +55,7 @@ class HomeSectionEntity {
 }
 
 class HomePageEntity {
-  const HomePageEntity({
-    required this.sections,
-  });
+  const HomePageEntity({required this.sections});
 
   final List<HomeSectionEntity> sections;
 }

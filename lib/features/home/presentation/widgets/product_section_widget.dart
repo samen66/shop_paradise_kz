@@ -51,18 +51,18 @@ class ProductSectionWidget extends StatelessWidget {
             final HomeItemEntity item = items[index];
             return Column(
               children: <Widget>[
-              ClipOval(
-                child: Image.network(
-                  item.imageUrl,
-                  width: 56,
-                  height: 56,
-                  fit: BoxFit.cover,
-                  errorBuilder: (_, __, ___) => const ColoredBox(
-                    color: Color(0x22000000),
-                    child: SizedBox(width: 56, height: 56),
+                ClipOval(
+                  child: Image.network(
+                    item.imageUrl,
+                    width: 56,
+                    height: 56,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) => const ColoredBox(
+                      color: Color(0x22000000),
+                      child: SizedBox(width: 56, height: 56),
+                    ),
                   ),
                 ),
-              ),
                 const SizedBox(height: 4),
                 SizedBox(
                   width: 64,

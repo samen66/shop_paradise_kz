@@ -20,11 +20,7 @@ class HomeErrorState extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Icon(
-              Icons.error_outline,
-              color: colorScheme.error,
-              size: 36,
-            ),
+            Icon(Icons.error_outline, color: colorScheme.error, size: 36),
             const SizedBox(height: 12),
             SelectableText.rich(
               TextSpan(
@@ -34,10 +30,7 @@ class HomeErrorState extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 12),
-            FilledButton(
-              onPressed: onRetry,
-              child: const Text('Retry'),
-            ),
+            FilledButton(onPressed: onRetry, child: const Text('Retry')),
           ],
         ),
       ),

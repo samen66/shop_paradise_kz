@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import '../../domain/entities/home_entities.dart';
 
 class CategorySectionWidget extends StatelessWidget {
-  const CategorySectionWidget({
-    super.key,
-    required this.items,
-  });
+  const CategorySectionWidget({super.key, required this.items});
 
   final List<HomeItemEntity> items;
 

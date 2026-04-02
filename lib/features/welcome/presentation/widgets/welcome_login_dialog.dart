@@ -23,9 +23,7 @@ Future<void> showWelcomeLoginDialog(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 TextField(
-                  decoration: InputDecoration(
-                    labelText: l10n.loginEmailLabel,
-                  ),
+                  decoration: InputDecoration(labelText: l10n.loginEmailLabel),
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
                   autocorrect: false,

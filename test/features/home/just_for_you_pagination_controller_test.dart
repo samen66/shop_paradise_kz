@@ -35,8 +35,9 @@ void main() {
         .read(justForYouPaginationControllerProvider.notifier)
         .loadMore();
 
-    final JustForYouPaginationState state =
-        container.read(justForYouPaginationControllerProvider);
+    final JustForYouPaginationState state = container.read(
+      justForYouPaginationControllerProvider,
+    );
     expect(state.items.length, 2);
     expect(state.hasMore, false);
   });
@@ -46,7 +47,10 @@ class _FakeGetJustForYouPageUseCase extends GetJustForYouPageUseCase {
   _FakeGetJustForYouPageUseCase() : super(_FakeHomeRepository());
 
   @override
-  Future<HomeSectionEntity> call(int page) async {
+  Future<HomeSectionEntity> call(
+    int page, {
+    List<String> categoryIds = const <String>[],
+  }) async {
     return const HomeSectionEntity(
       type: HomeSectionType.justForYou,
       title: 'Just For You',
@@ -66,7 +70,10 @@ class _FakeHomeRepository implements HomeRepository {
       const HomePageEntity(sections: <HomeSectionEntity>[]);
 
   @override
-  Future<HomeSectionEntity> getJustForYouPage(int page) async {
+  Future<HomeSectionEntity> getJustForYouPage(
+    int page, {
+    List<String> categoryIds = const <String>[],
+  }) async {
     throw UnimplementedError();
   }
 }

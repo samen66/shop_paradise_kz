@@ -60,10 +60,15 @@ class _AppShellPageState extends State<AppShellPage> {
                         ),
                 )
               : null,
-          body: IndexedStack(
-            index: _selectedIndex,
-            children: _pages,
-          ),
+          body: isWide
+              ? IndexedStack(index: _selectedIndex, children: _pages)
+              : SafeArea(
+                  bottom: false,
+                  child: IndexedStack(
+                    index: _selectedIndex,
+                    children: _pages,
+                  ),
+                ),
           bottomNavigationBar: isWide
               ? null
               : SafeArea(

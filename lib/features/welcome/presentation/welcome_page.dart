@@ -26,7 +26,8 @@ class WelcomePage extends StatelessWidget {
               padding: const EdgeInsets.all(24),
               child: SelectableText.rich(
                 TextSpan(
-                  text: 'AppLocalizations are missing. Add '
+                  text:
+                      'AppLocalizations are missing. Add '
                       'AppLocalizations.delegate to MaterialApp.',
                   style: TextStyle(color: scheme.error),
                 ),
@@ -42,9 +43,7 @@ class WelcomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Expanded(
-              child: WelcomeHeroSection(l10n: l10n),
-            ),
+            Expanded(child: WelcomeHeroSection(l10n: l10n)),
             Padding(
               padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
               child: WelcomeActions(

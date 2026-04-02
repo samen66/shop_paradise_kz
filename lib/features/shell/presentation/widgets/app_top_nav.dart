@@ -40,55 +40,51 @@ class AppTopNav extends StatelessWidget implements PreferredSizeWidget {
           SizedBox(
             height: 63,
             child: Row(
-              children: List<Widget>.generate(
-                shellNavDestinations.length,
-                (int index) {
-                  final ShellNavDestination destination =
-                      shellNavDestinations[index];
-                  final bool isSelected = index == selectedIndex;
-                  final Color iconColor =
-                      isSelected ? activeColor : inactiveColor;
-                  return Expanded(
-                    child: InkWell(
-                      key: destination.key,
-                      onTap: () => onTap(index),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(
-                            destination.icon,
-                            size: 24,
+              children: List<Widget>.generate(shellNavDestinations.length, (
+                int index,
+              ) {
+                final ShellNavDestination destination =
+                    shellNavDestinations[index];
+                final bool isSelected = index == selectedIndex;
+                final Color iconColor = isSelected
+                    ? activeColor
+                    : inactiveColor;
+                return Expanded(
+                  child: InkWell(
+                    key: destination.key,
+                    onTap: () => onTap(index),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(destination.icon, size: 24, color: iconColor),
+                        const SizedBox(height: 4),
+                        Text(
+                          destination.title,
+                          style: theme.textTheme.bodySmall?.copyWith(
                             color: iconColor,
+                            fontWeight: isSelected
+                                ? FontWeight.w600
+                                : FontWeight.w400,
                           ),
-                          const SizedBox(height: 4),
-                          Text(
-                            destination.title,
-                            style: theme.textTheme.bodySmall?.copyWith(
-                              color: iconColor,
-                              fontWeight: isSelected
-                                  ? FontWeight.w600
-                                  : FontWeight.w400,
-                            ),
+                        ),
+                        const SizedBox(height: 4),
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          curve: Curves.easeOut,
+                          height: _indicatorHeight,
+                          width: isSelected ? _indicatorWidth : 0,
+                          decoration: BoxDecoration(
+                            color: isSelected
+                                ? activeColor
+                                : Colors.transparent,
+                            borderRadius: BorderRadius.circular(2),
                           ),
-                          const SizedBox(height: 4),
-                          AnimatedContainer(
-                            duration: const Duration(milliseconds: 200),
-                            curve: Curves.easeOut,
-                            height: _indicatorHeight,
-                            width: isSelected ? _indicatorWidth : 0,
-                            decoration: BoxDecoration(
-                              color: isSelected
-                                  ? activeColor
-                                  : Colors.transparent,
-                              borderRadius: BorderRadius.circular(2),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  );
-                },
-              ),
+                  ),
+                );
+              }),
             ),
           ),
         ],

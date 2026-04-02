@@ -8,16 +8,22 @@ class HomeItemModel {
     this.price,
     this.oldPrice,
     this.discountLabel,
+    this.categoryIds = const <String>[],
   });
 
   factory HomeItemModel.fromJson(Map<String, dynamic> json) => HomeItemModel(
-        id: json['id'] as String,
-        title: json['title'] as String? ?? '',
-        imageUrl: json['image_url'] as String? ?? '',
-        price: (json['price'] as num?)?.toDouble(),
-        oldPrice: (json['old_price'] as num?)?.toDouble(),
-        discountLabel: json['discount_label'] as String?,
-      );
+    id: json['id'] as String,
+    title: json['title'] as String? ?? '',
+    imageUrl: json['image_url'] as String? ?? '',
+    price: (json['price'] as num?)?.toDouble(),
+    oldPrice: (json['old_price'] as num?)?.toDouble(),
+    discountLabel: json['discount_label'] as String?,
+    categoryIds:
+        (json['category_ids'] as List<dynamic>?)
+            ?.map((dynamic e) => e as String)
+            .toList(growable: false) ??
+        const <String>[],
+  );
 
   final String id;
   final String title;
@@ -25,24 +31,27 @@ class HomeItemModel {
   final double? price;
   final double? oldPrice;
   final String? discountLabel;
+  final List<String> categoryIds;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'id': id,
-        'title': title,
-        'image_url': imageUrl,
-        'price': price,
-        'old_price': oldPrice,
-        'discount_label': discountLabel,
-      };
+    'id': id,
+    'title': title,
+    'image_url': imageUrl,
+    'price': price,
+    'old_price': oldPrice,
+    'discount_label': discountLabel,
+    'category_ids': categoryIds,
+  };
 
   HomeItemEntity toEntity() => HomeItemEntity(
-        id: id,
-        title: title,
-        imageUrl: imageUrl,
-        price: price,
-        oldPrice: oldPrice,
-        discountLabel: discountLabel,
-      );
+    id: id,
+    title: title,
+    imageUrl: imageUrl,
+    price: price,
+    oldPrice: oldPrice,
+    discountLabel: discountLabel,
+    categoryIds: categoryIds,
+  );
 }
 
 class HomeSectionModel {
@@ -62,9 +71,8 @@ class HomeSectionModel {
         layout: json['layout'] as String? ?? 'horizontal',
         items: (json['items'] as List<dynamic>? ?? <dynamic>[])
             .map(
-              (dynamic item) => HomeItemModel.fromJson(
-                item as Map<String, dynamic>,
-              ),
+              (dynamic item) =>
+                  HomeItemModel.fromJson(item as Map<String, dynamic>),
             )
             .toList(growable: false),
         hasMore: json['has_more'] as bool? ?? false,
@@ -79,36 +87,33 @@ class HomeSectionModel {
   final int nextPage;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'type': type,
-        'title': title,
-        'layout': layout,
-        'items': items.map((HomeItemModel item) => item.toJson()).toList(),
-        'has_more': hasMore,
-        'next_page': nextPage,
-      };
+    'type': type,
+    'title': title,
+    'layout': layout,
+    'items': items.map((HomeItemModel item) => item.toJson()).toList(),
+    'has_more': hasMore,
+    'next_page': nextPage,
+  };
 
   HomeSectionEntity toEntity() => HomeSectionEntity(
-        type: _mapSectionType(type),
-        title: title,
-        layout: _mapSectionLayout(layout),
-        items: items.map((HomeItemModel item) => item.toEntity()).toList(),
-        hasMore: hasMore,
-        nextPage: nextPage,
-      );
+    type: _mapSectionType(type),
+    title: title,
+    layout: _mapSectionLayout(layout),
+    items: items.map((HomeItemModel item) => item.toEntity()).toList(),
+    hasMore: hasMore,
+    nextPage: nextPage,
+  );
 }
 
 class HomeResponseModel {
-  const HomeResponseModel({
-    required this.sections,
-  });
+  const HomeResponseModel({required this.sections});
 
   factory HomeResponseModel.fromJson(Map<String, dynamic> json) =>
       HomeResponseModel(
         sections: (json['sections'] as List<dynamic>? ?? <dynamic>[])
             .map(
-              (dynamic item) => HomeSectionModel.fromJson(
-                item as Map<String, dynamic>,
-              ),
+              (dynamic item) =>
+                  HomeSectionModel.fromJson(item as Map<String, dynamic>),
             )
             .toList(growable: false),
       );
@@ -116,16 +121,16 @@ class HomeResponseModel {
   final List<HomeSectionModel> sections;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'sections': sections
-            .map((HomeSectionModel section) => section.toJson())
-            .toList(),
-      };
+    'sections': sections
+        .map((HomeSectionModel section) => section.toJson())
+        .toList(),
+  };
 
   HomePageEntity toEntity() => HomePageEntity(
-        sections: sections
-            .map((HomeSectionModel section) => section.toEntity())
-            .toList(),
-      );
+    sections: sections
+        .map((HomeSectionModel section) => section.toEntity())
+        .toList(),
+  );
 }
 
 HomeSectionType _mapSectionType(String rawType) {
