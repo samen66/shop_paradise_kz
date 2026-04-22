@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:shop_paradise_kz/features/cart/presentation/pages/cart_page.dart';
 import 'package:shop_paradise_kz/features/home/presentation/widgets/product_card_widget.dart';
+import 'package:shop_paradise_kz/features/orders/presentation/pages/orders_page.dart';
 import 'package:shop_paradise_kz/features/product_details/presentation/pages/product_details_page.dart';
 import 'package:shop_paradise_kz/features/shell/presentation/widgets/app_bottom_nav.dart';
 import 'package:shop_paradise_kz/features/shell/presentation/widgets/app_top_nav.dart';
@@ -139,7 +140,8 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('bottom_nav_2')));
     await tester.pumpAndSettle();
-    expect(find.text('Orders'), findsWidgets);
+    expect(find.byType(OrdersPage), findsOneWidget);
+    expect(find.text('My orders'), findsOneWidget);
     await tester.tap(find.byKey(const Key('bottom_nav_0')));
     await tester.pumpAndSettle();
     expect(find.text('Search'), findsOneWidget);

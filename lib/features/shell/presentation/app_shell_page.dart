@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../cart/presentation/pages/cart_page.dart';
 import '../../home/presentation/pages/home_page.dart';
+import '../../orders/presentation/pages/orders_page.dart';
 import '../../wishlist/presentation/pages/wishlist_page.dart';
 import 'shell_nav_destinations.dart';
 import 'shell_tab_placeholder_page.dart';
@@ -30,6 +31,7 @@ class _AppShellPageState extends State<AppShellPage> {
         return switch (entry.key) {
           0 => const HomePage(),
           1 => const WishlistPage(),
+          2 => const OrdersPage(),
           3 => const CartPage(),
           _ => ShellTabPlaceholderPage(title: entry.value.title),
         };
