@@ -8,10 +8,13 @@ class AppBottomNav extends StatelessWidget {
     super.key,
     required this.selectedIndex,
     required this.onTap,
+    this.badgedIndices = const <int>{},
   });
 
   final int selectedIndex;
   final ValueChanged<int> onTap;
+  /// Small reminder dots on tab icons (e.g. Profile index when vouchers need attention).
+  final Set<int> badgedIndices;
 
   static const double _indicatorWidth = 28;
   static const double _indicatorHeight = 3;
@@ -45,6 +48,7 @@ class AppBottomNav extends StatelessWidget {
                 final Color iconColor = isSelected
                     ? activeColor
                     : inactiveColor;
+                final bool showBadge = badgedIndices.contains(index);
                 return Expanded(
                   child: InkWell(
                     key: shellNavDestinations[index].key,
@@ -53,10 +57,37 @@ class AppBottomNav extends StatelessWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        Icon(
-                          shellNavDestinations[index].icon,
-                          size: 26,
-                          color: iconColor,
+                        Stack(
+                          clipBehavior: Clip.none,
+                          children: <Widget>[
+                            Icon(
+                              shellNavDestinations[index].icon,
+                              size: 26,
+                              color: iconColor,
+                            ),
+                            if (showBadge)
+                              Positioned(
+                                right: -2,
+                                top: -2,
+                                child: Container(
+                                  key: index == 4
+                                      ? const Key(
+                                          'bottom_nav_profile_reminder_badge',
+                                        )
+                                      : null,
+                                  width: 8,
+                                  height: 8,
+                                  decoration: BoxDecoration(
+                                    color: scheme.primary,
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: scheme.surface,
+                                      width: 1.5,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                          ],
                         ),
                         const SizedBox(height: 6),
                         AnimatedContainer(
