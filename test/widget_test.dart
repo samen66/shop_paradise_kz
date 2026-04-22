@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:shop_paradise_kz/features/cart/presentation/pages/cart_page.dart';
 import 'package:shop_paradise_kz/features/home/presentation/widgets/product_card_widget.dart';
 import 'package:shop_paradise_kz/features/product_details/presentation/pages/product_details_page.dart';
 import 'package:shop_paradise_kz/features/shell/presentation/widgets/app_bottom_nav.dart';
@@ -98,6 +99,26 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byType(WishlistPage), findsOneWidget);
     expect(find.text('My Wishlist'), findsOneWidget);
+  });
+
+  testWidgets('Bottom nav switches to Cart tab', (WidgetTester tester) async {
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    await pumpApp(
+      tester,
+      app: const ShopParadiseApp(
+        locale: Locale('en'),
+        themeMode: ThemeMode.light,
+        initialSessionStarted: true,
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('bottom_nav_3')));
+    await tester.pumpAndSettle();
+    expect(find.byType(CartPage), findsOneWidget);
+    expect(find.text('My cart'), findsOneWidget);
   });
 
   testWidgets('Bottom nav switches to Orders then back to Home', (
