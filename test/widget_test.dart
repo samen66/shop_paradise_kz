@@ -8,6 +8,7 @@ import 'package:shop_paradise_kz/features/home/presentation/widgets/product_card
 import 'package:shop_paradise_kz/features/product_details/presentation/pages/product_details_page.dart';
 import 'package:shop_paradise_kz/features/shell/presentation/widgets/app_bottom_nav.dart';
 import 'package:shop_paradise_kz/features/shell/presentation/widgets/app_top_nav.dart';
+import 'package:shop_paradise_kz/features/wishlist/presentation/pages/wishlist_page.dart';
 import 'package:shop_paradise_kz/main.dart';
 
 void main() {
@@ -95,7 +96,8 @@ void main() {
     expect(find.byType(AppBottomNav), findsOneWidget);
     await tester.tap(find.byKey(const Key('bottom_nav_1')));
     await tester.pumpAndSettle();
-    expect(find.text('Wishlist'), findsWidgets);
+    expect(find.byType(WishlistPage), findsOneWidget);
+    expect(find.text('My Wishlist'), findsOneWidget);
   });
 
   testWidgets('Bottom nav switches to Orders then back to Home', (

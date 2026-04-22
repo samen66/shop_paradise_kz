@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../home/presentation/pages/home_page.dart';
+import '../../wishlist/presentation/pages/wishlist_page.dart';
 import 'shell_nav_destinations.dart';
 import 'shell_tab_placeholder_page.dart';
 import 'widgets/app_bottom_nav.dart';
@@ -24,11 +25,13 @@ class _AppShellPageState extends State<AppShellPage> {
   late final List<Widget> _pages = shellNavDestinations
       .asMap()
       .entries
-      .map(
-        (MapEntry<int, ShellNavDestination> entry) => entry.key == 0
-            ? const HomePage()
-            : ShellTabPlaceholderPage(title: entry.value.title),
-      )
+      .map((MapEntry<int, ShellNavDestination> entry) {
+        return switch (entry.key) {
+          0 => const HomePage(),
+          1 => const WishlistPage(),
+          _ => ShellTabPlaceholderPage(title: entry.value.title),
+        };
+      })
       .toList(growable: false);
 
   void _onSelectIndex(int index) {
@@ -64,10 +67,7 @@ class _AppShellPageState extends State<AppShellPage> {
               ? IndexedStack(index: _selectedIndex, children: _pages)
               : SafeArea(
                   bottom: false,
-                  child: IndexedStack(
-                    index: _selectedIndex,
-                    children: _pages,
-                  ),
+                  child: IndexedStack(index: _selectedIndex, children: _pages),
                 ),
           bottomNavigationBar: isWide
               ? null
