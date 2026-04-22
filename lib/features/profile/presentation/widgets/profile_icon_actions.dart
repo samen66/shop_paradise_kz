@@ -10,12 +10,14 @@ class ProfileIconActions extends StatelessWidget {
     this.onFilter,
     this.onSettings,
     this.filterHasBadge = true,
+    this.settingsButtonKey,
   });
 
   final VoidCallback? onScan;
   final VoidCallback? onFilter;
   final VoidCallback? onSettings;
   final bool filterHasBadge;
+  final Key? settingsButtonKey;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,7 @@ class ProfileIconActions extends StatelessWidget {
         ),
         const SizedBox(width: 8),
         _CircleIconButton(
+          key: settingsButtonKey,
           icon: Icons.settings_outlined,
           onPressed: onSettings,
         ),
@@ -44,6 +47,7 @@ class ProfileIconActions extends StatelessWidget {
 
 class _CircleIconButton extends StatelessWidget {
   const _CircleIconButton({
+    super.key,
     required this.icon,
     this.onPressed,
     this.showBadge = false,

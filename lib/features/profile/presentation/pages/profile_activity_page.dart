@@ -8,6 +8,7 @@ import '../providers/profile_providers.dart';
 import '../widgets/profile_donut_chart.dart';
 import '../widgets/profile_icon_actions.dart';
 import 'profile_history_page.dart';
+import 'settings_page.dart';
 
 class ProfileActivityPage extends ConsumerStatefulWidget {
   const ProfileActivityPage({super.key});
@@ -70,7 +71,7 @@ class _ProfileActivityPageState extends ConsumerState<ProfileActivityPage> {
                       ProfileIconActions(
                         onScan: () => _snack(context, 'Scanner coming soon'),
                         onFilter: () => _snack(context, 'Filters coming soon'),
-                        onSettings: () => _snack(context, 'Settings coming soon'),
+                        onSettings: () => openAppSettings(context),
                       ),
                     ],
                   ),

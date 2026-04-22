@@ -5,6 +5,17 @@ enum ProfileOrdersTab { toPay, toReceive, toReview }
 abstract class ProfileRepository {
   Future<ProfileHubEntity> getProfileHub();
 
+  /// Persists profile fields for the signed-in user (mock: in-memory only).
+  Future<void> saveProfileUser({
+    required String displayName,
+    required String email,
+    String? avatarUrl,
+  });
+
+  Future<ShippingAddressEntity> getShippingAddress();
+
+  Future<void> saveShippingAddress(ShippingAddressEntity address);
+
   Future<VouchersHubEntity> getVouchersHub();
 
   Future<List<ShipmentCardEntity>> getShipments();

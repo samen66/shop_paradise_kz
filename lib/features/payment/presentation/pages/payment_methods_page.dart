@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../payment_card_option.dart';
+import '../payment_demo_cards.dart';
 import '../widgets/payment_card_brand_mark.dart';
 import 'payment_method_editor_page.dart';
 
@@ -20,32 +21,15 @@ class PaymentMethodsPage extends StatefulWidget {
 }
 
 class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
-  static const List<PaymentCardOption> _defaults = <PaymentCardOption>[
-    PaymentCardOption(
-      id: 'mc_1579',
-      label: 'Mastercard',
-      maskedNumber: '****  ****  ****  1579',
-      holderName: 'AMANDA MORGAN',
-      expiry: '12/22',
-      isMastercard: true,
-    ),
-    PaymentCardOption(
-      id: 'visa_8821',
-      label: 'Visa',
-      maskedNumber: '****  ****  ****  8821',
-      holderName: 'AMANDA MORGAN',
-      expiry: '08/24',
-      isMastercard: false,
-    ),
-  ];
-
   late List<PaymentCardOption> _cards;
   late String _selectedId;
 
   @override
   void initState() {
     super.initState();
-    _cards = List<PaymentCardOption>.from(widget.initialCards ?? _defaults);
+    _cards = List<PaymentCardOption>.from(
+      widget.initialCards ?? kDemoPaymentCards,
+    );
     _selectedId = _cards.any((PaymentCardOption c) => c.id == widget.selectedId)
         ? widget.selectedId
         : (_cards.isNotEmpty ? _cards.first.id : '');

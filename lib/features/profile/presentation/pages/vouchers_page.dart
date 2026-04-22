@@ -8,6 +8,7 @@ import '../widgets/profile_icon_actions.dart';
 import '../widgets/reward_progress_ring.dart';
 import '../widgets/voucher_ticket_card.dart';
 import '../widgets/voucher_visuals.dart';
+import 'settings_page.dart';
 
 class VouchersPage extends ConsumerStatefulWidget {
   const VouchersPage({super.key});
@@ -65,7 +66,7 @@ class _VouchersPageState extends ConsumerState<VouchersPage> {
                       ProfileIconActions(
                         onScan: () => _snack('Scanner coming soon'),
                         onFilter: () => _snack('Filters coming soon'),
-                        onSettings: () => _snack('Settings coming soon'),
+                        onSettings: () => openAppSettings(context),
                         filterHasBadge: h.voucherSummary.showReminder,
                       ),
                     ],

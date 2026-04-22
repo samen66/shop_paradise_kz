@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'core/locale/app_locale_override_provider.dart';
 import 'core/locale/locale_resolution.dart';
 import 'core/theme/app_theme.dart';
 import 'features/shell/presentation/app_shell_page.dart';
@@ -13,7 +14,7 @@ void main() {
 }
 
 /// Root widget: theme, i18n, then Welcome (no bottom bar) or main shell.
-class ShopParadiseApp extends StatefulWidget {
+class ShopParadiseApp extends ConsumerStatefulWidget {
   const ShopParadiseApp({
     super.key,
     this.locale,
@@ -31,10 +32,10 @@ class ShopParadiseApp extends StatefulWidget {
   final bool initialSessionStarted;
 
   @override
-  State<ShopParadiseApp> createState() => _ShopParadiseAppState();
+  ConsumerState<ShopParadiseApp> createState() => _ShopParadiseAppState();
 }
 
-class _ShopParadiseAppState extends State<ShopParadiseApp> {
+class _ShopParadiseAppState extends ConsumerState<ShopParadiseApp> {
   late bool _sessionStarted;
 
   @override
@@ -59,12 +60,13 @@ class _ShopParadiseAppState extends State<ShopParadiseApp> {
 
   @override
   Widget build(BuildContext context) {
+    final Locale? overrideLocale = ref.watch(appLocaleOverrideProvider);
     return MaterialApp(
       title: 'Shop Paradise',
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: widget.themeMode ?? ThemeMode.system,
-      locale: widget.locale,
+      locale: widget.locale ?? overrideLocale,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       localeListResolutionCallback:

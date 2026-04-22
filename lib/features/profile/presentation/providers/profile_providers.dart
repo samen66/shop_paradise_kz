@@ -12,6 +12,12 @@ final profileHubProvider = FutureProvider<ProfileHubEntity>((Ref ref) {
   return ref.watch(profileRepositoryProvider).getProfileHub();
 });
 
+final shippingAddressProvider = FutureProvider<ShippingAddressEntity>((
+  Ref ref,
+) {
+  return ref.watch(profileRepositoryProvider).getShippingAddress();
+});
+
 /// True when the user should see a Profile tab / header reminder for vouchers.
 final profileVoucherReminderProvider = Provider<bool>((Ref ref) {
   final AsyncValue<ProfileHubEntity> hub = ref.watch(profileHubProvider);
