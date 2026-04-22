@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/theme/app_colors.dart';
+import '../../../customer_care_chat/presentation/pages/customer_care_chat_page.dart';
 import '../../domain/entities/profile_entities.dart';
 import '../providers/profile_providers.dart';
 
@@ -70,7 +71,10 @@ Future<void> showProfileReviewFlow(
   );
 }
 
-Future<void> showDeliveryFailureSheet(BuildContext context) async {
+Future<void> showDeliveryFailureSheet(
+  BuildContext context,
+  WidgetRef ref,
+) async {
   await showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
@@ -107,10 +111,19 @@ Future<void> showDeliveryFailureSheet(BuildContext context) async {
               SizedBox(
                 width: double.infinity,
                 child: FilledButton(
-                  onPressed: () {
+                  onPressed: () async {
                     Navigator.of(ctx).pop();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Opening chat…')),
+                    final ProfileHubEntity hub =
+                        await ref.read(profileHubProvider.future);
+                    if (!context.mounted) {
+                      return;
+                    }
+                    await Navigator.of(context).push<void>(
+                      MaterialPageRoute<void>(
+                        builder: (_) => CustomerCareChatPage(
+                          displayName: hub.user.displayName,
+                        ),
+                      ),
                     );
                   },
                   child: const Text('Chat Now'),

@@ -50,4 +50,163 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get webHeaderLinkShowrooms => 'Шоурумы';
+
+  @override
+  String customerCareWelcomeMessage(String name) {
+    return 'Здравствуйте, $name! Добро пожаловать в службу поддержки. Мы рады помочь. Расскажите подробнее о проблеме, прежде чем мы начнём.';
+  }
+
+  @override
+  String get customerCareHeaderChatBotTitle => 'Чат-бот';
+
+  @override
+  String get customerCareHeaderAgentName => 'Мэгги Ли';
+
+  @override
+  String get customerCareHeaderSubtitle => 'Служба поддержки';
+
+  @override
+  String get customerCareSheetWhatsYourIssue => 'В чём проблема?';
+
+  @override
+  String get customerCareSheetSelectOrder => 'Выберите один из заказов';
+
+  @override
+  String get customerCareNext => 'Далее';
+
+  @override
+  String get customerCareMessageHint => 'Сообщение';
+
+  @override
+  String get customerCareConnecting => 'Соединяем с оператором';
+
+  @override
+  String get customerCareStandardDelivery => 'Стандартная доставка';
+
+  @override
+  String customerCareItemsCount(int count) {
+    return '$count товар(ов)';
+  }
+
+  @override
+  String get customerCareOrderSelect => 'Выбрать';
+
+  @override
+  String get customerCareOrderSelected => 'Выбрано';
+
+  @override
+  String get customerCareRateTitle => 'Оцените сервис';
+
+  @override
+  String get customerCareRateCommentHint => 'Ваш комментарий';
+
+  @override
+  String get customerCareRatingThanks => 'Спасибо за отзыв.';
+
+  @override
+  String get customerCareSettingsRow => 'Поддержка';
+
+  @override
+  String get customerCareSnackbarAttach => 'В демо вложения недоступны.';
+
+  @override
+  String get customerCareSnackbarMenu =>
+      'В демо дополнительные опции недоступны.';
+
+  @override
+  String get customerCareCategoryOrder => 'Проблемы с заказом';
+
+  @override
+  String get customerCareCategoryItemQuality => 'Качество товара';
+
+  @override
+  String get customerCareCategoryPayment => 'Проблемы с оплатой';
+
+  @override
+  String get customerCareCategoryTechnical => 'Техническая помощь';
+
+  @override
+  String get customerCareCategoryOther => 'Другое';
+
+  @override
+  String get customerCareSubOrderNotReceived => 'Не получил(а) посылку';
+
+  @override
+  String get customerCareSubOrderCancel => 'Хочу отменить заказ';
+
+  @override
+  String get customerCareSubOrderReturn => 'Хочу вернуть заказ';
+
+  @override
+  String get customerCareSubOrderDamaged => 'Посылка повреждена';
+
+  @override
+  String get customerCareSubOrderOther => 'Другое';
+
+  @override
+  String get customerCareSubQualityDefective => 'Товар бракованный или сломан';
+
+  @override
+  String get customerCareSubQualityWrongItem => 'Прислали не тот товар';
+
+  @override
+  String get customerCareSubQualityNotAsDescribed =>
+      'Не соответствует описанию';
+
+  @override
+  String get customerCareSubQualityPackaging => 'Плохая упаковка';
+
+  @override
+  String get customerCareSubQualityOther => 'Другое';
+
+  @override
+  String get customerCareSubPaymentDouble => 'Списали дважды';
+
+  @override
+  String get customerCareSubPaymentRefund => 'Задержка возврата';
+
+  @override
+  String get customerCareSubPaymentFailed => 'Оплата не прошла';
+
+  @override
+  String get customerCareSubPaymentWrongAmount => 'Неверная сумма списания';
+
+  @override
+  String get customerCareSubPaymentOther => 'Другое';
+
+  @override
+  String get customerCareSubTechCrash => 'Приложение вылетает или зависает';
+
+  @override
+  String get customerCareSubTechLogin => 'Не получается войти';
+
+  @override
+  String get customerCareSubTechSlow => 'Страницы грузятся медленно';
+
+  @override
+  String get customerCareSubTechNotifications => 'Не работают уведомления';
+
+  @override
+  String get customerCareSubTechOther => 'Другое';
+
+  @override
+  String get customerCareSubOtherFeedback => 'Общий отзыв';
+
+  @override
+  String get customerCareSubOtherComplaint => 'Жалоба на сервис';
+
+  @override
+  String get customerCareSubOtherPartner => 'Партнёрство или B2B';
+
+  @override
+  String get customerCareSubOtherPress => 'Пресса и СМИ';
+
+  @override
+  String get customerCareSubOtherMisc => 'Другое';
+
+  @override
+  String get customerCareVoucherCollect => 'Получить';
+
+  @override
+  String get customerCareVoucherSaved => 'Предложение сохранено в аккаунте.';
 }

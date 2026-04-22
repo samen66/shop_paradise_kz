@@ -110,7 +110,7 @@ class OrderTrackingPage extends ConsumerWidget {
                             return _TimelineTile(
                               step: step,
                               onAlertTap: step.opensDeliveryFailureSheet
-                                  ? () => showDeliveryFailureSheet(context)
+                                  ? () => showDeliveryFailureSheet(context, ref)
                                   : null,
                             );
                           }),

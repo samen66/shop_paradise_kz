@@ -13,5 +13,70 @@
   "webHeaderSearchPlaceholder": "Сұрау енгізіңіз",
   "webHeaderLinkPromotions": "Акциялар",
   "webHeaderLinkMagazine": "Журнал",
-  "webHeaderLinkShowrooms": "Шоурумдар"
+  "webHeaderLinkShowrooms": "Шоурумдар",
+  "customerCareWelcomeMessage": "Сәлем, {name}! Customer Care қызметіне қош келдіңіз. Сізге көмектесуге қуаныштымыз. Бастамас бұрын мәселеңіз туралы толығырақ айтыңыз.",
+  "@customerCareWelcomeMessage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "customerCareHeaderChatBotTitle": "Чат-бот",
+  "customerCareHeaderAgentName": "Мэгги Ли",
+  "customerCareHeaderSubtitle": "Тұтынушыларға қызмет",
+  "customerCareSheetWhatsYourIssue": "Мәселеңіз қандай?",
+  "customerCareSheetSelectOrder": "Тапсырыстарыңыздың біреуін таңдаңыз",
+  "customerCareNext": "Әрі қарай",
+  "customerCareMessageHint": "Хабарлама",
+  "customerCareConnecting": "Операторға қосылуда",
+  "customerCareStandardDelivery": "Қалыпты жеткізу",
+  "customerCareItemsCount": "{count} тауар",
+  "@customerCareItemsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "customerCareOrderSelect": "Таңдау",
+  "customerCareOrderSelected": "Таңдалды",
+  "customerCareRateTitle": "Қызметті бағалаңыз",
+  "customerCareRateCommentHint": "Пікіріңіз",
+  "customerCareRatingThanks": "Пікіріңіз үшін рахмет.",
+  "customerCareSettingsRow": "Тұтынушыларға қызмет",
+  "customerCareSnackbarAttach": "Бұл демода тіркемелер жоқ.",
+  "customerCareSnackbarMenu": "Бұл демода қосымша опциялар жоқ.",
+  "customerCareCategoryOrder": "Тапсырыс мәселелері",
+  "customerCareCategoryItemQuality": "Сапа",
+  "customerCareCategoryPayment": "Төлем мәселелері",
+  "customerCareCategoryTechnical": "Техникалық көмек",
+  "customerCareCategoryOther": "Басқа",
+  "customerCareSubOrderNotReceived": "Посылкамды алмадым",
+  "customerCareSubOrderCancel": "Тапсырыстан бас тартқым келеді",
+  "customerCareSubOrderReturn": "Тапсырысты қайтарғым келеді",
+  "customerCareSubOrderDamaged": "Бума зақымдалған",
+  "customerCareSubOrderOther": "Басқа",
+  "customerCareSubQualityDefective": "Зат зақымдалған немесе сынған",
+  "customerCareSubQualityWrongItem": "Қате зат жіберілді",
+  "customerCareSubQualityNotAsDescribed": "Сипаттамаға сай емес",
+  "customerCareSubQualityPackaging": "Нашар орау",
+  "customerCareSubQualityOther": "Басқа",
+  "customerCareSubPaymentDouble": "Екі рет төледім",
+  "customerCareSubPaymentRefund": "Қайтару кешігуі",
+  "customerCareSubPaymentFailed": "Төлем сәтсіз аяқталды",
+  "customerCareSubPaymentWrongAmount": "Қате сома алынды",
+  "customerCareSubPaymentOther": "Басқа",
+  "customerCareSubTechCrash": "Қосымша құлады немесе тоқтап қалады",
+  "customerCareSubTechLogin": "Кіре алмаймын",
+  "customerCareSubTechSlow": "Беттер баяу жүктеледі",
+  "customerCareSubTechNotifications": "Хабарландырулар жұмыс істемейді",
+  "customerCareSubTechOther": "Басқа",
+  "customerCareSubOtherFeedback": "Жалпы пікір",
+  "customerCareSubOtherComplaint": "Қызметке шағым",
+  "customerCareSubOtherPartner": "Серіктестік немесе B2B",
+  "customerCareSubOtherPress": "БАҚ",
+  "customerCareSubOtherMisc": "Басқа нәрсе",
+  "customerCareVoucherCollect": "Жинау",
+  "customerCareVoucherSaved": "Ұсыныс аккаунтыңызға сақталды."
 }
