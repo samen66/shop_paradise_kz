@@ -9,11 +9,13 @@ class ProductSectionWidget extends StatelessWidget {
     required this.items,
     required this.layout,
     this.bottomLoader,
+    this.onItemTap,
   });
 
   final List<HomeItemEntity> items;
   final HomeSectionLayout layout;
   final Widget? bottomLoader;
+  final ValueChanged<HomeItemEntity>? onItemTap;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,10 @@ class ProductSectionWidget extends StatelessWidget {
             if (index >= items.length && bottomLoader != null) {
               return bottomLoader!;
             }
-            return ProductCardWidget(item: items[index]);
+            return ProductCardWidget(
+              item: items[index],
+              onTap: () => onItemTap?.call(items[index]),
+            );
           },
         ),
       );
@@ -49,32 +54,36 @@ class ProductSectionWidget extends StatelessWidget {
           separatorBuilder: (_, __) => const SizedBox(width: 10),
           itemBuilder: (BuildContext context, int index) {
             final HomeItemEntity item = items[index];
-            return Column(
-              children: <Widget>[
-                ClipOval(
-                  child: Image.network(
-                    item.imageUrl,
-                    width: 56,
-                    height: 56,
-                    fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) => const ColoredBox(
-                      color: Color(0x22000000),
-                      child: SizedBox(width: 56, height: 56),
+            return InkWell(
+              onTap: () => onItemTap?.call(item),
+              borderRadius: BorderRadius.circular(30),
+              child: Column(
+                children: <Widget>[
+                  ClipOval(
+                    child: Image.network(
+                      item.imageUrl,
+                      width: 56,
+                      height: 56,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) => const ColoredBox(
+                        color: Color(0x22000000),
+                        child: SizedBox(width: 56, height: 56),
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 4),
-                SizedBox(
-                  width: 64,
-                  child: Text(
-                    item.title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.labelSmall,
+                  const SizedBox(height: 4),
+                  SizedBox(
+                    width: 64,
+                    child: Text(
+                      item.title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.labelSmall,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             );
           },
         ),
@@ -89,7 +98,11 @@ class ProductSectionWidget extends StatelessWidget {
         separatorBuilder: (_, __) => const SizedBox(width: 10),
         itemBuilder: (BuildContext context, int index) => SizedBox(
           width: 150,
-          child: ProductCardWidget(item: items[index], isCompact: true),
+          child: ProductCardWidget(
+            item: items[index],
+            isCompact: true,
+            onTap: () => onItemTap?.call(items[index]),
+          ),
         ),
       ),
     );

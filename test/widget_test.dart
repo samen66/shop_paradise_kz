@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:shop_paradise_kz/features/home/presentation/widgets/product_card_widget.dart';
+import 'package:shop_paradise_kz/features/product_details/presentation/pages/product_details_page.dart';
 import 'package:shop_paradise_kz/features/shell/presentation/widgets/app_bottom_nav.dart';
 import 'package:shop_paradise_kz/features/shell/presentation/widgets/app_top_nav.dart';
 import 'package:shop_paradise_kz/main.dart';
@@ -179,5 +181,31 @@ void main() {
     await tester.tap(find.byKey(const Key('bottom_nav_3')));
     await tester.pumpAndSettle();
     expect(find.text('Cart'), findsWidgets);
+  });
+
+  testWidgets('Tapping product card opens product details page', (
+    WidgetTester tester,
+  ) async {
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    await pumpApp(
+      tester,
+      app: const ShopParadiseApp(
+        locale: Locale('en'),
+        themeMode: ThemeMode.light,
+        initialSessionStarted: true,
+      ),
+    );
+    await tester.pumpAndSettle();
+    final Finder firstCard = find.byType(ProductCardWidget).first;
+    expect(firstCard, findsOneWidget);
+    await tester.tap(firstCard);
+    await tester.pumpAndSettle();
+    expect(find.byType(ProductDetailsPage), findsOneWidget);
+    expect(find.text('Variations'), findsOneWidget);
+    expect(find.text('Add to cart'), findsOneWidget);
+    expect(find.text('Buy now'), findsOneWidget);
   });
 }
