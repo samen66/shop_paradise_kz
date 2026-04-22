@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/entities/home_entities.dart';
+import '../../../product_details/presentation/pages/product_details_page.dart';
 import '../providers/home_controller.dart';
 import '../providers/just_for_you_pagination_controller.dart';
 import '../widgets/home_error_state.dart';
@@ -83,7 +84,16 @@ class _HomePageState extends ConsumerState<HomePage> {
                 return const SearchBarWidget();
               }
               final HomeSectionEntity section = homePage.sections[index - 1];
-              return HomeSectionRenderer(section: section);
+              return HomeSectionRenderer(
+                section: section,
+                onProductTap: (HomeItemEntity item) {
+                  Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => ProductDetailsPage(item: item),
+                    ),
+                  );
+                },
+              );
             },
           ),
         );

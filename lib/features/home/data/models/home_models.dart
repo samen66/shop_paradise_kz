@@ -1,5 +1,261 @@
 import '../../domain/entities/home_entities.dart';
 
+class ProductVariationModel {
+  const ProductVariationModel({
+    required this.label,
+    required this.value,
+    this.previewImageUrls = const <String>[],
+  });
+
+  factory ProductVariationModel.fromJson(Map<String, dynamic> json) =>
+      ProductVariationModel(
+        label: json['label'] as String? ?? '',
+        value: json['value'] as String? ?? '',
+        previewImageUrls:
+            (json['preview_image_urls'] as List<dynamic>?)
+                ?.map((dynamic e) => e as String)
+                .toList(growable: false) ??
+            const <String>[],
+      );
+
+  final String label;
+  final String value;
+  final List<String> previewImageUrls;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+    'label': label,
+    'value': value,
+    'preview_image_urls': previewImageUrls,
+  };
+
+  ProductVariationEntity toEntity() => ProductVariationEntity(
+    label: label,
+    value: value,
+    previewImageUrls: previewImageUrls,
+  );
+}
+
+class ProductSpecificationModel {
+  const ProductSpecificationModel({
+    required this.name,
+    this.values = const <String>[],
+  });
+
+  factory ProductSpecificationModel.fromJson(Map<String, dynamic> json) =>
+      ProductSpecificationModel(
+        name: json['name'] as String? ?? '',
+        values:
+            (json['values'] as List<dynamic>?)
+                ?.map((dynamic e) => e as String)
+                .toList(growable: false) ??
+            const <String>[],
+      );
+
+  final String name;
+  final List<String> values;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+    'name': name,
+    'values': values,
+  };
+
+  ProductSpecificationEntity toEntity() =>
+      ProductSpecificationEntity(name: name, values: values);
+}
+
+class DeliveryOptionModel {
+  const DeliveryOptionModel({
+    required this.title,
+    required this.etaLabel,
+    required this.price,
+  });
+
+  factory DeliveryOptionModel.fromJson(Map<String, dynamic> json) =>
+      DeliveryOptionModel(
+        title: json['title'] as String? ?? '',
+        etaLabel: json['eta_label'] as String? ?? '',
+        price: (json['price'] as num?)?.toDouble() ?? 0,
+      );
+
+  final String title;
+  final String etaLabel;
+  final double price;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+    'title': title,
+    'eta_label': etaLabel,
+    'price': price,
+  };
+
+  DeliveryOptionEntity toEntity() =>
+      DeliveryOptionEntity(title: title, etaLabel: etaLabel, price: price);
+}
+
+class ProductReviewPreviewModel {
+  const ProductReviewPreviewModel({
+    required this.overallRatingText,
+    required this.authorName,
+    required this.authorAvatarUrl,
+    required this.comment,
+    required this.rating,
+  });
+
+  factory ProductReviewPreviewModel.fromJson(Map<String, dynamic> json) =>
+      ProductReviewPreviewModel(
+        overallRatingText: json['overall_rating_text'] as String? ?? '',
+        authorName: json['author_name'] as String? ?? '',
+        authorAvatarUrl: json['author_avatar_url'] as String? ?? '',
+        comment: json['comment'] as String? ?? '',
+        rating: (json['rating'] as num?)?.toDouble() ?? 0,
+      );
+
+  final String overallRatingText;
+  final String authorName;
+  final String authorAvatarUrl;
+  final String comment;
+  final double rating;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+    'overall_rating_text': overallRatingText,
+    'author_name': authorName,
+    'author_avatar_url': authorAvatarUrl,
+    'comment': comment,
+    'rating': rating,
+  };
+
+  ProductReviewPreviewEntity toEntity() => ProductReviewPreviewEntity(
+    overallRatingText: overallRatingText,
+    authorName: authorName,
+    authorAvatarUrl: authorAvatarUrl,
+    comment: comment,
+    rating: rating,
+  );
+}
+
+class ProductDetailsModel {
+  const ProductDetailsModel({
+    required this.description,
+    this.galleryImageUrls = const <String>[],
+    this.variations = const <ProductVariationModel>[],
+    this.specifications = const <ProductSpecificationModel>[],
+    this.originLabel,
+    this.sizeGuideLabel,
+    this.deliveryOptions = const <DeliveryOptionModel>[],
+    this.reviewPreview,
+    this.mostPopularItems = const <HomeItemModel>[],
+    this.youMightLikeItems = const <HomeItemModel>[],
+  });
+
+  factory ProductDetailsModel.fromJson(
+    Map<String, dynamic> json,
+  ) => ProductDetailsModel(
+    description: json['description'] as String? ?? '',
+    galleryImageUrls:
+        (json['gallery_image_urls'] as List<dynamic>?)
+            ?.map((dynamic e) => e as String)
+            .toList(growable: false) ??
+        const <String>[],
+    variations: (json['variations'] as List<dynamic>? ?? <dynamic>[])
+        .map(
+          (dynamic item) =>
+              ProductVariationModel.fromJson(item as Map<String, dynamic>),
+        )
+        .toList(growable: false),
+    specifications: (json['specifications'] as List<dynamic>? ?? <dynamic>[])
+        .map(
+          (dynamic item) =>
+              ProductSpecificationModel.fromJson(item as Map<String, dynamic>),
+        )
+        .toList(growable: false),
+    originLabel: json['origin_label'] as String?,
+    sizeGuideLabel: json['size_guide_label'] as String?,
+    deliveryOptions: (json['delivery_options'] as List<dynamic>? ?? <dynamic>[])
+        .map(
+          (dynamic item) =>
+              DeliveryOptionModel.fromJson(item as Map<String, dynamic>),
+        )
+        .toList(growable: false),
+    reviewPreview: json['review_preview'] == null
+        ? null
+        : ProductReviewPreviewModel.fromJson(
+            json['review_preview'] as Map<String, dynamic>,
+          ),
+    mostPopularItems:
+        (json['most_popular_items'] as List<dynamic>? ?? <dynamic>[])
+            .map(
+              (dynamic item) =>
+                  HomeItemModel.fromJson(item as Map<String, dynamic>),
+            )
+            .toList(growable: false),
+    youMightLikeItems:
+        (json['you_might_like_items'] as List<dynamic>? ?? <dynamic>[])
+            .map(
+              (dynamic item) =>
+                  HomeItemModel.fromJson(item as Map<String, dynamic>),
+            )
+            .toList(growable: false),
+  );
+
+  final String description;
+  final List<String> galleryImageUrls;
+  final List<ProductVariationModel> variations;
+  final List<ProductSpecificationModel> specifications;
+  final String? originLabel;
+  final String? sizeGuideLabel;
+  final List<DeliveryOptionModel> deliveryOptions;
+  final ProductReviewPreviewModel? reviewPreview;
+  final List<HomeItemModel> mostPopularItems;
+  final List<HomeItemModel> youMightLikeItems;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+    'description': description,
+    'gallery_image_urls': galleryImageUrls,
+    'variations': variations
+        .map((ProductVariationModel item) => item.toJson())
+        .toList(),
+    'specifications': specifications
+        .map((ProductSpecificationModel item) => item.toJson())
+        .toList(),
+    'origin_label': originLabel,
+    'size_guide_label': sizeGuideLabel,
+    'delivery_options': deliveryOptions
+        .map((DeliveryOptionModel item) => item.toJson())
+        .toList(),
+    'review_preview': reviewPreview?.toJson(),
+    'most_popular_items': mostPopularItems
+        .map((HomeItemModel item) => item.toJson())
+        .toList(),
+    'you_might_like_items': youMightLikeItems
+        .map((HomeItemModel item) => item.toJson())
+        .toList(),
+  };
+
+  ProductDetailsEntity toEntity() => ProductDetailsEntity(
+    description: description,
+    galleryImageUrls: galleryImageUrls,
+    variations: variations
+        .map((ProductVariationModel variation) => variation.toEntity())
+        .toList(),
+    specifications: specifications
+        .map(
+          (ProductSpecificationModel specification) => specification.toEntity(),
+        )
+        .toList(),
+    originLabel: originLabel,
+    sizeGuideLabel: sizeGuideLabel,
+    deliveryOptions: deliveryOptions
+        .map((DeliveryOptionModel option) => option.toEntity())
+        .toList(),
+    reviewPreview: reviewPreview?.toEntity(),
+    mostPopularItems: mostPopularItems
+        .map((HomeItemModel item) => item.toEntity())
+        .toList(),
+    youMightLikeItems: youMightLikeItems
+        .map((HomeItemModel item) => item.toEntity())
+        .toList(),
+  );
+}
+
 class HomeItemModel {
   const HomeItemModel({
     required this.id,
@@ -9,6 +265,7 @@ class HomeItemModel {
     this.oldPrice,
     this.discountLabel,
     this.categoryIds = const <String>[],
+    this.details,
   });
 
   factory HomeItemModel.fromJson(Map<String, dynamic> json) => HomeItemModel(
@@ -23,6 +280,9 @@ class HomeItemModel {
             ?.map((dynamic e) => e as String)
             .toList(growable: false) ??
         const <String>[],
+    details: json['details'] == null
+        ? null
+        : ProductDetailsModel.fromJson(json['details'] as Map<String, dynamic>),
   );
 
   final String id;
@@ -32,6 +292,7 @@ class HomeItemModel {
   final double? oldPrice;
   final String? discountLabel;
   final List<String> categoryIds;
+  final ProductDetailsModel? details;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
     'id': id,
@@ -41,6 +302,7 @@ class HomeItemModel {
     'old_price': oldPrice,
     'discount_label': discountLabel,
     'category_ids': categoryIds,
+    'details': details?.toJson(),
   };
 
   HomeItemEntity toEntity() => HomeItemEntity(
@@ -51,6 +313,7 @@ class HomeItemModel {
     oldPrice: oldPrice,
     discountLabel: discountLabel,
     categoryIds: categoryIds,
+    details: details?.toEntity(),
   );
 }
 

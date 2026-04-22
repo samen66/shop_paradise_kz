@@ -8,9 +8,14 @@ import 'product_section_widget.dart';
 import 'section_header_widget.dart';
 
 class HomeSectionRenderer extends ConsumerWidget {
-  const HomeSectionRenderer({super.key, required this.section});
+  const HomeSectionRenderer({
+    super.key,
+    required this.section,
+    this.onProductTap,
+  });
 
   final HomeSectionEntity section;
+  final ValueChanged<HomeItemEntity>? onProductTap;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -40,6 +45,7 @@ class HomeSectionRenderer extends ConsumerWidget {
             ProductSectionWidget(
               items: state.items.isEmpty ? section.items : state.items,
               layout: section.layout,
+              onItemTap: onProductTap,
               bottomLoader: state.isLoadingMore && state.items.isNotEmpty
                   ? const Center(
                       child: CircularProgressIndicator(strokeWidth: 2),
@@ -81,7 +87,11 @@ class HomeSectionRenderer extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         SectionHeaderWidget(title: section.title),
-        ProductSectionWidget(items: section.items, layout: section.layout),
+        ProductSectionWidget(
+          items: section.items,
+          layout: section.layout,
+          onItemTap: onProductTap,
+        ),
       ],
     );
   }
