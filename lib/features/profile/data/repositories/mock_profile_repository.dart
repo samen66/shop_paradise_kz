@@ -98,13 +98,40 @@ class MockProfileRepository implements ProfileRepository {
     centerKind: VoucherVisualKind.shoppingBag,
   );
 
+  String _userDisplayName = 'Amanda';
+  String _userEmail = 'amanda@example.com';
+  String _userAvatarUrl = 'https://picsum.photos/seed/profile_amanda/200/200';
+
+  ShippingAddressEntity _shippingAddress = const ShippingAddressEntity(
+    countryName: '',
+    addressLine: '',
+    townCity: '',
+    postcode: '',
+    phone: '',
+  );
+
+  @override
+  Future<void> saveProfileUser({
+    required String displayName,
+    required String email,
+    String? avatarUrl,
+  }) async {
+    await Future<void>.delayed(const Duration(milliseconds: 80));
+    _userDisplayName = displayName.trim();
+    _userEmail = email.trim();
+    if (avatarUrl != null && avatarUrl.trim().isNotEmpty) {
+      _userAvatarUrl = avatarUrl.trim();
+    }
+  }
+
   @override
   Future<ProfileHubEntity> getProfileHub() async {
     await Future<void>.delayed(const Duration(milliseconds: 100));
     return ProfileHubEntity(
-      user: const ProfileUserEntity(
-        displayName: 'Amanda',
-        avatarUrl: 'https://picsum.photos/seed/profile_amanda/200/200',
+      user: ProfileUserEntity(
+        displayName: _userDisplayName,
+        email: _userEmail,
+        avatarUrl: _userAvatarUrl,
       ),
       announcement: const AnnouncementEntity(
         title: 'Announcement',
@@ -143,6 +170,18 @@ class MockProfileRepository implements ProfileRepository {
         toReceiveHasBadge: true,
       ),
     );
+  }
+
+  @override
+  Future<ShippingAddressEntity> getShippingAddress() async {
+    await Future<void>.delayed(const Duration(milliseconds: 60));
+    return _shippingAddress;
+  }
+
+  @override
+  Future<void> saveShippingAddress(ShippingAddressEntity address) async {
+    await Future<void>.delayed(const Duration(milliseconds: 60));
+    _shippingAddress = address;
   }
 
   @override

@@ -11,6 +11,7 @@ import '../widgets/profile_voucher_summary_card.dart';
 import 'profile_activity_page.dart';
 import 'profile_orders_tab_page.dart';
 import 'profile_to_receive_page.dart';
+import 'settings_page.dart';
 import 'vouchers_page.dart';
 
 class ProfilePage extends ConsumerWidget {
@@ -93,9 +94,9 @@ class ProfilePage extends ConsumerWidget {
                                 _snack(context, 'Scanner coming soon'),
                             onFilter: () =>
                                 _snack(context, 'Filters coming soon'),
-                            onSettings: () =>
-                                _snack(context, 'Settings coming soon'),
+                            onSettings: () => openAppSettings(context),
                             filterHasBadge: data.voucherSummary.showReminder,
+                            settingsButtonKey: const Key('profile_header_settings'),
                           ),
                         ],
                       ),

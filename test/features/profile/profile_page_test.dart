@@ -4,6 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:shop_paradise_kz/features/profile/presentation/pages/order_tracking_page.dart';
 import 'package:shop_paradise_kz/features/profile/presentation/pages/profile_page.dart';
+import 'package:shop_paradise_kz/features/profile/presentation/pages/settings_currency_page.dart';
+import 'package:shop_paradise_kz/features/profile/presentation/pages/settings_page.dart';
 import 'package:shop_paradise_kz/features/profile/presentation/pages/vouchers_page.dart';
 import 'package:shop_paradise_kz/main.dart';
 
@@ -113,5 +115,81 @@ void main() {
       findsOneWidget,
     );
     expect(find.text('LGS-i92927839300763731'), findsOneWidget);
+  });
+
+  testWidgets('Settings opens from header gear; profile save updates greeting', (
+    WidgetTester tester,
+  ) async {
+    await pumpShell(tester);
+    await tester.tap(find.byKey(const Key('bottom_nav_4')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('profile_header_settings')));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('settings_page')), findsOneWidget);
+    expect(find.byType(SettingsPage), findsOneWidget);
+    await tester.tap(find.byKey(const Key('settings_tile_profile')));
+    await tester.pumpAndSettle();
+    await tester.enterText(
+      find.byKey(const Key('settings_profile_name_field')),
+      'Zoe',
+    );
+    await tester.tap(find.byKey(const Key('settings_profile_save_button')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byIcon(Icons.arrow_back_ios_new_rounded));
+    await tester.pumpAndSettle();
+    expect(find.textContaining('Hello, Zoe'), findsOneWidget);
+  });
+
+  testWidgets('Settings payment methods opens Add card bottom sheet', (
+    WidgetTester tester,
+  ) async {
+    await pumpShell(tester);
+    await tester.tap(find.byKey(const Key('bottom_nav_4')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('profile_header_settings')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('settings_tile_payment_methods')));
+    await tester.pumpAndSettle();
+    await tester.drag(
+      find.byKey(const Key('settings_payment_horizontal_list')),
+      const Offset(-400, 0),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('settings_payment_add_card')));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('add_card_sheet_title')), findsOneWidget);
+  });
+
+  testWidgets('Settings currency opens picker and updates hub row', (
+    WidgetTester tester,
+  ) async {
+    await pumpShell(tester);
+    await tester.tap(find.byKey(const Key('bottom_nav_4')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('profile_header_settings')));
+    await tester.pumpAndSettle();
+    expect(find.text(r'$ USD'), findsOneWidget);
+    await tester.tap(find.byKey(const Key('settings_tile_currency')));
+    await tester.pumpAndSettle();
+    expect(find.byType(SettingsCurrencyPage), findsOneWidget);
+    await tester.tap(find.byKey(const Key('settings_currency_option_eur')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byIcon(Icons.arrow_back_ios_new_rounded));
+    await tester.pumpAndSettle();
+    expect(find.text('€ EURO'), findsOneWidget);
+  });
+
+  testWidgets('Settings opens shipping address screen', (
+    WidgetTester tester,
+  ) async {
+    await pumpShell(tester);
+    await tester.tap(find.byKey(const Key('bottom_nav_4')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('profile_header_settings')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('settings_tile_shipping_address')));
+    await tester.pumpAndSettle();
+    expect(find.text('Choose your country'), findsOneWidget);
+    expect(find.byKey(const Key('settings_shipping_save_button')), findsOneWidget);
   });
 }

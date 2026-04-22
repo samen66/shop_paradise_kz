@@ -9,6 +9,7 @@ import '../widgets/profile_icon_actions.dart';
 import '../widgets/profile_review_flow.dart';
 import '../widgets/profile_shipment_card.dart';
 import 'order_tracking_page.dart';
+import 'settings_page.dart';
 
 class ProfileOrdersTabPage extends ConsumerWidget {
   const ProfileOrdersTabPage({
@@ -86,7 +87,7 @@ class ProfileOrdersTabPage extends ConsumerWidget {
                       ProfileIconActions(
                         onScan: () => _snack(context, 'Scanner coming soon'),
                         onFilter: () => _snack(context, 'Filters coming soon'),
-                        onSettings: () => _snack(context, 'Settings coming soon'),
+                        onSettings: () => openAppSettings(context),
                       ),
                     ],
                   ),

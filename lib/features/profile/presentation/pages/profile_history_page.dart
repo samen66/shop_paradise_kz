@@ -6,6 +6,7 @@ import '../../domain/entities/profile_entities.dart';
 import '../providers/profile_providers.dart';
 import '../widgets/profile_icon_actions.dart';
 import '../widgets/profile_review_flow.dart';
+import 'settings_page.dart';
 
 class ProfileHistoryPage extends ConsumerWidget {
   const ProfileHistoryPage({super.key});
@@ -58,7 +59,7 @@ class ProfileHistoryPage extends ConsumerWidget {
                       ProfileIconActions(
                         onScan: () => _snack(context, 'Scanner coming soon'),
                         onFilter: () => _snack(context, 'Filters coming soon'),
-                        onSettings: () => _snack(context, 'Settings coming soon'),
+                        onSettings: () => openAppSettings(context),
                       ),
                     ],
                   ),

@@ -2,10 +2,35 @@ import 'package:flutter/foundation.dart';
 
 @immutable
 class ProfileUserEntity {
-  const ProfileUserEntity({required this.displayName, required this.avatarUrl});
+  const ProfileUserEntity({
+    required this.displayName,
+    required this.email,
+    required this.avatarUrl,
+  });
 
   final String displayName;
+  final String email;
   final String avatarUrl;
+}
+
+@immutable
+class ShippingAddressEntity {
+  const ShippingAddressEntity({
+    required this.countryName,
+    required this.addressLine,
+    required this.townCity,
+    required this.postcode,
+    required this.phone,
+  });
+
+  /// Empty [countryName] shows “Choose your country” on the form.
+  final String countryName;
+  final String addressLine;
+  final String townCity;
+  final String postcode;
+  final String phone;
+
+  bool get hasCountry => countryName.trim().isNotEmpty;
 }
 
 @immutable
