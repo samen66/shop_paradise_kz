@@ -78,5 +78,18 @@
   "customerCareSubOtherPress": "БАҚ",
   "customerCareSubOtherMisc": "Басқа нәрсе",
   "customerCareVoucherCollect": "Жинау",
-  "customerCareVoucherSaved": "Ұсыныс аккаунтыңызға сақталды."
+  "customerCareVoucherSaved": "Ұсыныс аккаунтыңызға сақталды.",
+  "createAccountTitle": "Аккаунт құру",
+  "createAccountEmailHint": "Электрондық пошта",
+  "createAccountPasswordHint": "Құпия сөз",
+  "createAccountPhoneHint": "Нөміріңіз",
+  "createAccountDone": "Дайын",
+  "createAccountCancel": "Болдырмау",
+  "createAccountEmailInvalid": "Жарамды электрондық пошта енгізіңіз.",
+  "createAccountPasswordTooShort": "Құпия сөз кемінде 8 таңбадан тұруы керек.",
+  "createAccountPhoneInvalid": "Жарамды телефон нөмірін енгізіңіз.",
+  "createAccountSuccess": "Аккаунт деректері қабылданды. Кіру кейінірек қосылады.",
+  "createAccountAvatarSemanticLabel": "Профиль фотосын қосу",
+  "createAccountAvatarUnavailable": "Бұл нұсқада фото жүктеу қолжетімді емес.",
+  "loginCreateAccountLink": "Аккаунт құру"
 }

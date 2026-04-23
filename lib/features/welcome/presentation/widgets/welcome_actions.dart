@@ -3,6 +3,7 @@ import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
 
 import '../../../../l10n/app_localizations.dart';
+import '../../../create_account/presentation/pages/create_account_page.dart';
 import 'welcome_login_dialog.dart';
 import 'welcome_secondary_row.dart';
 
@@ -39,7 +40,19 @@ class WelcomeActions extends StatelessWidget {
           ),
           child: Text(l10n.welcomePrimaryCta),
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 12),
+        TextButton(
+          onPressed: () {
+            developer.log('welcome_create_account');
+            Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (BuildContext context) => const CreateAccountPage(),
+              ),
+            );
+          },
+          child: Text(l10n.loginCreateAccountLink),
+        ),
+        const SizedBox(height: 8),
         WelcomeSecondaryRow(
           l10n: l10n,
           theme: theme,

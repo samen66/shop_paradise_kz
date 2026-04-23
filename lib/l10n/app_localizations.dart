@@ -489,6 +489,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Offer saved to your account.'**
   String get customerCareVoucherSaved;
+
+  /// No description provided for @createAccountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Account'**
+  String get createAccountTitle;
+
+  /// No description provided for @createAccountEmailHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get createAccountEmailHint;
+
+  /// No description provided for @createAccountPasswordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get createAccountPasswordHint;
+
+  /// No description provided for @createAccountPhoneHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Your number'**
+  String get createAccountPhoneHint;
+
+  /// No description provided for @createAccountDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get createAccountDone;
+
+  /// No description provided for @createAccountCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get createAccountCancel;
+
+  /// No description provided for @createAccountEmailInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid email address.'**
+  String get createAccountEmailInvalid;
+
+  /// No description provided for @createAccountPasswordTooShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 8 characters.'**
+  String get createAccountPasswordTooShort;
+
+  /// No description provided for @createAccountPhoneInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid phone number.'**
+  String get createAccountPhoneInvalid;
+
+  /// No description provided for @createAccountSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Account details look good. Sign-in will be wired next.'**
+  String get createAccountSuccess;
+
+  /// No description provided for @createAccountAvatarSemanticLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Add profile photo'**
+  String get createAccountAvatarSemanticLabel;
+
+  /// No description provided for @createAccountAvatarUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo upload is not available in this build.'**
+  String get createAccountAvatarUnavailable;
+
+  /// No description provided for @loginCreateAccountLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Create account'**
+  String get loginCreateAccountLink;
 }
 
 class _AppLocalizationsDelegate

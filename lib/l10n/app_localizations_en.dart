@@ -210,4 +210,46 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get customerCareVoucherSaved => 'Offer saved to your account.';
+
+  @override
+  String get createAccountTitle => 'Create Account';
+
+  @override
+  String get createAccountEmailHint => 'Email';
+
+  @override
+  String get createAccountPasswordHint => 'Password';
+
+  @override
+  String get createAccountPhoneHint => 'Your number';
+
+  @override
+  String get createAccountDone => 'Done';
+
+  @override
+  String get createAccountCancel => 'Cancel';
+
+  @override
+  String get createAccountEmailInvalid => 'Enter a valid email address.';
+
+  @override
+  String get createAccountPasswordTooShort =>
+      'Password must be at least 8 characters.';
+
+  @override
+  String get createAccountPhoneInvalid => 'Enter a valid phone number.';
+
+  @override
+  String get createAccountSuccess =>
+      'Account details look good. Sign-in will be wired next.';
+
+  @override
+  String get createAccountAvatarSemanticLabel => 'Add profile photo';
+
+  @override
+  String get createAccountAvatarUnavailable =>
+      'Photo upload is not available in this build.';
+
+  @override
+  String get loginCreateAccountLink => 'Create account';
 }

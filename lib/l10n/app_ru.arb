@@ -78,5 +78,18 @@
   "customerCareSubOtherPress": "Пресса и СМИ",
   "customerCareSubOtherMisc": "Другое",
   "customerCareVoucherCollect": "Получить",
-  "customerCareVoucherSaved": "Предложение сохранено в аккаунте."
+  "customerCareVoucherSaved": "Предложение сохранено в аккаунте.",
+  "createAccountTitle": "Создать аккаунт",
+  "createAccountEmailHint": "Эл. почта",
+  "createAccountPasswordHint": "Пароль",
+  "createAccountPhoneHint": "Ваш номер",
+  "createAccountDone": "Готово",
+  "createAccountCancel": "Отмена",
+  "createAccountEmailInvalid": "Введите корректный адрес эл. почты.",
+  "createAccountPasswordTooShort": "Пароль должен быть не короче 8 символов.",
+  "createAccountPhoneInvalid": "Введите корректный номер телефона.",
+  "createAccountSuccess": "Данные аккаунта приняты. Вход будет подключён позже.",
+  "createAccountAvatarSemanticLabel": "Добавить фото профиля",
+  "createAccountAvatarUnavailable": "Загрузка фото недоступна в этой сборке.",
+  "loginCreateAccountLink": "Создать аккаунт"
 }
