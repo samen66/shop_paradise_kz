@@ -13,9 +13,19 @@ int _calendarDaysUntil(DateTime end) {
 }
 
 class VoucherTicketCard extends StatelessWidget {
-  const VoucherTicketCard({super.key, required this.voucher});
+  const VoucherTicketCard({
+    super.key,
+    required this.voucher,
+    this.collectLabel,
+    this.onCollectPressed,
+  });
 
   final VoucherEntity voucher;
+
+  /// When set with [onCollectPressed], shows an outlined collect action instead
+  /// of the default filled “Collected” control.
+  final String? collectLabel;
+  final VoidCallback? onCollectPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -129,23 +139,42 @@ class VoucherTicketCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  FilledButton(
-                    onPressed: () {},
-                    style: FilledButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 14,
-                        vertical: 10,
+                  if (onCollectPressed != null)
+                    OutlinedButton(
+                      onPressed: onCollectPressed,
+                      style: OutlinedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 14,
+                          vertical: 10,
+                        ),
+                        minimumSize: Size.zero,
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        foregroundColor: AppColors.primary,
+                        side: const BorderSide(color: AppColors.primary),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
-                      minimumSize: Size.zero,
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      backgroundColor: AppColors.primary,
-                      foregroundColor: AppColors.onPrimary,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                      child: Text(collectLabel ?? 'Collect'),
+                    )
+                  else
+                    FilledButton(
+                      onPressed: () {},
+                      style: FilledButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 14,
+                          vertical: 10,
+                        ),
+                        minimumSize: Size.zero,
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        backgroundColor: AppColors.primary,
+                        foregroundColor: AppColors.onPrimary,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
+                      child: const Text('Collected'),
                     ),
-                    child: const Text('Collected'),
-                  ),
                 ],
               ),
             ),

@@ -2,13 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/currency/app_currency_provider.dart';
+import '../../../../core/l10n/l10n_helpers.dart';
 import '../../../../core/locale/app_locale_override_provider.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../../customer_care_chat/presentation/pages/customer_care_chat_page.dart';
+import '../../domain/entities/profile_entities.dart';
 import 'settings_currency_page.dart';
 import 'settings_language_page.dart';
 import 'settings_payment_methods_page.dart';
 import 'settings_profile_page.dart';
 import 'settings_shipping_address_page.dart';
+import '../providers/profile_providers.dart';
 
 /// Opens the settings hub from anywhere in the app (profile tab flows).
 void openAppSettings(BuildContext context) {
@@ -60,6 +65,7 @@ class SettingsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final AppLocalizations? l10n = tryAppLocalizations(context);
     final TextTheme textTheme = Theme.of(context).textTheme;
     final ColorScheme scheme = Theme.of(context).colorScheme;
     final Locale effectiveLocale =
@@ -147,6 +153,26 @@ class SettingsPage extends ConsumerWidget {
             ),
             _Divider(color: scheme.outlineVariant),
             _SectionTitle(text: 'Account'),
+            if (l10n != null)
+              _SettingsRow(
+                key: const Key('settings_tile_customer_care'),
+                label: l10n.customerCareSettingsRow,
+                onTap: () async {
+                  final ProfileHubEntity hub =
+                      await ref.read(profileHubProvider.future);
+                  if (!context.mounted) {
+                    return;
+                  }
+                  await Navigator.of(context).push<void>(
+                    MaterialPageRoute<void>(
+                      builder: (_) => CustomerCareChatPage(
+                        displayName: hub.user.displayName,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            if (l10n != null) _Divider(color: scheme.outlineVariant),
             _SettingsRow(
               key: const Key('settings_tile_language'),
               label: 'Language',

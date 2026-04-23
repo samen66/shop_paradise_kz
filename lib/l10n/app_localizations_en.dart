@@ -50,4 +50,164 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get webHeaderLinkShowrooms => 'Showrooms';
+
+  @override
+  String customerCareWelcomeMessage(String name) {
+    return 'Hello, $name! Welcome to Customer Care Service. We will be happy to help you. Please provide more details about your issue before we can start.';
+  }
+
+  @override
+  String get customerCareHeaderChatBotTitle => 'Chat Bot';
+
+  @override
+  String get customerCareHeaderAgentName => 'Maggy Lee';
+
+  @override
+  String get customerCareHeaderSubtitle => 'Customer Care Service';
+
+  @override
+  String get customerCareSheetWhatsYourIssue => 'What\'s your issue?';
+
+  @override
+  String get customerCareSheetSelectOrder => 'Select one of your orders';
+
+  @override
+  String get customerCareNext => 'Next';
+
+  @override
+  String get customerCareMessageHint => 'Message';
+
+  @override
+  String get customerCareConnecting => 'Connecting you with an agent';
+
+  @override
+  String get customerCareStandardDelivery => 'Standard Delivery';
+
+  @override
+  String customerCareItemsCount(int count) {
+    return '$count items';
+  }
+
+  @override
+  String get customerCareOrderSelect => 'Select';
+
+  @override
+  String get customerCareOrderSelected => 'Selected';
+
+  @override
+  String get customerCareRateTitle => 'Rate Our Service';
+
+  @override
+  String get customerCareRateCommentHint => 'Your comment';
+
+  @override
+  String get customerCareRatingThanks => 'Thank you for your feedback.';
+
+  @override
+  String get customerCareSettingsRow => 'Customer care';
+
+  @override
+  String get customerCareSnackbarAttach =>
+      'Attachments are not available in this demo.';
+
+  @override
+  String get customerCareSnackbarMenu =>
+      'More options are not available in this demo.';
+
+  @override
+  String get customerCareCategoryOrder => 'Order Issues';
+
+  @override
+  String get customerCareCategoryItemQuality => 'Item Quality';
+
+  @override
+  String get customerCareCategoryPayment => 'Payment Issues';
+
+  @override
+  String get customerCareCategoryTechnical => 'Technical Assistance';
+
+  @override
+  String get customerCareCategoryOther => 'Other';
+
+  @override
+  String get customerCareSubOrderNotReceived => 'I didn\'t receive my parcel';
+
+  @override
+  String get customerCareSubOrderCancel => 'I want to cancel my order';
+
+  @override
+  String get customerCareSubOrderReturn => 'I want to return my order';
+
+  @override
+  String get customerCareSubOrderDamaged => 'Package was damaged';
+
+  @override
+  String get customerCareSubOrderOther => 'Other';
+
+  @override
+  String get customerCareSubQualityDefective => 'Item is defective or broken';
+
+  @override
+  String get customerCareSubQualityWrongItem => 'Wrong item was sent';
+
+  @override
+  String get customerCareSubQualityNotAsDescribed => 'Not as described online';
+
+  @override
+  String get customerCareSubQualityPackaging => 'Poor packaging';
+
+  @override
+  String get customerCareSubQualityOther => 'Other';
+
+  @override
+  String get customerCareSubPaymentDouble => 'I was charged twice';
+
+  @override
+  String get customerCareSubPaymentRefund => 'Refund is delayed';
+
+  @override
+  String get customerCareSubPaymentFailed => 'Payment failed at checkout';
+
+  @override
+  String get customerCareSubPaymentWrongAmount => 'Wrong amount charged';
+
+  @override
+  String get customerCareSubPaymentOther => 'Other';
+
+  @override
+  String get customerCareSubTechCrash => 'The app crashes or freezes';
+
+  @override
+  String get customerCareSubTechLogin => 'I can\'t sign in';
+
+  @override
+  String get customerCareSubTechSlow => 'Pages load slowly';
+
+  @override
+  String get customerCareSubTechNotifications =>
+      'Notifications are not working';
+
+  @override
+  String get customerCareSubTechOther => 'Other';
+
+  @override
+  String get customerCareSubOtherFeedback => 'General feedback';
+
+  @override
+  String get customerCareSubOtherComplaint => 'Complaint about service';
+
+  @override
+  String get customerCareSubOtherPartner => 'Partnership or B2B';
+
+  @override
+  String get customerCareSubOtherPress => 'Press or media';
+
+  @override
+  String get customerCareSubOtherMisc => 'Something else';
+
+  @override
+  String get customerCareVoucherCollect => 'Collect';
+
+  @override
+  String get customerCareVoucherSaved => 'Offer saved to your account.';
 }

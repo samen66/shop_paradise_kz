@@ -13,5 +13,70 @@
   "webHeaderSearchPlaceholder": "Введите запрос",
   "webHeaderLinkPromotions": "Акции",
   "webHeaderLinkMagazine": "Журнал",
-  "webHeaderLinkShowrooms": "Шоурумы"
+  "webHeaderLinkShowrooms": "Шоурумы",
+  "customerCareWelcomeMessage": "Здравствуйте, {name}! Добро пожаловать в службу поддержки. Мы рады помочь. Расскажите подробнее о проблеме, прежде чем мы начнём.",
+  "@customerCareWelcomeMessage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "customerCareHeaderChatBotTitle": "Чат-бот",
+  "customerCareHeaderAgentName": "Мэгги Ли",
+  "customerCareHeaderSubtitle": "Служба поддержки",
+  "customerCareSheetWhatsYourIssue": "В чём проблема?",
+  "customerCareSheetSelectOrder": "Выберите один из заказов",
+  "customerCareNext": "Далее",
+  "customerCareMessageHint": "Сообщение",
+  "customerCareConnecting": "Соединяем с оператором",
+  "customerCareStandardDelivery": "Стандартная доставка",
+  "customerCareItemsCount": "{count} товар(ов)",
+  "@customerCareItemsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "customerCareOrderSelect": "Выбрать",
+  "customerCareOrderSelected": "Выбрано",
+  "customerCareRateTitle": "Оцените сервис",
+  "customerCareRateCommentHint": "Ваш комментарий",
+  "customerCareRatingThanks": "Спасибо за отзыв.",
+  "customerCareSettingsRow": "Поддержка",
+  "customerCareSnackbarAttach": "В демо вложения недоступны.",
+  "customerCareSnackbarMenu": "В демо дополнительные опции недоступны.",
+  "customerCareCategoryOrder": "Проблемы с заказом",
+  "customerCareCategoryItemQuality": "Качество товара",
+  "customerCareCategoryPayment": "Проблемы с оплатой",
+  "customerCareCategoryTechnical": "Техническая помощь",
+  "customerCareCategoryOther": "Другое",
+  "customerCareSubOrderNotReceived": "Не получил(а) посылку",
+  "customerCareSubOrderCancel": "Хочу отменить заказ",
+  "customerCareSubOrderReturn": "Хочу вернуть заказ",
+  "customerCareSubOrderDamaged": "Посылка повреждена",
+  "customerCareSubOrderOther": "Другое",
+  "customerCareSubQualityDefective": "Товар бракованный или сломан",
+  "customerCareSubQualityWrongItem": "Прислали не тот товар",
+  "customerCareSubQualityNotAsDescribed": "Не соответствует описанию",
+  "customerCareSubQualityPackaging": "Плохая упаковка",
+  "customerCareSubQualityOther": "Другое",
+  "customerCareSubPaymentDouble": "Списали дважды",
+  "customerCareSubPaymentRefund": "Задержка возврата",
+  "customerCareSubPaymentFailed": "Оплата не прошла",
+  "customerCareSubPaymentWrongAmount": "Неверная сумма списания",
+  "customerCareSubPaymentOther": "Другое",
+  "customerCareSubTechCrash": "Приложение вылетает или зависает",
+  "customerCareSubTechLogin": "Не получается войти",
+  "customerCareSubTechSlow": "Страницы грузятся медленно",
+  "customerCareSubTechNotifications": "Не работают уведомления",
+  "customerCareSubTechOther": "Другое",
+  "customerCareSubOtherFeedback": "Общий отзыв",
+  "customerCareSubOtherComplaint": "Жалоба на сервис",
+  "customerCareSubOtherPartner": "Партнёрство или B2B",
+  "customerCareSubOtherPress": "Пресса и СМИ",
+  "customerCareSubOtherMisc": "Другое",
+  "customerCareVoucherCollect": "Получить",
+  "customerCareVoucherSaved": "Предложение сохранено в аккаунте."
 }

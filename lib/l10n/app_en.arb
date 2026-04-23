@@ -16,5 +16,70 @@
   "webHeaderSearchPlaceholder": "Enter query",
   "webHeaderLinkPromotions": "Promotions",
   "webHeaderLinkMagazine": "Magazine",
-  "webHeaderLinkShowrooms": "Showrooms"
+  "webHeaderLinkShowrooms": "Showrooms",
+  "customerCareWelcomeMessage": "Hello, {name}! Welcome to Customer Care Service. We will be happy to help you. Please provide more details about your issue before we can start.",
+  "@customerCareWelcomeMessage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "customerCareHeaderChatBotTitle": "Chat Bot",
+  "customerCareHeaderAgentName": "Maggy Lee",
+  "customerCareHeaderSubtitle": "Customer Care Service",
+  "customerCareSheetWhatsYourIssue": "What's your issue?",
+  "customerCareSheetSelectOrder": "Select one of your orders",
+  "customerCareNext": "Next",
+  "customerCareMessageHint": "Message",
+  "customerCareConnecting": "Connecting you with an agent",
+  "customerCareStandardDelivery": "Standard Delivery",
+  "customerCareItemsCount": "{count} items",
+  "@customerCareItemsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "customerCareOrderSelect": "Select",
+  "customerCareOrderSelected": "Selected",
+  "customerCareRateTitle": "Rate Our Service",
+  "customerCareRateCommentHint": "Your comment",
+  "customerCareRatingThanks": "Thank you for your feedback.",
+  "customerCareSettingsRow": "Customer care",
+  "customerCareSnackbarAttach": "Attachments are not available in this demo.",
+  "customerCareSnackbarMenu": "More options are not available in this demo.",
+  "customerCareCategoryOrder": "Order Issues",
+  "customerCareCategoryItemQuality": "Item Quality",
+  "customerCareCategoryPayment": "Payment Issues",
+  "customerCareCategoryTechnical": "Technical Assistance",
+  "customerCareCategoryOther": "Other",
+  "customerCareSubOrderNotReceived": "I didn't receive my parcel",
+  "customerCareSubOrderCancel": "I want to cancel my order",
+  "customerCareSubOrderReturn": "I want to return my order",
+  "customerCareSubOrderDamaged": "Package was damaged",
+  "customerCareSubOrderOther": "Other",
+  "customerCareSubQualityDefective": "Item is defective or broken",
+  "customerCareSubQualityWrongItem": "Wrong item was sent",
+  "customerCareSubQualityNotAsDescribed": "Not as described online",
+  "customerCareSubQualityPackaging": "Poor packaging",
+  "customerCareSubQualityOther": "Other",
+  "customerCareSubPaymentDouble": "I was charged twice",
+  "customerCareSubPaymentRefund": "Refund is delayed",
+  "customerCareSubPaymentFailed": "Payment failed at checkout",
+  "customerCareSubPaymentWrongAmount": "Wrong amount charged",
+  "customerCareSubPaymentOther": "Other",
+  "customerCareSubTechCrash": "The app crashes or freezes",
+  "customerCareSubTechLogin": "I can't sign in",
+  "customerCareSubTechSlow": "Pages load slowly",
+  "customerCareSubTechNotifications": "Notifications are not working",
+  "customerCareSubTechOther": "Other",
+  "customerCareSubOtherFeedback": "General feedback",
+  "customerCareSubOtherComplaint": "Complaint about service",
+  "customerCareSubOtherPartner": "Partnership or B2B",
+  "customerCareSubOtherPress": "Press or media",
+  "customerCareSubOtherMisc": "Something else",
+  "customerCareVoucherCollect": "Collect",
+  "customerCareVoucherSaved": "Offer saved to your account."
 }

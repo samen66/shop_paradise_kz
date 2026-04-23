@@ -183,6 +183,312 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Showrooms'**
   String get webHeaderLinkShowrooms;
+
+  /// No description provided for @customerCareWelcomeMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello, {name}! Welcome to Customer Care Service. We will be happy to help you. Please provide more details about your issue before we can start.'**
+  String customerCareWelcomeMessage(String name);
+
+  /// No description provided for @customerCareHeaderChatBotTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat Bot'**
+  String get customerCareHeaderChatBotTitle;
+
+  /// No description provided for @customerCareHeaderAgentName.
+  ///
+  /// In en, this message translates to:
+  /// **'Maggy Lee'**
+  String get customerCareHeaderAgentName;
+
+  /// No description provided for @customerCareHeaderSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Care Service'**
+  String get customerCareHeaderSubtitle;
+
+  /// No description provided for @customerCareSheetWhatsYourIssue.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s your issue?'**
+  String get customerCareSheetWhatsYourIssue;
+
+  /// No description provided for @customerCareSheetSelectOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Select one of your orders'**
+  String get customerCareSheetSelectOrder;
+
+  /// No description provided for @customerCareNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get customerCareNext;
+
+  /// No description provided for @customerCareMessageHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get customerCareMessageHint;
+
+  /// No description provided for @customerCareConnecting.
+  ///
+  /// In en, this message translates to:
+  /// **'Connecting you with an agent'**
+  String get customerCareConnecting;
+
+  /// No description provided for @customerCareStandardDelivery.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard Delivery'**
+  String get customerCareStandardDelivery;
+
+  /// No description provided for @customerCareItemsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} items'**
+  String customerCareItemsCount(int count);
+
+  /// No description provided for @customerCareOrderSelect.
+  ///
+  /// In en, this message translates to:
+  /// **'Select'**
+  String get customerCareOrderSelect;
+
+  /// No description provided for @customerCareOrderSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected'**
+  String get customerCareOrderSelected;
+
+  /// No description provided for @customerCareRateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate Our Service'**
+  String get customerCareRateTitle;
+
+  /// No description provided for @customerCareRateCommentHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Your comment'**
+  String get customerCareRateCommentHint;
+
+  /// No description provided for @customerCareRatingThanks.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you for your feedback.'**
+  String get customerCareRatingThanks;
+
+  /// No description provided for @customerCareSettingsRow.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer care'**
+  String get customerCareSettingsRow;
+
+  /// No description provided for @customerCareSnackbarAttach.
+  ///
+  /// In en, this message translates to:
+  /// **'Attachments are not available in this demo.'**
+  String get customerCareSnackbarAttach;
+
+  /// No description provided for @customerCareSnackbarMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'More options are not available in this demo.'**
+  String get customerCareSnackbarMenu;
+
+  /// No description provided for @customerCareCategoryOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Issues'**
+  String get customerCareCategoryOrder;
+
+  /// No description provided for @customerCareCategoryItemQuality.
+  ///
+  /// In en, this message translates to:
+  /// **'Item Quality'**
+  String get customerCareCategoryItemQuality;
+
+  /// No description provided for @customerCareCategoryPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Issues'**
+  String get customerCareCategoryPayment;
+
+  /// No description provided for @customerCareCategoryTechnical.
+  ///
+  /// In en, this message translates to:
+  /// **'Technical Assistance'**
+  String get customerCareCategoryTechnical;
+
+  /// No description provided for @customerCareCategoryOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get customerCareCategoryOther;
+
+  /// No description provided for @customerCareSubOrderNotReceived.
+  ///
+  /// In en, this message translates to:
+  /// **'I didn\'t receive my parcel'**
+  String get customerCareSubOrderNotReceived;
+
+  /// No description provided for @customerCareSubOrderCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'I want to cancel my order'**
+  String get customerCareSubOrderCancel;
+
+  /// No description provided for @customerCareSubOrderReturn.
+  ///
+  /// In en, this message translates to:
+  /// **'I want to return my order'**
+  String get customerCareSubOrderReturn;
+
+  /// No description provided for @customerCareSubOrderDamaged.
+  ///
+  /// In en, this message translates to:
+  /// **'Package was damaged'**
+  String get customerCareSubOrderDamaged;
+
+  /// No description provided for @customerCareSubOrderOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get customerCareSubOrderOther;
+
+  /// No description provided for @customerCareSubQualityDefective.
+  ///
+  /// In en, this message translates to:
+  /// **'Item is defective or broken'**
+  String get customerCareSubQualityDefective;
+
+  /// No description provided for @customerCareSubQualityWrongItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong item was sent'**
+  String get customerCareSubQualityWrongItem;
+
+  /// No description provided for @customerCareSubQualityNotAsDescribed.
+  ///
+  /// In en, this message translates to:
+  /// **'Not as described online'**
+  String get customerCareSubQualityNotAsDescribed;
+
+  /// No description provided for @customerCareSubQualityPackaging.
+  ///
+  /// In en, this message translates to:
+  /// **'Poor packaging'**
+  String get customerCareSubQualityPackaging;
+
+  /// No description provided for @customerCareSubQualityOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get customerCareSubQualityOther;
+
+  /// No description provided for @customerCareSubPaymentDouble.
+  ///
+  /// In en, this message translates to:
+  /// **'I was charged twice'**
+  String get customerCareSubPaymentDouble;
+
+  /// No description provided for @customerCareSubPaymentRefund.
+  ///
+  /// In en, this message translates to:
+  /// **'Refund is delayed'**
+  String get customerCareSubPaymentRefund;
+
+  /// No description provided for @customerCareSubPaymentFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment failed at checkout'**
+  String get customerCareSubPaymentFailed;
+
+  /// No description provided for @customerCareSubPaymentWrongAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong amount charged'**
+  String get customerCareSubPaymentWrongAmount;
+
+  /// No description provided for @customerCareSubPaymentOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get customerCareSubPaymentOther;
+
+  /// No description provided for @customerCareSubTechCrash.
+  ///
+  /// In en, this message translates to:
+  /// **'The app crashes or freezes'**
+  String get customerCareSubTechCrash;
+
+  /// No description provided for @customerCareSubTechLogin.
+  ///
+  /// In en, this message translates to:
+  /// **'I can\'t sign in'**
+  String get customerCareSubTechLogin;
+
+  /// No description provided for @customerCareSubTechSlow.
+  ///
+  /// In en, this message translates to:
+  /// **'Pages load slowly'**
+  String get customerCareSubTechSlow;
+
+  /// No description provided for @customerCareSubTechNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications are not working'**
+  String get customerCareSubTechNotifications;
+
+  /// No description provided for @customerCareSubTechOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get customerCareSubTechOther;
+
+  /// No description provided for @customerCareSubOtherFeedback.
+  ///
+  /// In en, this message translates to:
+  /// **'General feedback'**
+  String get customerCareSubOtherFeedback;
+
+  /// No description provided for @customerCareSubOtherComplaint.
+  ///
+  /// In en, this message translates to:
+  /// **'Complaint about service'**
+  String get customerCareSubOtherComplaint;
+
+  /// No description provided for @customerCareSubOtherPartner.
+  ///
+  /// In en, this message translates to:
+  /// **'Partnership or B2B'**
+  String get customerCareSubOtherPartner;
+
+  /// No description provided for @customerCareSubOtherPress.
+  ///
+  /// In en, this message translates to:
+  /// **'Press or media'**
+  String get customerCareSubOtherPress;
+
+  /// No description provided for @customerCareSubOtherMisc.
+  ///
+  /// In en, this message translates to:
+  /// **'Something else'**
+  String get customerCareSubOtherMisc;
+
+  /// No description provided for @customerCareVoucherCollect.
+  ///
+  /// In en, this message translates to:
+  /// **'Collect'**
+  String get customerCareVoucherCollect;
+
+  /// No description provided for @customerCareVoucherSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Offer saved to your account.'**
+  String get customerCareVoucherSaved;
 }
 
 class _AppLocalizationsDelegate
