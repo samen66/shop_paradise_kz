@@ -81,5 +81,18 @@
   "customerCareSubOtherPress": "Press or media",
   "customerCareSubOtherMisc": "Something else",
   "customerCareVoucherCollect": "Collect",
-  "customerCareVoucherSaved": "Offer saved to your account."
+  "customerCareVoucherSaved": "Offer saved to your account.",
+  "createAccountTitle": "Create Account",
+  "createAccountEmailHint": "Email",
+  "createAccountPasswordHint": "Password",
+  "createAccountPhoneHint": "Your number",
+  "createAccountDone": "Done",
+  "createAccountCancel": "Cancel",
+  "createAccountEmailInvalid": "Enter a valid email address.",
+  "createAccountPasswordTooShort": "Password must be at least 8 characters.",
+  "createAccountPhoneInvalid": "Enter a valid phone number.",
+  "createAccountSuccess": "Account details look good. Sign-in will be wired next.",
+  "createAccountAvatarSemanticLabel": "Add profile photo",
+  "createAccountAvatarUnavailable": "Photo upload is not available in this build.",
+  "loginCreateAccountLink": "Create account"
 }

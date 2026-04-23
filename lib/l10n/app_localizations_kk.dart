@@ -208,4 +208,47 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get customerCareVoucherSaved => 'Ұсыныс аккаунтыңызға сақталды.';
+
+  @override
+  String get createAccountTitle => 'Аккаунт құру';
+
+  @override
+  String get createAccountEmailHint => 'Электрондық пошта';
+
+  @override
+  String get createAccountPasswordHint => 'Құпия сөз';
+
+  @override
+  String get createAccountPhoneHint => 'Нөміріңіз';
+
+  @override
+  String get createAccountDone => 'Дайын';
+
+  @override
+  String get createAccountCancel => 'Болдырмау';
+
+  @override
+  String get createAccountEmailInvalid =>
+      'Жарамды электрондық пошта енгізіңіз.';
+
+  @override
+  String get createAccountPasswordTooShort =>
+      'Құпия сөз кемінде 8 таңбадан тұруы керек.';
+
+  @override
+  String get createAccountPhoneInvalid => 'Жарамды телефон нөмірін енгізіңіз.';
+
+  @override
+  String get createAccountSuccess =>
+      'Аккаунт деректері қабылданды. Кіру кейінірек қосылады.';
+
+  @override
+  String get createAccountAvatarSemanticLabel => 'Профиль фотосын қосу';
+
+  @override
+  String get createAccountAvatarUnavailable =>
+      'Бұл нұсқада фото жүктеу қолжетімді емес.';
+
+  @override
+  String get loginCreateAccountLink => 'Аккаунт құру';
 }

@@ -209,4 +209,46 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get customerCareVoucherSaved => 'Предложение сохранено в аккаунте.';
+
+  @override
+  String get createAccountTitle => 'Создать аккаунт';
+
+  @override
+  String get createAccountEmailHint => 'Эл. почта';
+
+  @override
+  String get createAccountPasswordHint => 'Пароль';
+
+  @override
+  String get createAccountPhoneHint => 'Ваш номер';
+
+  @override
+  String get createAccountDone => 'Готово';
+
+  @override
+  String get createAccountCancel => 'Отмена';
+
+  @override
+  String get createAccountEmailInvalid => 'Введите корректный адрес эл. почты.';
+
+  @override
+  String get createAccountPasswordTooShort =>
+      'Пароль должен быть не короче 8 символов.';
+
+  @override
+  String get createAccountPhoneInvalid => 'Введите корректный номер телефона.';
+
+  @override
+  String get createAccountSuccess =>
+      'Данные аккаунта приняты. Вход будет подключён позже.';
+
+  @override
+  String get createAccountAvatarSemanticLabel => 'Добавить фото профиля';
+
+  @override
+  String get createAccountAvatarUnavailable =>
+      'Загрузка фото недоступна в этой сборке.';
+
+  @override
+  String get loginCreateAccountLink => 'Создать аккаунт';
 }
