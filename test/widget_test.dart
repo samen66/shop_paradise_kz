@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:shop_paradise_kz/features/cart/presentation/pages/cart_page.dart';
-import 'package:shop_paradise_kz/features/home/presentation/widgets/product_card_widget.dart';
+import 'package:shop_paradise_kz/features/login/presentation/pages/login_page.dart';
 import 'package:shop_paradise_kz/features/orders/presentation/pages/orders_page.dart';
 import 'package:shop_paradise_kz/features/product_details/presentation/pages/product_details_page.dart';
 import 'package:shop_paradise_kz/features/shell/presentation/widgets/app_bottom_nav.dart';
@@ -144,7 +144,7 @@ void main() {
     expect(find.text('My orders'), findsOneWidget);
     await tester.tap(find.byKey(const Key('bottom_nav_0')));
     await tester.pumpAndSettle();
-    expect(find.text('Search'), findsOneWidget);
+    expect(find.text('Shop'), findsOneWidget);
   });
 
   testWidgets('Welcome primary CTA opens shell with Home', (
@@ -164,11 +164,11 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Browse catalog'));
     await tester.pumpAndSettle();
-    expect(find.text('Search'), findsOneWidget);
+    expect(find.text('Shop'), findsOneWidget);
     expect(find.byKey(const Key('bottom_nav_0')), findsOneWidget);
   });
 
-  testWidgets('Welcome secondary arrow opens login dialog', (
+  testWidgets('Welcome secondary arrow opens login flow', (
     WidgetTester tester,
   ) async {
     await pumpApp(
@@ -181,8 +181,8 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.byIcon(Icons.arrow_forward));
     await tester.pumpAndSettle();
-    expect(find.byKey(const Key('welcome_login_dialog')), findsOneWidget);
-    expect(find.text('Sign in'), findsOneWidget);
+    expect(find.byType(LoginPage), findsOneWidget);
+    expect(find.text('Login'), findsOneWidget);
   });
 
   testWidgets('Wide layout uses top nav and hides bottom nav', (
@@ -208,7 +208,7 @@ void main() {
     expect(find.text('Cart'), findsWidgets);
   });
 
-  testWidgets('Tapping product card opens product details page', (
+  testWidgets('Tapping catalog product opens product details page', (
     WidgetTester tester,
   ) async {
     tester.view.physicalSize = const Size(390, 844);
@@ -224,9 +224,11 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
-    final Finder firstCard = find.byType(ProductCardWidget).first;
-    expect(firstCard, findsOneWidget);
-    await tester.tap(firstCard);
+    final Finder firstProduct = find.byKey(
+      const Key('home_market_product_fresh-fruit-basket'),
+    );
+    expect(firstProduct, findsOneWidget);
+    await tester.tap(firstProduct);
     await tester.pumpAndSettle();
     expect(find.byType(ProductDetailsPage), findsOneWidget);
     expect(find.text('Variations'), findsOneWidget);

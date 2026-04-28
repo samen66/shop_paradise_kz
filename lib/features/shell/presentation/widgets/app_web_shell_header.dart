@@ -3,6 +3,7 @@ import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
 
 import '../../../../l10n/app_localizations.dart';
+import '../../../ai_interior/presentation/pages/ai_interior_page.dart';
 import '../shell_nav_destinations.dart';
 
 /// E‑commerce style header for web (reference: logo, catalog, links, search,
@@ -178,6 +179,21 @@ class AppWebShellHeader extends StatelessWidget implements PreferredSizeWidget {
                     ),
                   ),
                   const SizedBox(width: 8),
+                  IconButton(
+                    key: const Key('web_header_nav_ai'),
+                    icon: Icon(
+                      Icons.auto_awesome_outlined,
+                      color: scheme.primary,
+                    ),
+                    tooltip: 'AI Design',
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (_) => const AiInteriorPage(),
+                        ),
+                      );
+                    },
+                  ),
                   IconButton(
                     key: const Key('web_header_nav_profile'),
                     icon: Icon(
