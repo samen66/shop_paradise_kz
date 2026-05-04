@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,9 +8,14 @@ import 'core/locale/locale_resolution.dart';
 import 'core/theme/app_theme.dart';
 import 'features/shell/presentation/app_shell_page.dart';
 import 'features/welcome/presentation/welcome_page.dart';
+import 'firebase_options.dart';
 import 'l10n/app_localizations.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const ProviderScope(child: ShopParadiseApp()));
 }
 

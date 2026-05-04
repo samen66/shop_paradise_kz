@@ -43,3 +43,13 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Firebase — local app configs and secrets (inject in CI or use secrets mgmt)
+**/google-services.json
+**/GoogleService-Info.plist
+.firebase/
+*-firebase-adminsdk-*.json
+**/*serviceAccount*.json
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
