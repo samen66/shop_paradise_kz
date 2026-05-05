@@ -44,12 +44,30 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-# Firebase — local app configs and secrets (inject in CI or use secrets mgmt)
+# Firebase / Google — app configs & credentials (regenerate with FlutterFire CLI
+# or download from Console; never commit real keys to a public repo)
 **/google-services.json
 **/GoogleService-Info.plist
+lib/firebase_options.dart
 .firebase/
 *-firebase-adminsdk-*.json
 **/*serviceAccount*.json
+**/*ServiceAccount*.json
+**/*client_secret*.json
+**/credentials.json
 firebase-debug.log
 firestore-debug.log
 ui-debug.log
+.runtimeconfig.json
+
+# Android signing & Play / Google API keys
+**/key.properties
+**/*.jks
+**/*.keystore
+google-play-service-account.json
+**/google-play-service-account.json
+
+# Env files that may hold API keys or web OAuth client IDs
+.env
+.env.*
+!.env.example
