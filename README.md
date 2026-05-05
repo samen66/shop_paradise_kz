@@ -110,6 +110,10 @@ configuration.
      --title "v1.0.0" --notes "Shopping notes, analytics chart, Google Sign-In."
    ```
 
+   Without GitHub CLI: open the repo on GitHub → **Releases** → **Draft a new
+   release** → choose the existing tag (e.g. `v1.0.0`) → upload
+   `app-release.apk` as a binary attachment.
+
 ## Regenerate README screenshots
 
 ```bash
