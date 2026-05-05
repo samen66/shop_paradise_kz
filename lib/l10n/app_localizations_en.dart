@@ -37,6 +37,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get loginCloseAction => 'Close';
 
   @override
+  String get loginContinueWithGoogle => 'Continue with Google';
+
+  @override
+  String loginGoogleSignInFailed(String message) {
+    return 'Google sign-in failed: $message';
+  }
+
+  @override
   String get webHeaderCatalog => 'Catalog';
 
   @override

@@ -9,6 +9,15 @@
   "loginEmailLabel": "Электрондық пошта",
   "loginPasswordLabel": "Құпия сөз",
   "loginCloseAction": "Жабу",
+  "loginContinueWithGoogle": "Google арқылы жалғастыру",
+  "loginGoogleSignInFailed": "Google арқылы кіру сәтсіз аяқталды: {message}",
+  "@loginGoogleSignInFailed": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
   "webHeaderCatalog": "Каталог",
   "webHeaderSearchPlaceholder": "Сұрау енгізіңіз",
   "webHeaderLinkPromotions": "Акциялар",

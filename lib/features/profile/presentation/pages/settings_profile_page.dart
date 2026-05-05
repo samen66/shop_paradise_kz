@@ -1,12 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/theme/app_colors.dart';
+import '../../../auth/presentation/auth_providers.dart';
 import '../../domain/entities/profile_entities.dart' show ProfileHubEntity;
 import '../providers/profile_providers.dart';
 import '../widgets/settings_subpage_header.dart';
 
-/// **Settings** → **Your Profile**: edit name / email (mock persistence).
+/// **Settings** → **Your Profile**: edit name / email (Firebase or mock).
 class SettingsProfilePage extends ConsumerStatefulWidget {
   const SettingsProfilePage({super.key});
 
@@ -20,6 +23,8 @@ class _SettingsProfilePageState extends ConsumerState<SettingsProfilePage> {
   final TextEditingController _emailCtrl = TextEditingController();
   bool _seededFromHub = false;
   bool _saving = false;
+  String? _firebaseSaveError;
+  String? _firebaseSaveInfo;
 
   @override
   void dispose() {
@@ -32,15 +37,61 @@ class _SettingsProfilePageState extends ConsumerState<SettingsProfilePage> {
     if (_saving) {
       return;
     }
-    setState(() => _saving = true);
+    setState(() {
+      _saving = true;
+      _firebaseSaveError = null;
+      _firebaseSaveInfo = null;
+    });
     try {
-      await ref.read(profileRepositoryProvider).saveProfileUser(
-            displayName: _nameCtrl.text,
-            email: _emailCtrl.text,
-          );
+      final User? user = Firebase.apps.isNotEmpty
+          ? FirebaseAuth.instance.currentUser
+          : null;
+      if (user == null) {
+        await ref.read(profileRepositoryProvider).saveProfileUser(
+              displayName: _nameCtrl.text,
+              email: _emailCtrl.text,
+            );
+        ref.invalidate(profileHubProvider);
+        if (mounted) {
+          Navigator.of(context).pop();
+        }
+        return;
+      }
+      final String name = _nameCtrl.text.trim();
+      final String email = _emailCtrl.text.trim();
+      if (name.isEmpty) {
+        setState(() {
+          _firebaseSaveError = 'Display name cannot be empty.';
+        });
+        return;
+      }
+      await user.updateDisplayName(name);
+      final String? currentEmail = user.email;
+      final bool wantsEmailChange =
+          email.isNotEmpty && email != currentEmail;
+      if (wantsEmailChange) {
+        await user.verifyBeforeUpdateEmail(email);
+      }
+      await user.reload();
+      ref.invalidate(authStateProvider);
       ref.invalidate(profileHubProvider);
-      if (mounted) {
+      if (!mounted) {
+        return;
+      }
+      if (wantsEmailChange) {
+        setState(() {
+          _firebaseSaveInfo =
+              'We sent a confirmation link to $email. Open it to '
+              'complete the email change.';
+        });
+      } else {
         Navigator.of(context).pop();
+      }
+    } on FirebaseAuthException catch (e) {
+      if (mounted) {
+        setState(() {
+          _firebaseSaveError = e.message ?? e.code;
+        });
       }
     } finally {
       if (mounted) {
@@ -183,6 +234,24 @@ class _SettingsProfilePageState extends ConsumerState<SettingsProfilePage> {
                       ),
                     ),
                   ),
+                  if (_firebaseSaveError != null) ...<Widget>[
+                    const SizedBox(height: 16),
+                    SelectableText.rich(
+                      TextSpan(
+                        text: _firebaseSaveError,
+                        style: TextStyle(color: scheme.error),
+                      ),
+                    ),
+                  ],
+                  if (_firebaseSaveInfo != null) ...<Widget>[
+                    const SizedBox(height: 16),
+                    SelectableText.rich(
+                      TextSpan(
+                        text: _firebaseSaveInfo,
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
+                    ),
+                  ],
                   const SizedBox(height: 32),
                   FilledButton(
                     key: const Key('settings_profile_save_button'),

@@ -154,6 +154,18 @@ abstract class AppLocalizations {
   /// **'Close'**
   String get loginCloseAction;
 
+  /// No description provided for @loginContinueWithGoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Google'**
+  String get loginContinueWithGoogle;
+
+  /// No description provided for @loginGoogleSignInFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign-in failed: {message}'**
+  String loginGoogleSignInFailed(String message);
+
   /// No description provided for @webHeaderCatalog.
   ///
   /// In en, this message translates to:

@@ -1,7 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../../core/currency/app_currency_provider.dart';
+import '../../../../core/session/session_started_provider.dart';
 import '../../../../core/l10n/l10n_helpers.dart';
 import '../../../../core/locale/app_locale_override_provider.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -13,7 +18,48 @@ import 'settings_language_page.dart';
 import 'settings_payment_methods_page.dart';
 import 'settings_profile_page.dart';
 import 'settings_shipping_address_page.dart';
+import '../../../auth/presentation/auth_providers.dart';
 import '../providers/profile_providers.dart';
+
+/// Confirms sign-out, clears Google + Firebase sessions, returns to Welcome.
+Future<void> _confirmLogoutFromSettings(
+  BuildContext context,
+  WidgetRef ref,
+) async {
+  final bool? ok = await showDialog<bool>(
+    context: context,
+    builder: (BuildContext ctx) => AlertDialog(
+      title: const Text('Log out'),
+      content: const Text('Log out of your account?'),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () => Navigator.of(ctx).pop(false),
+          child: const Text('Cancel'),
+        ),
+        TextButton(
+          onPressed: () => Navigator.of(ctx).pop(true),
+          child: const Text('Log out'),
+        ),
+      ],
+    ),
+  );
+  if (ok != true || !context.mounted) {
+    return;
+  }
+  if (Firebase.apps.isNotEmpty) {
+    try {
+      await GoogleSignIn.instance.signOut();
+    } on Object {
+      // Best-effort; Firebase sign-out still runs.
+    }
+    await FirebaseAuth.instance.signOut();
+  }
+  ref.read(sessionStartedProvider.notifier).state = false;
+  if (!context.mounted) {
+    return;
+  }
+  context.go('/welcome');
+}
 
 /// Opens the settings hub from anywhere in the app (profile tab flows).
 void openAppSettings(BuildContext context) {
@@ -71,6 +117,7 @@ class SettingsPage extends ConsumerWidget {
     final Locale effectiveLocale =
         ref.watch(appLocaleOverrideProvider) ?? Localizations.localeOf(context);
     final String currencyCode = ref.watch(appCurrencyCodeProvider);
+    final User? signedInUser = ref.watch(authStateProvider).valueOrNull;
 
     return Scaffold(
       key: const Key('settings_page'),
@@ -119,6 +166,18 @@ class SettingsPage extends ConsumerWidget {
             ),
             _Divider(color: scheme.outlineVariant),
             _SectionTitle(text: 'Shop'),
+            _SettingsRow(
+              key: const Key('settings_tile_shopping_notes'),
+              label: 'Shopping notes (offline)',
+              onTap: () => context.push('/notes'),
+            ),
+            _Divider(color: scheme.outlineVariant),
+            _SettingsRow(
+              key: const Key('settings_tile_spending_chart'),
+              label: 'Spending chart',
+              onTap: () => context.push('/analytics'),
+            ),
+            _Divider(color: scheme.outlineVariant),
             _SettingsRow(
               key: const Key('settings_tile_country'),
               label: 'Country',
@@ -186,6 +245,15 @@ class SettingsPage extends ConsumerWidget {
               },
             ),
             _Divider(color: scheme.outlineVariant),
+            if (signedInUser != null) ...<Widget>[
+              _SettingsRow(
+                key: const Key('settings_tile_log_out'),
+                label: 'Log out',
+                value: signedInUser.email,
+                onTap: () => _confirmLogoutFromSettings(context, ref),
+              ),
+              _Divider(color: scheme.outlineVariant),
+            ],
             _SettingsRow(
               key: const Key('settings_tile_about'),
               label: 'About $_appDisplayName',

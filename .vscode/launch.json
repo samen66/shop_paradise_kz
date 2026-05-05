@@ -1,0 +1,31 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "shop_paradise_kz",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "50A329C0-4655-45DC-A33F-C561F93C1C5E"
+        },
+        {
+            "name": "shop_paradise_kz (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile",
+            "deviceId": "50A329C0-4655-45DC-A33F-C561F93C1C5E"
+        },
+        {
+            "name": "shop_paradise_kz (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "deviceId": "50A329C0-4655-45DC-A33F-C561F93C1C5E"
+        },
+        {
+            "name": "shop_paradise_kz (web)",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "chrome"
+        }
+    ]
+}

@@ -20,10 +20,11 @@ void main() {
         child: ShopParadiseApp(
           locale: Locale('en'),
           themeMode: ThemeMode.light,
-          initialSessionStarted: true,
         ),
       ),
     );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Browse catalog'));
     await tester.pumpAndSettle();
   }
 

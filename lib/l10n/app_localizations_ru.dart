@@ -37,6 +37,14 @@ class AppLocalizationsRu extends AppLocalizations {
   String get loginCloseAction => 'Закрыть';
 
   @override
+  String get loginContinueWithGoogle => 'Продолжить с Google';
+
+  @override
+  String loginGoogleSignInFailed(String message) {
+    return 'Вход через Google не удался: $message';
+  }
+
+  @override
   String get webHeaderCatalog => 'Каталог';
 
   @override

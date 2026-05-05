@@ -9,6 +9,15 @@
   "loginEmailLabel": "Эл. почта",
   "loginPasswordLabel": "Пароль",
   "loginCloseAction": "Закрыть",
+  "loginContinueWithGoogle": "Продолжить с Google",
+  "loginGoogleSignInFailed": "Вход через Google не удался: {message}",
+  "@loginGoogleSignInFailed": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
   "webHeaderCatalog": "Каталог",
   "webHeaderSearchPlaceholder": "Введите запрос",
   "webHeaderLinkPromotions": "Акции",

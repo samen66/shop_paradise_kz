@@ -56,9 +56,12 @@ class WelcomeActions extends StatelessWidget {
         WelcomeSecondaryRow(
           l10n: l10n,
           theme: theme,
-          onOpenLogin: () {
+          onOpenLogin: () async {
             developer.log('welcome_secondary_cta');
-            showWelcomeLoginDialog(context, l10n);
+            final bool? signedIn = await showWelcomeLoginDialog(context, l10n);
+            if (signedIn == true && context.mounted) {
+              onContinueToShop();
+            }
           },
         ),
       ],

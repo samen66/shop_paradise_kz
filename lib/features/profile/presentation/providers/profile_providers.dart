@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../auth/presentation/auth_providers.dart';
 import '../../data/repositories/mock_profile_repository.dart';
 import '../../domain/entities/profile_entities.dart';
 import '../../domain/repositories/profile_repository.dart';
@@ -8,8 +10,30 @@ final profileRepositoryProvider = Provider<ProfileRepository>(
   (Ref ref) => MockProfileRepository(),
 );
 
-final profileHubProvider = FutureProvider<ProfileHubEntity>((Ref ref) {
-  return ref.watch(profileRepositoryProvider).getProfileHub();
+/// Hub data from [ProfileRepository], with signed-in [User] fields overlaid.
+final FutureProvider<ProfileHubEntity> profileHubProvider =
+    FutureProvider<ProfileHubEntity>((Ref ref) async {
+  final ProfileHubEntity hub =
+      await ref.watch(profileRepositoryProvider).getProfileHub();
+  final User? user = ref.watch(authStateProvider).valueOrNull;
+  if (user == null) {
+    return hub;
+  }
+  final String displayName = user.displayName?.trim().isNotEmpty == true
+      ? user.displayName!.trim()
+      : (user.email ?? hub.user.displayName);
+  return ProfileHubEntity(
+    user: ProfileUserEntity(
+      displayName: displayName,
+      email: user.email ?? hub.user.email,
+      avatarUrl: user.photoURL ?? hub.user.avatarUrl,
+    ),
+    announcement: hub.announcement,
+    voucherSummary: hub.voucherSummary,
+    recentlyViewedImageUrls: hub.recentlyViewedImageUrls,
+    stories: hub.stories,
+    funnelCounts: hub.funnelCounts,
+  );
 });
 
 final shippingAddressProvider = FutureProvider<ShippingAddressEntity>((

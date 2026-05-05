@@ -12,6 +12,15 @@
   "loginEmailLabel": "Email",
   "loginPasswordLabel": "Password",
   "loginCloseAction": "Close",
+  "loginContinueWithGoogle": "Continue with Google",
+  "loginGoogleSignInFailed": "Google sign-in failed: {message}",
+  "@loginGoogleSignInFailed": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
   "webHeaderCatalog": "Catalog",
   "webHeaderSearchPlaceholder": "Enter query",
   "webHeaderLinkPromotions": "Promotions",

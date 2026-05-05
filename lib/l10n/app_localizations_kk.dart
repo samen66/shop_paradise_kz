@@ -36,6 +36,14 @@ class AppLocalizationsKk extends AppLocalizations {
   String get loginCloseAction => 'Жабу';
 
   @override
+  String get loginContinueWithGoogle => 'Google арқылы жалғастыру';
+
+  @override
+  String loginGoogleSignInFailed(String message) {
+    return 'Google арқылы кіру сәтсіз аяқталды: $message';
+  }
+
+  @override
   String get webHeaderCatalog => 'Каталог';
 
   @override
