@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
+import '../../../../l10n/app_localizations.dart';
+
 const Set<String> _paymentAddressCountries = <String>{
   'India',
   'Kazakhstan',
@@ -71,6 +74,7 @@ class _PaymentShippingAddressSheetState
     final String? picked = await showModalBottomSheet<String>(
       context: context,
       builder: (BuildContext context) {
+        final AppLocalizations l10n = context.l10n;
         return SafeArea(
           child: ListView(
             shrinkWrap: true,
@@ -78,7 +82,7 @@ class _PaymentShippingAddressSheetState
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Text(
-                  'Country',
+                  l10n.paymentCountryLabel,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w800,
                   ),
@@ -117,6 +121,7 @@ class _PaymentShippingAddressSheetState
 
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations l10n = context.l10n;
     final TextTheme textTheme = Theme.of(context).textTheme;
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final double inset = MediaQuery.viewInsetsOf(context).bottom;
@@ -148,13 +153,13 @@ class _PaymentShippingAddressSheetState
               ),
             ),
             Text(
-              'Shipping Address',
+              l10n.paymentShippingAddressCardTitle,
               style: textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.w800,
               ),
             ),
             const SizedBox(height: 20),
-            Text('Country', style: labelStyle),
+            Text(l10n.paymentCountryLabel, style: labelStyle),
             const SizedBox(height: 8),
             InkWell(
               onTap: _pickCountry,
@@ -181,7 +186,7 @@ class _PaymentShippingAddressSheetState
             ),
             const SizedBox(height: 20),
             _LabeledFilledField(
-              label: 'Address',
+              label: l10n.paymentAddressLineLabel,
               controller: _addressLine,
               fillColor: fill,
               colorScheme: colorScheme,
@@ -190,7 +195,7 @@ class _PaymentShippingAddressSheetState
             ),
             const SizedBox(height: 16),
             _LabeledFilledField(
-              label: 'Town / City',
+              label: l10n.paymentTownCityLabel,
               controller: _townCity,
               fillColor: fill,
               colorScheme: colorScheme,
@@ -198,7 +203,7 @@ class _PaymentShippingAddressSheetState
             ),
             const SizedBox(height: 16),
             _LabeledFilledField(
-              label: 'Postcode',
+              label: l10n.paymentPostcodeLabel,
               controller: _postcode,
               fillColor: fill,
               colorScheme: colorScheme,
@@ -217,7 +222,7 @@ class _PaymentShippingAddressSheetState
                   borderRadius: BorderRadius.circular(14),
                 ),
               ),
-              child: const Text('Save Changes'),
+              child: Text(l10n.paymentSaveChanges),
             ),
           ],
         ),
@@ -402,6 +407,7 @@ class _PaymentContactEditSheetState extends State<PaymentContactEditSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations l10n = context.l10n;
     final double inset = MediaQuery.viewInsetsOf(context).bottom;
     return Padding(
       padding: EdgeInsets.only(bottom: inset),
@@ -423,7 +429,7 @@ class _PaymentContactEditSheetState extends State<PaymentContactEditSheet> {
               ),
             ),
             Text(
-              'Contact Information',
+              l10n.paymentContactInformationTitle,
               style: Theme.of(
                 context,
               ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
@@ -433,7 +439,7 @@ class _PaymentContactEditSheetState extends State<PaymentContactEditSheet> {
               controller: _phone,
               keyboardType: TextInputType.phone,
               decoration: InputDecoration(
-                labelText: 'Phone',
+                labelText: l10n.paymentPhoneLabel,
                 filled: true,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14),
@@ -445,7 +451,7 @@ class _PaymentContactEditSheetState extends State<PaymentContactEditSheet> {
               controller: _email,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
-                labelText: 'Email',
+                labelText: l10n.paymentEmailLabelField,
                 filled: true,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14),
@@ -462,7 +468,7 @@ class _PaymentContactEditSheetState extends State<PaymentContactEditSheet> {
                   ),
                 );
               },
-              child: const Text('Save Changes'),
+              child: Text(l10n.paymentSaveChanges),
             ),
           ],
         ),

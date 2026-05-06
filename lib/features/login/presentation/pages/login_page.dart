@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../auth/data/firebase_google_auth.dart';
@@ -68,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
   void _onNextFromEmail() {
     FocusScope.of(context).unfocus();
     if (_emailController.text.trim().isEmpty) {
-      setState(() => _emailError = 'Enter your email');
+      setState(() => _emailError = context.l10n.loginEnterEmail);
       return;
     }
     setState(() {
@@ -79,13 +80,10 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> _onSignInWithEmailPassword() async {
     FocusScope.of(context).unfocus();
-    final AppLocalizations? l10n = AppLocalizations.of(context);
     final String email = _emailController.text.trim();
     final String password = _passwordController.text;
     if (password.isEmpty) {
-      setState(
-        () => _emailError = l10n?.loginPasswordLabel ?? 'Enter password',
-      );
+      setState(() => _emailError = context.l10n.loginEnterPassword);
       return;
     }
     setState(() {
@@ -114,14 +112,14 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> _onSendPasswordReset() async {
     final String email = _emailController.text.trim();
     if (email.isEmpty) {
-      setState(() => _emailError = 'Enter a valid email first');
+      setState(() => _emailError = context.l10n.loginEnterValidEmailFirst);
       return;
     }
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Password reset email sent.')),
+          SnackBar(content: Text(context.l10n.loginPasswordResetSent)),
         );
       }
     } on FirebaseAuthException catch (e) {
@@ -295,7 +293,7 @@ class _EmailStep extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Text(
-          'Good to see you back!  🖤',
+          l10n.loginSubtitleWelcomeBack,
           style: theme.textTheme.headlineSmall?.copyWith(
             fontWeight: FontWeight.w400,
             color: scheme.onSurfaceVariant,
@@ -432,7 +430,7 @@ class _PasswordFieldStep extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: TextButton(
             onPressed: isLoading ? null : onForgotPassword,
-            child: const Text('Forgot password?'),
+            child: Text(l10n.loginForgotPassword),
           ),
         ),
         const Spacer(flex: 4),
@@ -444,12 +442,12 @@ class _PasswordFieldStep extends StatelessWidget {
                   width: 22,
                   child: CircularProgressIndicator(strokeWidth: 2),
                 )
-              : const Text('Sign in'),
+              : Text(l10n.loginTitle),
         ),
         const SizedBox(height: 10),
         TextButton(
           onPressed: isLoading ? null : onBack,
-          child: const Text('Change email'),
+          child: Text(l10n.loginChangeEmail),
         ),
       ],
     );

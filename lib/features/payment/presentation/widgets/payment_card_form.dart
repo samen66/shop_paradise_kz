@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../payment_card_option.dart';
 
 /// Shared add/edit card form (mock — not sent to a gateway).
@@ -59,6 +61,7 @@ class _PaymentCardFormState extends State<PaymentCardForm> {
     if (!(_formKey.currentState?.validate() ?? false)) {
       return;
     }
+    final AppLocalizations l10n = context.l10n;
     final PaymentCardOption? e = widget.existing;
     final String digits = _digitsOnly(_numberCtrl.text);
     final PaymentCardOption result;
@@ -75,7 +78,7 @@ class _PaymentCardFormState extends State<PaymentCardForm> {
       final bool visa = _isVisaPan(digits);
       result = PaymentCardOption(
         id: e?.id ?? 'card_${DateTime.now().millisecondsSinceEpoch}',
-        label: visa ? 'Visa' : 'Mastercard',
+        label: visa ? l10n.paymentBrandVisa : l10n.paymentBrandMastercard,
         maskedNumber: masked,
         holderName: _nameCtrl.text.trim().toUpperCase(),
         expiry: _expiryCtrl.text.trim(),
@@ -87,6 +90,7 @@ class _PaymentCardFormState extends State<PaymentCardForm> {
 
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations l10n = context.l10n;
     final TextTheme textTheme = Theme.of(context).textTheme;
     return Form(
       key: _formKey,
@@ -98,8 +102,8 @@ class _PaymentCardFormState extends State<PaymentCardForm> {
           if (widget.showIntro) ...<Widget>[
             Text(
               widget.isEditing
-                  ? 'Change the name or expiry anytime. Enter a full card number only if you want to replace this card.'
-                  : 'Enter your card details. This is a demo — nothing is charged.',
+                  ? l10n.paymentCardIntroEdit
+                  : l10n.paymentCardIntroAdd,
               style: textTheme.bodyMedium?.copyWith(
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
@@ -107,7 +111,7 @@ class _PaymentCardFormState extends State<PaymentCardForm> {
             if (widget.isEditing) ...<Widget>[
               const SizedBox(height: 8),
               Text(
-                'Current: ${widget.existing!.maskedNumber}',
+                l10n.paymentCardCurrentMasked(widget.existing!.maskedNumber),
                 style: textTheme.bodySmall?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
@@ -118,8 +122,10 @@ class _PaymentCardFormState extends State<PaymentCardForm> {
           TextFormField(
             controller: _numberCtrl,
             decoration: InputDecoration(
-              labelText: 'Card number',
-              hintText: widget.isEditing ? 'Leave blank to keep current' : null,
+              labelText: l10n.paymentCardNumberLabel,
+              hintText: widget.isEditing
+                  ? l10n.paymentCardNumberHintKeep
+                  : null,
               border: const OutlineInputBorder(),
             ),
             keyboardType: TextInputType.number,
@@ -134,7 +140,7 @@ class _PaymentCardFormState extends State<PaymentCardForm> {
                 return null;
               }
               if (d.length < 13 || d.length > 19) {
-                return 'Enter a valid card number';
+                return l10n.paymentCardNumberError;
               }
               return null;
             },
@@ -142,14 +148,14 @@ class _PaymentCardFormState extends State<PaymentCardForm> {
           const SizedBox(height: 16),
           TextFormField(
             controller: _nameCtrl,
-            decoration: const InputDecoration(
-              labelText: 'Name on card',
-              border: OutlineInputBorder(),
+            decoration: InputDecoration(
+              labelText: l10n.paymentCardHolderLabel,
+              border: const OutlineInputBorder(),
             ),
             textCapitalization: TextCapitalization.characters,
             validator: (String? v) {
               if (v == null || v.trim().length < 3) {
-                return 'Enter the cardholder name';
+                return l10n.paymentCardHolderError;
               }
               return null;
             },
@@ -157,9 +163,9 @@ class _PaymentCardFormState extends State<PaymentCardForm> {
           const SizedBox(height: 16),
           TextFormField(
             controller: _expiryCtrl,
-            decoration: const InputDecoration(
-              labelText: 'Expiry (MM/YY)',
-              border: OutlineInputBorder(),
+            decoration: InputDecoration(
+              labelText: l10n.paymentCardExpiryLabel,
+              border: const OutlineInputBorder(),
             ),
             keyboardType: TextInputType.number,
             inputFormatters: <TextInputFormatter>[
@@ -170,11 +176,11 @@ class _PaymentCardFormState extends State<PaymentCardForm> {
             validator: (String? v) {
               final String d = _digitsOnly(v ?? '');
               if (d.length != 4) {
-                return 'Use MM/YY';
+                return l10n.paymentCardExpiryFormatError;
               }
               final int mm = int.tryParse(d.substring(0, 2)) ?? 0;
               if (mm < 1 || mm > 12) {
-                return 'Invalid month';
+                return l10n.paymentCardExpiryMonthError;
               }
               return null;
             },
@@ -182,9 +188,9 @@ class _PaymentCardFormState extends State<PaymentCardForm> {
           const SizedBox(height: 16),
           TextFormField(
             controller: _cvvCtrl,
-            decoration: const InputDecoration(
-              labelText: 'CVV',
-              border: OutlineInputBorder(),
+            decoration: InputDecoration(
+              labelText: l10n.paymentCardCvvLabel,
+              border: const OutlineInputBorder(),
             ),
             keyboardType: TextInputType.number,
             obscureText: true,
@@ -195,7 +201,7 @@ class _PaymentCardFormState extends State<PaymentCardForm> {
             validator: (String? v) {
               final String d = _digitsOnly(v ?? '');
               if (d.length < 3) {
-                return 'Enter CVV';
+                return l10n.paymentCardCvvError;
               }
               return null;
             },

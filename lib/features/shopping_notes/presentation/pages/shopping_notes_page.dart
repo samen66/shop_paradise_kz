@@ -1,11 +1,18 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../domain/entities/shopping_note_entity.dart';
 import '../../domain/entities/spending_category_entity.dart';
 import '../../domain/repositories/shopping_notes_repository.dart';
+import '../../domain/usecases/build_shopping_notes_csv_use_case.dart';
+import '../../domain/usecases/build_shopping_notes_pdf_bytes_use_case.dart';
 import '../providers/shopping_notes_providers.dart';
+import '../shopping_notes_share.dart';
 import '../widgets/shopping_category_manager_sheet.dart';
 
 /// Offline-first CRUD for local shopping / price notes (Drift) with filters.
@@ -28,6 +35,7 @@ class _ShoppingNotesPageState extends ConsumerState<ShoppingNotesPage> {
 
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations l10n = context.l10n;
     final AsyncValue<bool> online = ref.watch(connectivityStreamProvider);
     final AsyncValue<List<ShoppingNoteEntity>> notes =
         ref.watch(shoppingNotesStreamProvider);
@@ -39,16 +47,40 @@ class _ShoppingNotesPageState extends ConsumerState<ShoppingNotesPage> {
           icon: const Icon(Icons.close),
           onPressed: () => context.pop(),
         ),
-        title: const Text('Shopping notes'),
+        title: Text(l10n.shoppingNotesTitle),
         actions: <Widget>[
+          PopupMenuButton<String>(
+            icon: const Icon(Icons.ios_share_outlined),
+            tooltip: l10n.shoppingNotesExportTooltip,
+            onSelected: (String value) async {
+              if (value == 'csv') {
+                await _exportCsv(context, ref);
+              } else if (value == 'pdf') {
+                await _exportPdf(context, ref);
+              }
+            },
+            itemBuilder: (BuildContext ctx) {
+              final AppLocalizations menuL10n = ctx.l10n;
+              return <PopupMenuEntry<String>>[
+                PopupMenuItem<String>(
+                  value: 'csv',
+                  child: Text(menuL10n.exportShoppingNotesCsv),
+                ),
+                PopupMenuItem<String>(
+                  value: 'pdf',
+                  child: Text(menuL10n.exportShoppingNotesPdf),
+                ),
+              ];
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.category_outlined),
-            tooltip: 'Manage categories',
+            tooltip: l10n.shoppingNotesManageCategoriesTooltip,
             onPressed: () => ShoppingCategoryManagerSheet.show(context),
           ),
           TextButton(
             onPressed: () => context.push('/analytics'),
-            child: const Text('Chart'),
+            child: Text(l10n.shoppingNotesChart),
           ),
         ],
       ),
@@ -63,8 +95,8 @@ class _ShoppingNotesPageState extends ConsumerState<ShoppingNotesPage> {
               child: online.when(
                 data: (bool isOn) => Text(
                   isOn
-                      ? 'Online: changes will try to sync (demo HTTP).'
-                      : 'Offline: data stays on this device.',
+                      ? l10n.shoppingNotesOnlineBanner
+                      : l10n.shoppingNotesOfflineBanner,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 loading: () => const SizedBox.shrink(),
@@ -75,10 +107,10 @@ class _ShoppingNotesPageState extends ConsumerState<ShoppingNotesPage> {
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
               child: TextField(
                 controller: _searchQuery,
-                decoration: const InputDecoration(
-                  hintText: 'Filter by title, details, or category',
-                  prefixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  hintText: l10n.shoppingNotesSearchHint,
+                  prefixIcon: const Icon(Icons.search),
+                  border: const OutlineInputBorder(),
                   isDense: true,
                 ),
                 textInputAction: TextInputAction.search,
@@ -101,7 +133,7 @@ class _ShoppingNotesPageState extends ConsumerState<ShoppingNotesPage> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 4),
                           child: FilterChip(
-                            label: const Text('All categories'),
+                            label: Text(l10n.shoppingNotesAllCategoriesSegment),
                             selected: _filterCategoryId == null,
                             onSelected: (_) {
                               setState(() => _filterCategoryId = null);
@@ -134,10 +166,10 @@ class _ShoppingNotesPageState extends ConsumerState<ShoppingNotesPage> {
                   child: SelectableText.rich(
                     TextSpan(
                       children: <InlineSpan>[
-                        const TextSpan(
-                          text: 'Could not load notes.\n',
+                        TextSpan(
+                          text: l10n.shoppingNotesCouldNotLoad,
                           style: TextStyle(
-                            color: Colors.red,
+                            color: Theme.of(context).colorScheme.error,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -152,7 +184,7 @@ class _ShoppingNotesPageState extends ConsumerState<ShoppingNotesPage> {
                   if (list.isEmpty) {
                     return Center(
                       child: Text(
-                        'No notes yet. Tap + to add one.',
+                        l10n.shoppingNotesNoNotesYet,
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     );
@@ -160,7 +192,7 @@ class _ShoppingNotesPageState extends ConsumerState<ShoppingNotesPage> {
                   if (filtered.isEmpty) {
                     return Center(
                       child: Text(
-                        'No notes match the current filter.',
+                        l10n.shoppingNotesNoMatchFilter,
                         style: Theme.of(context).textTheme.bodyLarge,
                         textAlign: TextAlign.center,
                       ),
@@ -175,7 +207,7 @@ class _ShoppingNotesPageState extends ConsumerState<ShoppingNotesPage> {
                         title: Text(n.title),
                         subtitle: Text(
                           '${n.category} · ${n.amount.toStringAsFixed(2)} · '
-                          '${n.syncedToRemote ? 'synced' : 'local'}',
+                          '${n.syncedToRemote ? l10n.shoppingNotesSyncStatusSynced : l10n.shoppingNotesSyncStatusLocal}',
                         ),
                         isThreeLine: true,
                         onTap: () => _openEditor(context, ref, n),
@@ -201,6 +233,135 @@ class _ShoppingNotesPageState extends ConsumerState<ShoppingNotesPage> {
         child: const Icon(Icons.add),
       ),
     );
+  }
+
+  Future<void> _exportCsv(BuildContext context, WidgetRef ref) async {
+    final AppLocalizations l10n = context.l10n;
+    try {
+      final List<ShoppingNoteEntity> notes =
+          await ref.read(shoppingNotesRepositoryProvider).getNotes();
+      if (!context.mounted) {
+        return;
+      }
+      if (notes.isEmpty) {
+        await showDialog<void>(
+          context: context,
+          builder: (BuildContext ctx) => AlertDialog(
+            content: Text(l10n.exportShoppingNotesEmpty),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(),
+                child: Text(l10n.commonOk),
+              ),
+            ],
+          ),
+        );
+        return;
+      }
+      final String csv = const BuildShoppingNotesCsvUseCase().call(
+        notes,
+        columnHeaders: <String>[
+          l10n.shoppingNotesCsvHeaderId,
+          l10n.shoppingNotesCsvHeaderTitle,
+          l10n.shoppingNotesCsvHeaderBody,
+          l10n.shoppingNotesCsvHeaderCategory,
+          l10n.shoppingNotesCsvHeaderCategoryId,
+          l10n.shoppingNotesCsvHeaderAmount,
+          l10n.shoppingNotesCsvHeaderSynced,
+          l10n.shoppingNotesCsvHeaderCreated,
+          l10n.shoppingNotesCsvHeaderUpdated,
+        ],
+      );
+      await shareShoppingNotesCsv(csv);
+    } on Object catch (e) {
+      if (!context.mounted) {
+        return;
+      }
+      await showDialog<void>(
+        context: context,
+        builder: (BuildContext ctx) => AlertDialog(
+          content: SelectableText.rich(
+            TextSpan(
+              children: <InlineSpan>[
+                TextSpan(
+                  text: l10n.exportShoppingNotesFailed(e.toString()),
+                  style: const TextStyle(color: Colors.red),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(),
+              child: Text(l10n.commonOk),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  Future<void> _exportPdf(BuildContext context, WidgetRef ref) async {
+    final AppLocalizations l10n = context.l10n;
+    try {
+      final List<ShoppingNoteEntity> notes =
+          await ref.read(shoppingNotesRepositoryProvider).getNotes();
+      if (!context.mounted) {
+        return;
+      }
+      if (notes.isEmpty) {
+        await showDialog<void>(
+          context: context,
+          builder: (BuildContext ctx) => AlertDialog(
+            content: Text(l10n.exportShoppingNotesEmpty),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(),
+                child: Text(l10n.commonOk),
+              ),
+            ],
+          ),
+        );
+        return;
+      }
+      final Uint8List bytes = await const BuildShoppingNotesPdfBytesUseCase()
+          .call(
+            notes,
+            documentTitle: l10n.shoppingNotesPdfTitle,
+            columnHeaders: <String>[
+              l10n.shoppingNotesPdfHeaderId,
+              l10n.shoppingNotesPdfHeaderTitle,
+              l10n.shoppingNotesPdfHeaderCategory,
+              l10n.shoppingNotesPdfHeaderAmount,
+            ],
+          );
+      await shareShoppingNotesPdf(bytes);
+    } on Object catch (e) {
+      if (!context.mounted) {
+        return;
+      }
+      await showDialog<void>(
+        context: context,
+        builder: (BuildContext ctx) => AlertDialog(
+          content: SelectableText.rich(
+            TextSpan(
+              children: <InlineSpan>[
+                TextSpan(
+                  text: l10n.exportShoppingNotesFailed(e.toString()),
+                  style: const TextStyle(color: Colors.red),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(),
+              child: Text(l10n.commonOk),
+            ),
+          ],
+        ),
+      );
+    }
   }
 
   List<ShoppingNoteEntity> _filterNotes(List<ShoppingNoteEntity> all) {
@@ -231,19 +392,17 @@ class _ShoppingNotesPageState extends ConsumerState<ShoppingNotesPage> {
       return;
     }
     if (categories.isEmpty) {
+      final AppLocalizations dlgL10n = context.l10n;
       await showDialog<void>(
         context: context,
         builder: (BuildContext ctx) {
           return AlertDialog(
-            title: const Text('Add a category first'),
-            content: const Text(
-              'Notes require a category. Open “Manage categories” '
-              'and create at least one.',
-            ),
+            title: Text(dlgL10n.shoppingNotesAddCategoryFirst),
+            content: Text(dlgL10n.shoppingNotesNeedCategoryBody),
             actions: <Widget>[
               FilledButton(
                 onPressed: () => Navigator.of(ctx).pop(),
-                child: const Text('OK'),
+                child: Text(dlgL10n.commonOk),
               ),
             ],
           );
@@ -262,6 +421,7 @@ class _ShoppingNotesPageState extends ConsumerState<ShoppingNotesPage> {
     );
     int selectedCategoryId =
         _resolveCategoryId(existing, categories) ?? categories.first.id;
+    final AppLocalizations sheetL10n = context.l10n;
     final bool? saved = await showModalBottomSheet<bool>(
       context: context,
       isScrollControlled: true,
@@ -280,25 +440,31 @@ class _ShoppingNotesPageState extends ConsumerState<ShoppingNotesPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Text(
-                    existing == null ? 'New note' : 'Edit note',
+                    existing == null
+                        ? sheetL10n.shoppingNotesNewNoteTitle
+                        : sheetL10n.shoppingNotesEditNoteTitle,
                     style: Theme.of(ctx).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 12),
                   TextField(
                     controller: title,
-                    decoration: const InputDecoration(labelText: 'Title'),
+                    decoration: InputDecoration(
+                      labelText: sheetL10n.shoppingNotesFieldTitle,
+                    ),
                     textCapitalization: TextCapitalization.sentences,
                   ),
                   TextField(
                     controller: body,
-                    decoration: const InputDecoration(labelText: 'Details'),
+                    decoration: InputDecoration(
+                      labelText: sheetL10n.shoppingNotesFieldDetails,
+                    ),
                     maxLines: 3,
                   ),
                   DropdownButtonFormField<int>(
                     // ignore: deprecated_member_use
                     value: selectedCategoryId,
-                    decoration: const InputDecoration(
-                      labelText: 'Category',
+                    decoration: InputDecoration(
+                      labelText: sheetL10n.shoppingNotesFieldCategory,
                     ),
                     items: categories
                         .map(
@@ -318,7 +484,9 @@ class _ShoppingNotesPageState extends ConsumerState<ShoppingNotesPage> {
                   ),
                   TextField(
                     controller: amount,
-                    decoration: const InputDecoration(labelText: 'Amount'),
+                    decoration: InputDecoration(
+                      labelText: sheetL10n.shoppingNotesFieldAmount,
+                    ),
                     keyboardType: const TextInputType.numberWithOptions(
                       decimal: true,
                     ),
@@ -326,7 +494,7 @@ class _ShoppingNotesPageState extends ConsumerState<ShoppingNotesPage> {
                   const SizedBox(height: 16),
                   FilledButton(
                     onPressed: () => Navigator.of(ctx).pop(true),
-                    child: const Text('Save'),
+                    child: Text(sheetL10n.commonSave),
                   ),
                 ],
               ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
 import '../../domain/repositories/profile_repository.dart';
 import 'profile_orders_tab_page.dart';
 
@@ -8,10 +9,10 @@ class ProfileToReceivePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ProfileOrdersTabPage(
+    return ProfileOrdersTabPage(
       tab: ProfileOrdersTab.toReceive,
-      title: 'To Receive',
-      subtitle: 'My Orders',
+      title: context.l10n.profileTabToReceive,
+      subtitle: context.l10n.profileMyOrdersSubtitle,
     );
   }
 }

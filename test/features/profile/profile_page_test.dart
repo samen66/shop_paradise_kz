@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:shop_paradise_kz/core/prefs/app_preferences_keys.dart';
+import 'package:shop_paradise_kz/core/prefs/shared_preferences_provider.dart';
 import 'package:shop_paradise_kz/features/profile/presentation/pages/order_tracking_page.dart';
 import 'package:shop_paradise_kz/features/profile/presentation/pages/profile_page.dart';
 import 'package:shop_paradise_kz/features/profile/presentation/pages/settings_currency_page.dart';
@@ -15,9 +18,16 @@ void main() {
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
+    SharedPreferences.setMockInitialValues(<String, Object>{
+      AppPreferencesKeys.onboardingCompleted: true,
+    });
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     await tester.pumpWidget(
-      const ProviderScope(
-        child: ShopParadiseApp(
+      ProviderScope(
+        overrides: <Override>[
+          sharedPreferencesProvider.overrideWithValue(prefs),
+        ],
+        child: const ShopParadiseApp(
           locale: Locale('en'),
           themeMode: ThemeMode.light,
         ),

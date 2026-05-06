@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../customer_care_chat/presentation/pages/customer_care_chat_page.dart';
 import '../../domain/entities/profile_entities.dart';
 import '../providers/profile_providers.dart';
@@ -20,7 +22,7 @@ Future<void> showProfileReviewFlow(
   }
   if (items.isEmpty) {
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('No items to review')),
+      SnackBar(content: Text(context.l10n.profileNoItemsToReview)),
     );
     return;
   }
@@ -29,6 +31,7 @@ Future<void> showProfileReviewFlow(
     isScrollControlled: true,
     showDragHandle: true,
     builder: (BuildContext sheetContext) {
+      final AppLocalizations l10n = sheetContext.l10n;
       return SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
@@ -36,7 +39,7 @@ Future<void> showProfileReviewFlow(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Text(
-                'Which item you want to review?',
+                l10n.profileReviewWhichItem,
                 style: Theme.of(sheetContext).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w800,
                 ),
@@ -80,6 +83,7 @@ Future<void> showDeliveryFailureSheet(
     isScrollControlled: true,
     showDragHandle: true,
     builder: (BuildContext ctx) {
+      final AppLocalizations l10n = ctx.l10n;
       return SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
@@ -88,23 +92,21 @@ Future<void> showDeliveryFailureSheet(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                'Delivery was not successful',
+                l10n.profileDeliveryNotSuccessful,
                 style: Theme.of(ctx).textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.w800,
                 ),
               ),
               const SizedBox(height: 12),
               Text(
-                'What should I do?',
+                l10n.profileDeliveryWhatToDo,
                 style: Theme.of(ctx).textTheme.titleSmall?.copyWith(
                   fontWeight: FontWeight.w800,
                 ),
               ),
               const SizedBox(height: 12),
               Text(
-                "Don't worry, we will shortly contact you to arrange a more "
-                'suitable time for the delivery. You can also contact us at '
-                '+00 000 000 000 or chat with customer care.',
+                l10n.profileDeliveryFailureBody,
                 style: Theme.of(ctx).textTheme.bodyMedium,
               ),
               const SizedBox(height: 20),
@@ -126,7 +128,7 @@ Future<void> showDeliveryFailureSheet(
                       ),
                     );
                   },
-                  child: const Text('Chat Now'),
+                  child: Text(l10n.profileChatNow),
                 ),
               ),
             ],
@@ -173,6 +175,7 @@ Future<void> _showReviewSuccessDialog(
     context: context,
     barrierDismissible: true,
     builder: (BuildContext ctx) {
+      final AppLocalizations l10n = ctx.l10n;
       return AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         content: Column(
@@ -195,14 +198,14 @@ Future<void> _showReviewSuccessDialog(
             ),
             const SizedBox(height: 16),
             Text(
-              'Done!',
+              l10n.paymentSuccessTitle,
               style: Theme.of(ctx).textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.w800,
               ),
             ),
             const SizedBox(height: 8),
             Text(
-              'Thank you for your review',
+              l10n.profileReviewThankYou,
               style: Theme.of(ctx).textTheme.bodyMedium,
               textAlign: TextAlign.center,
             ),
@@ -233,6 +236,7 @@ class _ReviewPickerRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = context.l10n;
     return Material(
       color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
       borderRadius: BorderRadius.circular(16),
@@ -302,7 +306,7 @@ class _ReviewPickerRow extends StatelessWidget {
                 ),
                 padding: const EdgeInsets.symmetric(horizontal: 12),
               ),
-              child: const Text('Review'),
+              child: Text(l10n.profileReview),
             ),
           ],
         ),
@@ -335,6 +339,7 @@ class _ReviewFormContentState extends State<_ReviewFormContent> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme scheme = theme.colorScheme;
+    final AppLocalizations l10n = context.l10n;
     return SafeArea(
       child: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
@@ -343,7 +348,7 @@ class _ReviewFormContentState extends State<_ReviewFormContent> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text(
-              'Review',
+              l10n.profileReview,
               style: theme.textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.w800,
               ),
@@ -398,8 +403,8 @@ class _ReviewFormContentState extends State<_ReviewFormContent> {
             TextField(
               controller: _comment,
               maxLines: 4,
-              decoration: const InputDecoration(
-                hintText: 'Your comment',
+              decoration: InputDecoration(
+                hintText: l10n.customerCareRateCommentHint,
                 alignLabelWithHint: true,
               ),
             ),
@@ -410,7 +415,7 @@ class _ReviewFormContentState extends State<_ReviewFormContent> {
                 onPressed: _stars == 0
                     ? null
                     : () => widget.onSubmit(_stars),
-                child: const Text('Say it!'),
+                child: Text(l10n.profileSayIt),
               ),
             ),
           ],

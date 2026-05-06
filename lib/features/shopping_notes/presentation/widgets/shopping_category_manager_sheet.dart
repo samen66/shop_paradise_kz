@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../domain/entities/spending_category_entity.dart';
 import '../../domain/repositories/shopping_notes_repository.dart';
 import '../providers/shopping_notes_providers.dart';
@@ -26,6 +28,7 @@ class ShoppingCategoryManagerSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final AppLocalizations l10n = context.l10n;
     final AsyncValue<List<SpendingCategoryEntity>> categories =
         ref.watch(spendingCategoriesStreamProvider);
     final ShoppingNotesRepository repo =
@@ -45,7 +48,7 @@ class ShoppingCategoryManagerSheet extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
               child: Text(
-                'Categories',
+                l10n.shoppingNotesCategoriesSheetTitle,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
@@ -57,10 +60,10 @@ class ShoppingCategoryManagerSheet extends ConsumerWidget {
                   child: SelectableText.rich(
                     TextSpan(
                       children: <InlineSpan>[
-                        const TextSpan(
-                          text: 'Could not load categories.\n',
+                        TextSpan(
+                          text: l10n.shoppingNotesCouldNotLoadCategories,
                           style: TextStyle(
-                            color: Colors.red,
+                            color: Theme.of(context).colorScheme.error,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -73,7 +76,7 @@ class ShoppingCategoryManagerSheet extends ConsumerWidget {
                   if (list.isEmpty) {
                     return Center(
                       child: Text(
-                        'No categories. Tap + to add one.',
+                        l10n.shoppingNotesNoCategoriesYet,
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     );
@@ -87,8 +90,10 @@ class ShoppingCategoryManagerSheet extends ConsumerWidget {
                       return ListTile(
                         title: Text(c.name),
                         subtitle: Text(
-                          'id ${c.id} · updated '
-                          '${c.updatedAt.toIso8601String().substring(0, 10)}',
+                          l10n.shoppingNotesCategoryRowMeta(
+                            c.id,
+                            c.updatedAt.toIso8601String().substring(0, 10),
+                          ),
                         ),
                         onTap: () => _promptEditCategory(context, repo, c),
                         trailing: IconButton(
@@ -115,7 +120,7 @@ class ShoppingCategoryManagerSheet extends ConsumerWidget {
               child: FilledButton.icon(
                 onPressed: () => _promptNewCategory(context, repo),
                 icon: const Icon(Icons.add),
-                label: const Text('Add category'),
+                label: Text(l10n.shoppingNotesAddCategory),
               ),
             ),
           ],
@@ -128,25 +133,28 @@ class ShoppingCategoryManagerSheet extends ConsumerWidget {
     BuildContext context,
     ShoppingNotesRepository repo,
   ) async {
+    final AppLocalizations l10n = context.l10n;
     final TextEditingController name = TextEditingController();
     final bool? save = await showDialog<bool>(
       context: context,
       builder: (BuildContext ctx) {
         return AlertDialog(
-          title: const Text('New category'),
+          title: Text(l10n.shoppingNotesNewCategory),
           content: TextField(
             controller: name,
-            decoration: const InputDecoration(labelText: 'Name'),
+            decoration: InputDecoration(
+              labelText: l10n.settingsProfileNameLabel,
+            ),
             textCapitalization: TextCapitalization.words,
           ),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(ctx).pop(false),
-              child: const Text('Cancel'),
+              child: Text(l10n.commonCancel),
             ),
             FilledButton(
               onPressed: () => Navigator.of(ctx).pop(true),
-              child: const Text('Save'),
+              child: Text(l10n.commonSave),
             ),
           ],
         );
@@ -169,26 +177,29 @@ class ShoppingCategoryManagerSheet extends ConsumerWidget {
     ShoppingNotesRepository repo,
     SpendingCategoryEntity existing,
   ) async {
+    final AppLocalizations l10n = context.l10n;
     final TextEditingController name =
         TextEditingController(text: existing.name);
     final bool? save = await showDialog<bool>(
       context: context,
       builder: (BuildContext ctx) {
         return AlertDialog(
-          title: const Text('Rename category'),
+          title: Text(l10n.shoppingNotesRenameCategory),
           content: TextField(
             controller: name,
-            decoration: const InputDecoration(labelText: 'Name'),
+            decoration: InputDecoration(
+              labelText: l10n.settingsProfileNameLabel,
+            ),
             textCapitalization: TextCapitalization.words,
           ),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(ctx).pop(false),
-              child: const Text('Cancel'),
+              child: Text(l10n.commonCancel),
             ),
             FilledButton(
               onPressed: () => Navigator.of(ctx).pop(true),
-              child: const Text('Save'),
+              child: Text(l10n.commonSave),
             ),
           ],
         );
@@ -214,17 +225,17 @@ class ShoppingCategoryManagerSheet extends ConsumerWidget {
   }
 
   static Future<void> _showCategoryInUseError(BuildContext context) {
+    final AppLocalizations l10n = context.l10n;
     return showDialog<void>(
       context: context,
       builder: (BuildContext ctx) {
         return AlertDialog(
-          title: const Text('Cannot delete'),
+          title: Text(l10n.shoppingNotesCannotDelete),
           content: SelectableText.rich(
             TextSpan(
               children: <InlineSpan>[
                 TextSpan(
-                  text: 'Remove or reassign notes that use this category '
-                      'first.\n',
+                  text: l10n.shoppingNotesCannotDeleteBody,
                   style: TextStyle(
                     color: Theme.of(ctx).colorScheme.error,
                     fontWeight: FontWeight.w600,
@@ -236,7 +247,7 @@ class ShoppingCategoryManagerSheet extends ConsumerWidget {
           actions: <Widget>[
             FilledButton(
               onPressed: () => Navigator.of(ctx).pop(),
-              child: const Text('OK'),
+              child: Text(l10n.commonOk),
             ),
           ],
         );
@@ -248,11 +259,12 @@ class ShoppingCategoryManagerSheet extends ConsumerWidget {
     BuildContext context,
     Object error,
   ) {
+    final AppLocalizations l10n = context.l10n;
     return showDialog<void>(
       context: context,
       builder: (BuildContext ctx) {
         return AlertDialog(
-          title: const Text('Category error'),
+          title: Text(l10n.shoppingNotesCategoryError),
           content: SelectableText.rich(
             TextSpan(
               children: <InlineSpan>[
@@ -269,7 +281,7 @@ class ShoppingCategoryManagerSheet extends ConsumerWidget {
           actions: <Widget>[
             FilledButton(
               onPressed: () => Navigator.of(ctx).pop(),
-              child: const Text('OK'),
+              child: Text(l10n.commonOk),
             ),
           ],
         );

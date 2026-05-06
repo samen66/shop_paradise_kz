@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
 import '../../../../core/theme/app_colors.dart';
 
 /// Large **Settings** title with subtitle (design reference: Slada-style settings).
@@ -16,6 +17,7 @@ class SettingsSubpageHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
+    final String settingsTitle = context.l10n.settingsTitle;
     return Padding(
       padding: const EdgeInsets.fromLTRB(8, 4, 16, 16),
       child: Row(
@@ -34,7 +36,7 @@ class SettingsSubpageHeader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  'Settings',
+                  settingsTitle,
                   style: textTheme.headlineMedium?.copyWith(
                     fontWeight: FontWeight.w800,
                     color: AppColors.onSurface,

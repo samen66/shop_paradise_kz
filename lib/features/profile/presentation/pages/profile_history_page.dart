@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../domain/entities/profile_entities.dart';
 import '../providers/profile_providers.dart';
@@ -28,7 +29,9 @@ class ProfileHistoryPage extends ConsumerWidget {
       body: SafeArea(
         child: hub.when(
           loading: () => const Center(child: CircularProgressIndicator()),
-          error: (Object e, _) => Center(child: Text('$e')),
+          error: (Object e, _) => Center(
+            child: Text(context.l10n.errorMessageWithDetails(e.toString())),
+          ),
           data: (ProfileHubEntity hubData) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -49,7 +52,7 @@ class ProfileHistoryPage extends ConsumerWidget {
                       const SizedBox(width: 10),
                       Expanded(
                         child: Text(
-                          'History',
+                          context.l10n.profileHistoryTitle,
                           key: const Key('profile_history_title'),
                           style: Theme.of(context).textTheme.titleLarge?.copyWith(
                             fontWeight: FontWeight.w800,
@@ -57,8 +60,10 @@ class ProfileHistoryPage extends ConsumerWidget {
                         ),
                       ),
                       ProfileIconActions(
-                        onScan: () => _snack(context, 'Scanner coming soon'),
-                        onFilter: () => _snack(context, 'Filters coming soon'),
+                        onScan: () =>
+                            _snack(context, context.l10n.profileScannerSoon),
+                        onFilter: () =>
+                            _snack(context, context.l10n.profileFiltersSoon),
                         onSettings: () => openAppSettings(context),
                       ),
                     ],
@@ -69,7 +74,11 @@ class ProfileHistoryPage extends ConsumerWidget {
                     loading: () => const Center(
                       child: CircularProgressIndicator(),
                     ),
-                    error: (Object e, _) => Center(child: Text('$e')),
+                    error: (Object e, _) => Center(
+                      child: Text(
+                        context.l10n.errorMessageWithDetails(e.toString()),
+                      ),
+                    ),
                     data: (List<HistoryLineEntity> lines) {
                       return ListView.builder(
                         padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
@@ -181,7 +190,7 @@ class ProfileHistoryPage extends ConsumerWidget {
                                           horizontal: 12,
                                         ),
                                       ),
-                                      child: const Text('Review'),
+                                      child: Text(context.l10n.profileReview),
                                     ),
                                   ),
                                 ],

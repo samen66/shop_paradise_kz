@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../domain/entities/profile_entities.dart';
 import '../providers/profile_providers.dart';
 import '../widgets/profile_icon_actions.dart';
@@ -22,6 +24,7 @@ class OrderTrackingPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final AppLocalizations l10n = context.l10n;
     final AsyncValue<ProfileHubEntity> hub = ref.watch(profileHubProvider);
     final AsyncValue<TrackingOverviewEntity> tracking = ref.watch(
       profileTrackingProvider(shipmentId),
@@ -31,7 +34,17 @@ class OrderTrackingPage extends ConsumerWidget {
       body: SafeArea(
         child: hub.when(
           loading: () => const Center(child: CircularProgressIndicator()),
-          error: (Object e, _) => Center(child: Text('$e')),
+          error: (Object e, _) => Center(
+            child: SelectableText.rich(
+              TextSpan(
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.error,
+                ),
+                text: l10n.errorMessageWithDetails(e.toString()),
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
           data: (ProfileHubEntity hubData) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -55,12 +68,12 @@ class OrderTrackingPage extends ConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              'To Receive',
+                              l10n.profileTabToReceive,
                               style: Theme.of(context).textTheme.titleLarge
                                   ?.copyWith(fontWeight: FontWeight.w800),
                             ),
                             Text(
-                              'Track Your Order',
+                              l10n.orderTrackingPageSubtitle,
                               style: Theme.of(context).textTheme.bodySmall
                                   ?.copyWith(
                                     color: Theme.of(
@@ -72,8 +85,9 @@ class OrderTrackingPage extends ConsumerWidget {
                         ),
                       ),
                       ProfileIconActions(
-                        onScan: () => _snack(context, 'Scanner coming soon'),
-                        onFilter: () => _snack(context, 'Filters coming soon'),
+                        onScan: () => _snack(context, l10n.profileScannerSoon),
+                        onFilter: () =>
+                            _snack(context, l10n.profileFiltersSoon),
                         onSettings: () => openAppSettings(context),
                       ),
                     ],
@@ -84,7 +98,17 @@ class OrderTrackingPage extends ConsumerWidget {
                     loading: () => const Center(
                       child: CircularProgressIndicator(),
                     ),
-                    error: (Object e, _) => Center(child: Text('$e')),
+                    error: (Object e, _) => Center(
+                      child: SelectableText.rich(
+                        TextSpan(
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.error,
+                          ),
+                          text: l10n.errorMessageWithDetails(e.toString()),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                     data: (TrackingOverviewEntity data) {
                       return ListView(
                         padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
@@ -94,6 +118,7 @@ class OrderTrackingPage extends ConsumerWidget {
                           ),
                           const SizedBox(height: 20),
                           _TrackingNumberCard(
+                            label: l10n.orderTrackingNumberLabel,
                             trackingNumber: data.trackingNumber,
                             onCopy: () async {
                               await Clipboard.setData(
@@ -102,7 +127,7 @@ class OrderTrackingPage extends ConsumerWidget {
                               if (!context.mounted) {
                                 return;
                               }
-                              _snack(context, 'Copied tracking number');
+                              _snack(context, l10n.orderTrackingCopiedNumber);
                             },
                           ),
                           const SizedBox(height: 24),
@@ -208,10 +233,12 @@ class _OrderProgressBar extends StatelessWidget {
 
 class _TrackingNumberCard extends StatelessWidget {
   const _TrackingNumberCard({
+    required this.label,
     required this.trackingNumber,
     required this.onCopy,
   });
 
+  final String label;
   final String trackingNumber;
   final VoidCallback onCopy;
 
@@ -231,7 +258,7 @@ class _TrackingNumberCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'Tracking Number',
+                    label,
                     style: theme.textTheme.titleSmall?.copyWith(
                       fontWeight: FontWeight.w800,
                     ),

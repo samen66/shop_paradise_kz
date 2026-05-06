@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../payment_card_option.dart';
 import 'payment_card_form.dart';
 
@@ -17,6 +19,7 @@ Future<PaymentCardOption?> showPaymentCardEditorSheet(
       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
     ),
     builder: (BuildContext ctx) {
+      final AppLocalizations l10n = ctx.l10n;
       return Padding(
         padding: EdgeInsets.only(
           bottom: MediaQuery.viewInsetsOf(ctx).bottom,
@@ -41,7 +44,7 @@ Future<PaymentCardOption?> showPaymentCardEditorSheet(
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  editing ? 'Edit card' : 'Add card',
+                  editing ? l10n.paymentEditCardTitle : l10n.paymentAddCardTitle,
                   key: editing
                       ? const Key('edit_card_sheet_title')
                       : const Key('add_card_sheet_title'),
@@ -54,7 +57,7 @@ Future<PaymentCardOption?> showPaymentCardEditorSheet(
             PaymentCardForm(
               existing: existing,
               showIntro: false,
-              primaryButtonLabel: 'Save changes',
+              primaryButtonLabel: l10n.paymentSaveChanges,
               onSubmit: (PaymentCardOption r) {
                 Navigator.of(ctx).pop(r);
               },

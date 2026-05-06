@@ -1,21 +1,31 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../core/locale/app_locale_override_provider.dart';
+import '../../../../core/locale/app_locale_provider.dart';
+import '../../../../core/locale/supported_language.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../widgets/settings_subpage_header.dart';
 
 const Color _kInactiveLanguageTileBg = Color(0xFFF8F8F8);
 const Color _kInactiveLanguageRadioFill = Color(0xFFFAD0D0);
 
 /// **Settings** → **Language**: pick app UI language (Slada-style cards).
+///
+/// Tiles are derived from [SupportedLanguage.values] so adding a new language
+/// is a single-line change in the enum.
 class SettingsLanguagePage extends ConsumerWidget {
   const SettingsLanguagePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final Locale effectiveLocale = Localizations.localeOf(context);
-    final String selectedCode = effectiveLocale.languageCode;
+    final AppLocalizations l10n = AppLocalizations.of(context)!;
+    final Locale? selectedLocale = ref.watch(appLocaleProvider);
+    final SupportedLanguage? selectedLanguage = selectedLocale == null
+        ? null
+        : SupportedLanguage.fromCode(selectedLocale.languageCode);
 
     return Scaffold(
       key: const Key('settings_language_page'),
@@ -24,70 +34,35 @@ class SettingsLanguagePage extends ConsumerWidget {
         child: ListView(
           padding: const EdgeInsets.fromLTRB(0, 8, 0, 32),
           children: <Widget>[
-            const SettingsSubpageHeader(subtitle: 'Language'),
+            SettingsSubpageHeader(subtitle: l10n.languagePageTitle),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: <Widget>[
                   _LanguageOptionTile(
-                    key: const Key('settings_language_option_en'),
-                    label: 'English',
-                    selected: selectedCode == 'en',
-                    onTap: () {
-                      ref.read(appLocaleOverrideProvider.notifier).state =
-                          const Locale('en');
-                    },
+                    key: const Key('settings_language_option_system'),
+                    label: l10n.languageFollowSystem,
+                    selected: selectedLanguage == null,
+                    onTap: () => unawaited(
+                      ref
+                          .read(appLocaleProvider.notifier)
+                          .useSystemLanguage(),
+                    ),
                   ),
-                  const SizedBox(height: 12),
-                  _LanguageOptionTile(
-                    key: const Key('settings_language_option_kk'),
-                    label: 'Қазақша',
-                    selected: selectedCode == 'kk',
-                    onTap: () {
-                      ref.read(appLocaleOverrideProvider.notifier).state =
-                          const Locale('kk');
-                    },
-                  ),
-                  const SizedBox(height: 12),
-                  _LanguageOptionTile(
-                    key: const Key('settings_language_option_fr'),
-                    label: 'Français',
-                    selected: false,
-                    onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text(
-                            'French is not available yet — try English or Russian.',
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 12),
-                  _LanguageOptionTile(
-                    key: const Key('settings_language_option_ru'),
-                    label: 'Русский',
-                    selected: selectedCode == 'ru',
-                    onTap: () {
-                      ref.read(appLocaleOverrideProvider.notifier).state =
-                          const Locale('ru');
-                    },
-                  ),
-                  const SizedBox(height: 12),
-                  _LanguageOptionTile(
-                    key: const Key('settings_language_option_vi'),
-                    label: 'Tiếng Việt',
-                    selected: false,
-                    onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text(
-                            'Vietnamese is not available yet — try English or Russian.',
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+                  for (final SupportedLanguage language
+                      in SupportedLanguage.values) ...<Widget>[
+                    const SizedBox(height: 12),
+                    _LanguageOptionTile(
+                      key: Key('settings_language_option_${language.code}'),
+                      label: language.nativeLabel,
+                      selected: selectedLanguage == language,
+                      onTap: () => unawaited(
+                        ref
+                            .read(appLocaleProvider.notifier)
+                            .setLanguage(language),
+                      ),
+                    ),
+                  ],
                 ],
               ),
             ),
@@ -164,15 +139,18 @@ class _LanguageOptionTile extends StatelessWidget {
   }
 }
 
-String settingsLanguageDisplayLabel(Locale locale) {
-  switch (locale.languageCode) {
-    case 'en':
-      return 'English';
-    case 'kk':
-      return 'Қазақша';
-    case 'ru':
-      return 'Русский';
-    default:
-      return 'English';
+/// Label shown next to the **Language** row on the Settings hub.
+///
+/// Returns the language's native label when overridden, or the localized
+/// "Follow system" string when the user follows the device locale.
+String settingsLanguageDisplayLabel(
+  AppLocalizations l10n,
+  Locale? overrideLocale,
+) {
+  if (overrideLocale == null) {
+    return l10n.languageFollowSystem;
   }
+  final SupportedLanguage? language =
+      SupportedLanguage.fromCode(overrideLocale.languageCode);
+  return language?.nativeLabel ?? l10n.languageFollowSystem;
 }

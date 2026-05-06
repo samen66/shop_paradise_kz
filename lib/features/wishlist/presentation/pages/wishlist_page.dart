@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
 import '../../../product_details/presentation/pages/product_details_page.dart';
 import '../../domain/entities/wishlist_entities.dart';
 import '../mappers/wishlist_item_to_home_item.dart';
@@ -27,7 +28,7 @@ class WishlistPage extends ConsumerWidget {
               const Icon(Icons.error_outline, size: 48),
               const SizedBox(height: 12),
               Text(
-                'Failed to load wishlist',
+                context.l10n.wishlistFailedToLoad,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 8),
@@ -39,7 +40,7 @@ class WishlistPage extends ConsumerWidget {
                       .read(wishlistControllerProvider.notifier)
                       .restoreWishlist();
                 },
-                child: const Text('Try again'),
+                child: Text(context.l10n.commonTryAgain),
               ),
             ],
           ),
@@ -50,10 +51,10 @@ class WishlistPage extends ConsumerWidget {
           slivers: <Widget>[
             SliverAppBar(
               pinned: true,
-              title: const Text('My Wishlist'),
+              title: Text(context.l10n.wishlistTitle),
               actions: <Widget>[
                 IconButton(
-                  tooltip: 'Clear',
+                  tooltip: context.l10n.commonClear,
                   onPressed: data.isEmpty
                       ? null
                       : () async {
@@ -81,7 +82,7 @@ class WishlistPage extends ConsumerWidget {
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
                   child: Text(
-                    '${data.items.length} saved items',
+                    context.l10n.wishlistSavedCount(data.items.length),
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
@@ -119,13 +120,19 @@ class WishlistPage extends ConsumerWidget {
                           return;
                         }
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('${item.title} removed')),
+                          SnackBar(
+                            content: Text(
+                              context.l10n.wishlistItemRemoved(item.title),
+                            ),
+                          ),
                         );
                       },
                       onAddToCart: () {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text('${item.title} added to cart'),
+                            content: Text(
+                              context.l10n.wishlistItemAddedToCart(item.title),
+                            ),
                           ),
                         );
                       },

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../../../../core/l10n/l10n_helpers.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/theme/app_colors.dart';
@@ -173,7 +175,7 @@ class VoucherTicketCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      child: const Text('Collected'),
+                      child: Text(context.l10n.voucherCollected),
                     ),
                 ],
               ),

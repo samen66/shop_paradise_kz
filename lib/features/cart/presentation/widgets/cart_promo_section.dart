@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
+
 import '../../domain/entities/cart_entities.dart';
 
 class CartPromoSection extends StatelessWidget {
@@ -96,7 +98,7 @@ class CartPromoSection extends StatelessWidget {
                 controller: codeController,
                 textCapitalization: TextCapitalization.characters,
                 decoration: InputDecoration(
-                  hintText: 'Enter code',
+                  hintText: context.l10n.cartPromoCodeHint,
                   errorText: promo.errorMessage,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
@@ -109,7 +111,7 @@ class CartPromoSection extends StatelessWidget {
                 width: double.infinity,
                 child: FilledButton(
                   onPressed: onApply,
-                  child: const Text('Apply'),
+                  child: Text(context.l10n.commonApply),
                 ),
               ),
             ],

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../providers/shopping_notes_providers.dart';
 
 /// Bar chart of total amounts per note category (local Drift data).
@@ -20,6 +22,7 @@ class SpendingAnalyticsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final AppLocalizations l10n = context.l10n;
     final AsyncValue<Map<String, double>> sums =
         ref.watch(spendingByCategoryProvider);
     return Scaffold(
@@ -28,7 +31,7 @@ class SpendingAnalyticsPage extends ConsumerWidget {
           icon: const Icon(Icons.close),
           onPressed: () => context.pop(),
         ),
-        title: const Text('Spending by category'),
+        title: Text(l10n.spendingByCategoryTitle),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -37,10 +40,10 @@ class SpendingAnalyticsPage extends ConsumerWidget {
           error: (Object e, StackTrace st) => SelectableText.rich(
             TextSpan(
               children: <InlineSpan>[
-                const TextSpan(
-                  text: 'Failed to load chart data.\n',
+                TextSpan(
+                  text: l10n.spendingAnalyticsLoadError,
                   style: TextStyle(
-                    color: Colors.red,
+                    color: Theme.of(context).colorScheme.error,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -52,7 +55,7 @@ class SpendingAnalyticsPage extends ConsumerWidget {
             if (data.isEmpty) {
               return Center(
                 child: Text(
-                  'Add shopping notes with categories and amounts to see the chart.',
+                  l10n.spendingAnalyticsEmptyPrompt,
                   style: Theme.of(context).textTheme.bodyLarge,
                   textAlign: TextAlign.center,
                 ),
@@ -72,7 +75,7 @@ class SpendingAnalyticsPage extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Text(
-                  'Totals from your local notes (works offline).',
+                  l10n.spendingAnalyticsSubtitle,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: 16),

@@ -6,3 +6,8 @@ import '../../l10n/app_localizations.dart';
 AppLocalizations? tryAppLocalizations(BuildContext context) {
   return AppLocalizations.of(context);
 }
+
+extension AppLocalizationsX on BuildContext {
+  /// Localizations for this route; requires [MaterialApp] delegates.
+  AppLocalizations get l10n => AppLocalizations.of(this)!;
+}

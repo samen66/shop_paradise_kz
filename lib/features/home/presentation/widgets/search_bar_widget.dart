@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
 import '../../../category_filter/presentation/pages/category_filter_page.dart';
 
 class SearchBarWidget extends StatelessWidget {
@@ -8,6 +9,8 @@ class SearchBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
+    final String searchHint = context.l10n.homeMarketSearchPlaceholderShort;
+    final String filterTooltip = context.l10n.homeMarketCategoryFiltersTooltip;
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
       child: Row(
@@ -16,7 +19,7 @@ class SearchBarWidget extends StatelessWidget {
             child: TextField(
               readOnly: true,
               decoration: InputDecoration(
-                hintText: 'Search',
+                hintText: searchHint,
                 prefixIcon: const Icon(Icons.search),
                 filled: true,
                 fillColor: colorScheme.surfaceContainerHighest,
@@ -38,7 +41,7 @@ class SearchBarWidget extends StatelessWidget {
               );
             },
             icon: const Icon(Icons.tune),
-            tooltip: 'Category filters',
+            tooltip: filterTooltip,
           ),
         ],
       ),

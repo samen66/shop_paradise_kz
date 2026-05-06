@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
 import '../../domain/entities/home_entities.dart';
 import '../providers/just_for_you_pagination_controller.dart';
 import 'category_section_widget.dart';
@@ -67,7 +68,9 @@ class HomeSectionRenderer extends ConsumerWidget {
                   }
                 },
                 child: Text(
-                  state.items.isEmpty ? 'Retry' : 'Retry loading more',
+                  state.items.isEmpty
+                      ? context.l10n.commonRetry
+                      : context.l10n.homeJustForYouRetryLoadingMore,
                 ),
               ),
             ),

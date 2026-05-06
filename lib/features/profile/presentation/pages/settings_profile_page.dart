@@ -3,7 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../auth/presentation/auth_providers.dart';
 import '../../domain/entities/profile_entities.dart' show ProfileHubEntity;
 import '../providers/profile_providers.dart';
@@ -34,6 +36,7 @@ class _SettingsProfilePageState extends ConsumerState<SettingsProfilePage> {
   }
 
   Future<void> _onSave() async {
+    final AppLocalizations l10n = context.l10n;
     if (_saving) {
       return;
     }
@@ -61,7 +64,7 @@ class _SettingsProfilePageState extends ConsumerState<SettingsProfilePage> {
       final String email = _emailCtrl.text.trim();
       if (name.isEmpty) {
         setState(() {
-          _firebaseSaveError = 'Display name cannot be empty.';
+          _firebaseSaveError = l10n.settingsProfileDisplayNameEmpty;
         });
         return;
       }
@@ -80,9 +83,7 @@ class _SettingsProfilePageState extends ConsumerState<SettingsProfilePage> {
       }
       if (wantsEmailChange) {
         setState(() {
-          _firebaseSaveInfo =
-              'We sent a confirmation link to $email. Open it to '
-              'complete the email change.';
+          _firebaseSaveInfo = l10n.settingsProfileEmailConfirmSent(email);
         });
       } else {
         Navigator.of(context).pop();
@@ -115,13 +116,24 @@ class _SettingsProfilePageState extends ConsumerState<SettingsProfilePage> {
       });
     });
 
+    final AppLocalizations l10n = context.l10n;
     final AsyncValue<ProfileHubEntity> hub = ref.watch(profileHubProvider);
     return hub.when(
       loading: () => const Scaffold(
         body: Center(child: CircularProgressIndicator()),
       ),
       error: (Object e, StackTrace _) => Scaffold(
-        body: Center(child: Text('Error: $e')),
+        body: Center(
+          child: SelectableText.rich(
+            TextSpan(
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.error,
+              ),
+              text: l10n.errorMessageWithDetails(e.toString()),
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
       ),
       data: (ProfileHubEntity data) {
         return _buildScaffold(context, data.user.avatarUrl);
@@ -130,6 +142,7 @@ class _SettingsProfilePageState extends ConsumerState<SettingsProfilePage> {
   }
 
   Widget _buildScaffold(BuildContext context, String avatarUrl) {
+    final AppLocalizations l10n = context.l10n;
     final ColorScheme scheme = Theme.of(context).colorScheme;
     return Scaffold(
       backgroundColor: AppColors.surface,
@@ -137,7 +150,7 @@ class _SettingsProfilePageState extends ConsumerState<SettingsProfilePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            const SettingsSubpageHeader(subtitle: 'Your Profile'),
+            SettingsSubpageHeader(subtitle: l10n.settingsYourProfile),
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
@@ -170,8 +183,8 @@ class _SettingsProfilePageState extends ConsumerState<SettingsProfilePage> {
                               customBorder: const CircleBorder(),
                               onTap: () {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Photo editor coming soon'),
+                                  SnackBar(
+                                    content: Text(l10n.profilePhotoEditorSoon),
                                   ),
                                 );
                               },
@@ -194,7 +207,7 @@ class _SettingsProfilePageState extends ConsumerState<SettingsProfilePage> {
                     key: const Key('settings_profile_name_field'),
                     controller: _nameCtrl,
                     decoration: InputDecoration(
-                      labelText: 'Name',
+                      labelText: l10n.settingsProfileNameLabel,
                       filled: true,
                       fillColor: AppColors.blobLightBlue.withValues(alpha: 0.45),
                       border: OutlineInputBorder(
@@ -209,7 +222,7 @@ class _SettingsProfilePageState extends ConsumerState<SettingsProfilePage> {
                     controller: _emailCtrl,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-                      labelText: 'Email',
+                      labelText: l10n.loginEmailLabel,
                       filled: true,
                       fillColor: AppColors.blobLightBlue.withValues(alpha: 0.45),
                       border: OutlineInputBorder(
@@ -224,7 +237,7 @@ class _SettingsProfilePageState extends ConsumerState<SettingsProfilePage> {
                     obscureText: true,
                     readOnly: true,
                     decoration: InputDecoration(
-                      labelText: 'Password',
+                      labelText: l10n.loginPasswordLabel,
                       hintText: '••••••••••••',
                       filled: true,
                       fillColor: AppColors.blobLightBlue.withValues(alpha: 0.45),
@@ -271,7 +284,7 @@ class _SettingsProfilePageState extends ConsumerState<SettingsProfilePage> {
                               color: AppColors.onPrimary,
                             ),
                           )
-                        : const Text('Save changes'),
+                        : Text(l10n.settingsSaveChanges),
                   ),
                 ],
               ),

@@ -3,7 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:shop_paradise_kz/core/prefs/app_preferences_keys.dart';
+import 'package:shop_paradise_kz/core/prefs/shared_preferences_provider.dart';
 import 'package:shop_paradise_kz/features/cart/presentation/pages/cart_page.dart';
 import 'package:shop_paradise_kz/features/login/presentation/pages/login_page.dart';
 import 'package:shop_paradise_kz/features/orders/presentation/pages/orders_page.dart';
@@ -18,7 +21,18 @@ void main() {
     WidgetTester tester, {
     required ShopParadiseApp app,
   }) async {
-    await tester.pumpWidget(ProviderScope(child: app));
+    SharedPreferences.setMockInitialValues(<String, Object>{
+      AppPreferencesKeys.onboardingCompleted: true,
+    });
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: <Override>[
+          sharedPreferencesProvider.overrideWithValue(prefs),
+        ],
+        child: app,
+      ),
+    );
   }
 
   testWidgets('Welcome shows Russian CTA when locale is ru', (

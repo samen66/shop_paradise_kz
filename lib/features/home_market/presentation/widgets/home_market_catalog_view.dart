@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
+import '../../../../l10n/app_localizations.dart';
+
 import '../../domain/home_market_catalog_product.dart';
+import '../home_market_catalog_l10n.dart';
 
 /// Scrollable marketplace catalog: search, category chips, product grid.
 ///
@@ -20,56 +24,43 @@ class HomeMarketCatalogView extends StatefulWidget {
   /// If null, grid cards are not tappable except the add-to-cart button.
   final void Function(HomeMarketCatalogProduct product)? onProductTap;
 
-  static const List<String> categoryLabels = <String>[
-    'All',
-    'Groceries',
-    'Home Goods',
-    'Decor',
-  ];
-
   static const List<HomeMarketCatalogProduct> products =
       <HomeMarketCatalogProduct>[
         HomeMarketCatalogProduct(
           id: 'fresh-fruit-basket',
           image: '🛒',
-          title: 'Fresh Fruit Basket',
           price: 12.90,
-          category: 'Groceries',
+          categoryId: 'groceries',
         ),
         HomeMarketCatalogProduct(
           id: 'kitchen-storage-set',
           image: '🫙',
-          title: 'Kitchen Storage Set',
           price: 24.50,
-          category: 'Home Goods',
+          categoryId: 'home_goods',
         ),
         HomeMarketCatalogProduct(
           id: 'scented-candle-trio',
           image: '🕯️',
-          title: 'Scented Candle Trio',
           price: 18.00,
-          category: 'Decor',
+          categoryId: 'decor',
         ),
         HomeMarketCatalogProduct(
           id: 'laundry-organizer',
           image: '🧺',
-          title: 'Laundry Organizer',
           price: 29.99,
-          category: 'Home Goods',
+          categoryId: 'home_goods',
         ),
         HomeMarketCatalogProduct(
           id: 'indoor-plant-kit',
           image: '🌿',
-          title: 'Indoor Plant Kit',
           price: 34.75,
-          category: 'Decor',
+          categoryId: 'decor',
         ),
         HomeMarketCatalogProduct(
           id: 'organic-dairy-bundle',
           image: '🥛',
-          title: 'Organic Dairy Bundle',
           price: 16.40,
-          category: 'Groceries',
+          categoryId: 'groceries',
         ),
       ];
 
@@ -79,18 +70,33 @@ class HomeMarketCatalogView extends StatefulWidget {
 
 class _HomeMarketCatalogViewState extends State<HomeMarketCatalogView> {
   String _query = '';
-  String _selectedCategory = HomeMarketCatalogView.categoryLabels.first;
+  String _selectedCategoryId = HomeMarketCatalogL10n.categoryIds.first;
 
-  List<HomeMarketCatalogProduct> get _filteredProducts {
+  bool _productMatches(
+    HomeMarketCatalogProduct product,
+    AppLocalizations l10n,
+  ) {
+    final bool categoryMatches = _selectedCategoryId == 'all' ||
+        product.categoryId == _selectedCategoryId;
+    if (!categoryMatches) {
+      return false;
+    }
+    if (_query.isEmpty) {
+      return true;
+    }
+    final String q = _query.toLowerCase();
+    final String title = l10n.homeMarketProductTitle(product.id).toLowerCase();
+    final String cat =
+        l10n.homeMarketCategoryLabel(product.categoryId).toLowerCase();
+    return title.contains(q) || cat.contains(q) || product.id.contains(q);
+  }
+
+  List<HomeMarketCatalogProduct> _filteredProducts(AppLocalizations l10n) {
     return HomeMarketCatalogView.products
-        .where((HomeMarketCatalogProduct product) {
-          final bool categoryMatches = _selectedCategory == 'All' ||
-              product.category.toLowerCase() ==
-                  _selectedCategory.toLowerCase();
-          final bool queryMatches = _query.isEmpty ||
-              product.title.toLowerCase().contains(_query.toLowerCase());
-          return categoryMatches && queryMatches;
-        })
+        .where(
+          (HomeMarketCatalogProduct product) =>
+              _productMatches(product, l10n),
+        )
         .toList(growable: false);
   }
 
@@ -98,6 +104,8 @@ class _HomeMarketCatalogViewState extends State<HomeMarketCatalogView> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colors = theme.colorScheme;
+    final AppLocalizations l10n = context.l10n;
+    final List<HomeMarketCatalogProduct> filtered = _filteredProducts(l10n);
 
     final List<Widget> slivers = <Widget>[];
 
@@ -106,7 +114,7 @@ class _HomeMarketCatalogViewState extends State<HomeMarketCatalogView> {
         SliverAppBar(
           pinned: true,
           expandedHeight: 150,
-          title: const Text('Home Marketplace'),
+          title: Text(l10n.homeMarketplaceTitle),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(76),
             child: Padding(
@@ -117,9 +125,9 @@ class _HomeMarketCatalogViewState extends State<HomeMarketCatalogView> {
                     _query = value.trim();
                   });
                 },
-                decoration: const InputDecoration(
-                  hintText: 'Search products, brands, supplies...',
-                  prefixIcon: Icon(Icons.search),
+                decoration: InputDecoration(
+                  hintText: l10n.homeMarketSearchHint,
+                  prefixIcon: const Icon(Icons.search),
                 ),
               ),
             ),
@@ -138,9 +146,9 @@ class _HomeMarketCatalogViewState extends State<HomeMarketCatalogView> {
                   _query = value.trim();
                 });
               },
-              decoration: const InputDecoration(
-                hintText: 'Search products, brands, supplies...',
-                prefixIcon: Icon(Icons.search),
+              decoration: InputDecoration(
+                hintText: l10n.homeMarketSearchHint,
+                prefixIcon: const Icon(Icons.search),
               ),
             ),
           ),
@@ -156,15 +164,15 @@ class _HomeMarketCatalogViewState extends State<HomeMarketCatalogView> {
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             itemBuilder: (BuildContext context, int index) {
-              final String category =
-                  HomeMarketCatalogView.categoryLabels[index];
-              final bool isSelected = category == _selectedCategory;
+              final String categoryId =
+                  HomeMarketCatalogL10n.categoryIds[index];
+              final bool isSelected = categoryId == _selectedCategoryId;
               return ChoiceChip(
-                label: Text(category),
+                label: Text(l10n.homeMarketCategoryLabel(categoryId)),
                 selected: isSelected,
                 onSelected: (_) {
                   setState(() {
-                    _selectedCategory = category;
+                    _selectedCategoryId = categoryId;
                   });
                 },
                 selectedColor: colors.primary.withValues(alpha: 0.18),
@@ -175,7 +183,7 @@ class _HomeMarketCatalogViewState extends State<HomeMarketCatalogView> {
               );
             },
             separatorBuilder: (_, __) => const SizedBox(width: 10),
-            itemCount: HomeMarketCatalogView.categoryLabels.length,
+            itemCount: HomeMarketCatalogL10n.categoryIds.length,
           ),
         ),
       ),
@@ -184,8 +192,7 @@ class _HomeMarketCatalogViewState extends State<HomeMarketCatalogView> {
         sliver: SliverGrid(
           delegate: SliverChildBuilderDelegate(
             (BuildContext context, int index) {
-              final HomeMarketCatalogProduct product =
-                  _filteredProducts[index];
+              final HomeMarketCatalogProduct product = filtered[index];
               final Widget card = Card(
                 child: Padding(
                   padding: const EdgeInsets.all(12),
@@ -207,7 +214,7 @@ class _HomeMarketCatalogViewState extends State<HomeMarketCatalogView> {
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        product.title,
+                        l10n.homeMarketProductTitle(product.id),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: theme.textTheme.titleSmall?.copyWith(
@@ -227,7 +234,7 @@ class _HomeMarketCatalogViewState extends State<HomeMarketCatalogView> {
                       FilledButton.icon(
                         onPressed: () {},
                         icon: const Icon(Icons.add_shopping_cart_outlined),
-                        label: const Text('Add to Cart'),
+                        label: Text(l10n.productAddToCartShort),
                       ),
                     ],
                   ),
@@ -244,7 +251,7 @@ class _HomeMarketCatalogViewState extends State<HomeMarketCatalogView> {
                 child: card,
               );
             },
-            childCount: _filteredProducts.length,
+            childCount: filtered.length,
           ),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
