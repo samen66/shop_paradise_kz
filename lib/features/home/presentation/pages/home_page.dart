@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/l10n/l10n_helpers.dart';
 import '../../../../l10n/app_localizations.dart';
 
-import '../../../ai_interior/presentation/pages/ai_interior_page.dart';
 import '../../../home_market/domain/home_market_catalog_product.dart';
 import '../../../home_market/presentation/widgets/home_market_catalog_view.dart';
 import '../../../product_details/presentation/pages/product_details_page.dart';
@@ -16,11 +16,7 @@ class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   void _openAi(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (_) => const AiInteriorPage(),
-      ),
-    );
+    context.push('/ai-design');
   }
 
   void _openServiceHub(BuildContext context) {

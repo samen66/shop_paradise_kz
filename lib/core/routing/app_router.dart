@@ -3,6 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../features/ai_design/screens/ai_hub_screen.dart';
+import '../../features/ai_design/screens/analysis_settings_screen.dart';
+import '../../features/ai_design/screens/analyzing_screen.dart';
+import '../../features/ai_design/screens/history_screen.dart';
+import '../../features/ai_design/screens/result_screen.dart';
+import '../../features/ai_design/screens/services_screen.dart';
+import '../../features/ai_design/screens/upload_photo_screen.dart';
 import '../../features/onboarding/presentation/pages/onboarding_page.dart';
 import '../../features/shopping_notes/presentation/pages/shopping_notes_page.dart';
 import '../../features/shopping_notes/presentation/pages/spending_analytics_page.dart';
@@ -82,6 +89,48 @@ GoRouter buildAppRouter({
               );
             },
           );
+        },
+      ),
+      GoRoute(
+        path: '/ai-design',
+        builder: (BuildContext context, GoRouterState state) {
+          return const AiHubScreen();
+        },
+      ),
+      GoRoute(
+        path: '/ai-design/upload',
+        builder: (BuildContext context, GoRouterState state) {
+          return const UploadPhotoScreen();
+        },
+      ),
+      GoRoute(
+        path: '/ai-design/settings',
+        builder: (BuildContext context, GoRouterState state) {
+          return const AnalysisSettingsScreen();
+        },
+      ),
+      GoRoute(
+        path: '/ai-design/analyzing',
+        builder: (BuildContext context, GoRouterState state) {
+          return const AnalyzingScreen();
+        },
+      ),
+      GoRoute(
+        path: '/ai-design/result',
+        builder: (BuildContext context, GoRouterState state) {
+          return const ResultScreen();
+        },
+      ),
+      GoRoute(
+        path: '/ai-design/services',
+        builder: (BuildContext context, GoRouterState state) {
+          return const ServicesScreen();
+        },
+      ),
+      GoRoute(
+        path: '/ai-design/history',
+        builder: (BuildContext context, GoRouterState state) {
+          return const HistoryScreen();
         },
       ),
       GoRoute(
