@@ -19,7 +19,12 @@ import 'widgets/app_web_shell_header.dart';
 ///
 /// Tabs are local state; top-level [GoRouter] uses a single `/shop` route.
 class AppShellPage extends ConsumerStatefulWidget {
-  const AppShellPage({super.key});
+  const AppShellPage({
+    super.key,
+    this.initialTabIndex = 0,
+  });
+
+  final int initialTabIndex;
 
   @override
   ConsumerState<AppShellPage> createState() => _AppShellPageState();
@@ -27,7 +32,8 @@ class AppShellPage extends ConsumerStatefulWidget {
 
 class _AppShellPageState extends ConsumerState<AppShellPage> {
   static const double _wideLayoutBreakpoint = 600;
-  int _selectedIndex = 0;
+  static const int _maxTabIndex = 4;
+  late int _selectedIndex;
 
   late final List<Widget> _pages = shellNavDestinations
       .asMap()
@@ -48,6 +54,12 @@ class _AppShellPageState extends ConsumerState<AppShellPage> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.initialTabIndex.clamp(0, _maxTabIndex);
   }
 
   @override

@@ -11,6 +11,10 @@ import '../../features/ai_design/screens/result_screen.dart';
 import '../../features/ai_design/screens/services_screen.dart';
 import '../../features/ai_design/screens/upload_photo_screen.dart';
 import '../../features/onboarding/presentation/pages/onboarding_page.dart';
+import '../../features/service_hub/presentation/pages/service_create_step1_page.dart';
+import '../../features/service_hub/presentation/pages/service_hub_page.dart';
+import '../../features/service_hub/presentation/pages/service_jobs_feed_page.dart';
+import '../../features/service_hub/presentation/pages/service_role_select_page.dart';
 import '../../features/shopping_notes/presentation/pages/shopping_notes_page.dart';
 import '../../features/shopping_notes/presentation/pages/spending_analytics_page.dart';
 import '../../features/shell/presentation/app_shell_page.dart';
@@ -146,9 +150,43 @@ GoRouter buildAppRouter({
         },
       ),
       GoRoute(
+        path: '/services',
+        builder: (BuildContext context, GoRouterState state) {
+          return const ServiceHubPage();
+        },
+      ),
+      GoRoute(
+        path: '/services/role-select',
+        builder: (BuildContext context, GoRouterState state) {
+          return const ServiceRoleSelectPage();
+        },
+      ),
+      GoRoute(
+        path: '/services/create/step1',
+        builder: (BuildContext context, GoRouterState state) {
+          final bool fromAi =
+              state.uri.queryParameters['fromAi']?.toLowerCase() == 'true';
+          return ServiceCreateStep1Page(fromAi: fromAi);
+        },
+      ),
+      GoRoute(
+        path: '/services/jobs',
+        builder: (BuildContext context, GoRouterState state) {
+          return const ServiceJobsFeedPage();
+        },
+      ),
+      GoRoute(
         path: '/shop',
         builder: (BuildContext context, GoRouterState state) {
-          return const AppShellPage();
+          final String tab = state.uri.queryParameters['tab'] ?? '';
+          final int initialTabIndex = switch (tab) {
+            'wishlist' => 1,
+            'orders' => 2,
+            'cart' => 3,
+            'profile' => 4,
+            _ => 0,
+          };
+          return AppShellPage(initialTabIndex: initialTabIndex);
         },
       ),
     ],

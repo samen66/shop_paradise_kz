@@ -59,6 +59,17 @@ class _ResultScreenState extends ConsumerState<ResultScreen>
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+              return;
+            }
+            context.go('/ai-design');
+          },
+          icon: const Icon(Icons.arrow_back),
+          tooltip: 'Назад',
+        ),
         title: const Text('Результаты'),
         bottom: TabBar(
           controller: _tabs,
