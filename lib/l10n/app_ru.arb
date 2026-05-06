@@ -9,6 +9,15 @@
   "loginEmailLabel": "Эл. почта",
   "loginPasswordLabel": "Пароль",
   "loginCloseAction": "Закрыть",
+  "loginContinueWithGoogle": "Продолжить с Google",
+  "loginGoogleSignInFailed": "Вход через Google не удался: {message}",
+  "@loginGoogleSignInFailed": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
   "webHeaderCatalog": "Каталог",
   "webHeaderSearchPlaceholder": "Введите запрос",
   "webHeaderLinkPromotions": "Акции",
@@ -91,5 +100,463 @@
   "createAccountSuccess": "Данные аккаунта приняты. Вход будет подключён позже.",
   "createAccountAvatarSemanticLabel": "Добавить фото профиля",
   "createAccountAvatarUnavailable": "Загрузка фото недоступна в этой сборке.",
-  "loginCreateAccountLink": "Создать аккаунт"
+  "loginCreateAccountLink": "Создать аккаунт",
+  "settingsThemeSection": "Оформление",
+  "themeModeSystem": "Как в системе",
+  "themeModeLight": "Светлая",
+  "themeModeDark": "Тёмная",
+  "settingsDailyReminderTitle": "Ежедневное напоминание о заметках",
+  "settingsDailyReminderSubtitle": "Раз в день в 20:00 (время устройства)",
+  "onboardingSkip": "Пропустить",
+  "onboardingNext": "Далее",
+  "onboardingStart": "Начать",
+  "onboardingPage1Title": "Выбирайте спокойно",
+  "onboardingPage1Body": "Мебель и декор в одном месте — для вашего дома.",
+  "onboardingPage2Title": "Учитывайте траты",
+  "onboardingPage2Body": "Офлайн-заметки о ценах и категориях — в любое время.",
+  "onboardingPage3Title": "Данные у вас",
+  "onboardingPage3Body": "Заметки на устройстве; вход — когда нужны облачные функции.",
+  "exportShoppingNotesCsv": "Экспорт CSV",
+  "exportShoppingNotesPdf": "Экспорт PDF",
+  "exportShoppingNotesEmpty": "Нет заметок для экспорта.",
+  "exportShoppingNotesFailed": "Экспорт не удался: {message}",
+  "@exportShoppingNotesFailed": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "shoppingNotesCsvHeaderId": "id",
+  "shoppingNotesCsvHeaderTitle": "title",
+  "shoppingNotesCsvHeaderBody": "body",
+  "shoppingNotesCsvHeaderCategory": "category",
+  "shoppingNotesCsvHeaderCategoryId": "category_id",
+  "shoppingNotesCsvHeaderAmount": "amount",
+  "shoppingNotesCsvHeaderSynced": "synced_to_remote",
+  "shoppingNotesCsvHeaderCreated": "created_at_utc",
+  "shoppingNotesCsvHeaderUpdated": "updated_at_utc",
+  "shoppingNotesPdfTitle": "Shopping notes",
+  "shoppingNotesPdfHeaderId": "ID",
+  "shoppingNotesPdfHeaderTitle": "Title",
+  "shoppingNotesPdfHeaderCategory": "Category",
+  "shoppingNotesPdfHeaderAmount": "Amount",
+  "settingsTitle": "Настройки",
+  "settingsSectionPersonal": "Личное",
+  "settingsSectionShop": "Магазин",
+  "settingsSectionAccount": "Аккаунт",
+  "settingsRowProfile": "Профиль",
+  "settingsRowShippingAddress": "Адрес доставки",
+  "settingsRowPaymentMethods": "Способы оплаты",
+  "settingsRowShoppingNotes": "Заметки покупок (офлайн)",
+  "settingsRowSpendingChart": "График расходов",
+  "settingsRowCountry": "Страна",
+  "settingsRowCurrency": "Валюта",
+  "settingsRowSizes": "Размеры",
+  "settingsRowTerms": "Условия использования",
+  "settingsRowLanguage": "Язык",
+  "settingsRowLogout": "Выйти",
+  "settingsRowAbout": "О приложении {appName}",
+  "settingsDeleteAccountAction": "Удалить мой аккаунт",
+  "settingsVersionLabel": "Версия {version} · {buildDate}",
+  "settingsLogoutTitle": "Выйти",
+  "settingsLogoutMessage": "Выйти из аккаунта?",
+  "settingsDeleteAccountTitle": "Удалить аккаунт?",
+  "settingsDeleteAccountMessage": "Вы не сможете восстановить данные. Это только демо.",
+  "settingsDeleteAccountDemoMessage": "Удаление аккаунта недоступно в демо",
+  "settingsComingSoonMessage": "{feature} — скоро",
+  "commonCancel": "Отмена",
+  "commonLogout": "Выйти",
+  "commonDelete": "Удалить",
+  "languagePageTitle": "Язык",
+  "languageFollowSystem": "Как в системе",
+  "languageEnglish": "Английский",
+  "languageKazakh": "Казахский",
+  "languageRussian": "Русский",
+  "appWindowTitle": "Shop Paradise",
+  "commonOk": "ОК",
+  "commonSave": "Сохранить",
+  "commonRetry": "Повторить",
+  "commonSeeAll": "Смотреть все",
+  "homeJustForYouRetryLoadingMore": "Повторить загрузку",
+  "commonTryAgain": "Попробовать снова",
+  "commonApply": "Применить",
+  "commonDone": "Готово",
+  "commonChange": "Изменить",
+  "commonClear": "Очистить",
+  "commonCloseTooltip": "Закрыть",
+  "commonSelectAll": "Выбрать всё",
+  "errorMessageWithDetails": "Ошибка: {message}",
+  "@errorMessageWithDetails": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "loginSubtitleWelcomeBack": "Рады снова вас видеть!  🖤",
+  "loginForgotPassword": "Забыли пароль?",
+  "loginChangeEmail": "Сменить email",
+  "loginPasswordResetSent": "Письмо для сброса пароля отправлено.",
+  "loginEnterEmail": "Введите email",
+  "loginEnterPassword": "Введите пароль",
+  "loginEnterValidEmailFirst": "Сначала введите корректный email",
+  "shopHomeTitle": "Магазин",
+  "cartTitle": "Корзина",
+  "cartFailedToLoad": "Не удалось загрузить корзину",
+  "cartRemovedSelected": "Выбранные позиции удалены",
+  "cartBrowseHomeSnackbar": "Откройте вкладку «Главная», чтобы смотреть товары.",
+  "cartItemRemoved": "{title} удалено",
+  "@cartItemRemoved": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "cartTooltipDeleteSelected": "Удалить выбранное",
+  "cartTooltipSelectItems": "Выбрать позиции",
+  "cartCheckout": "Оформить",
+  "cartSubtotal": "Подытог",
+  "cartDiscountRow": "Скидка",
+  "cartTax": "Налог",
+  "cartFreeLabel": "Бесплатно",
+  "cartTotalRow": "Итого",
+  "cartStartShopping": "Начать покупки",
+  "wishlistFailedToLoad": "Не удалось загрузить избранное",
+  "wishlistSavedCount": "{count} сохранённых товар(ов)",
+  "@wishlistSavedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "wishlistTitle": "Избранное",
+  "wishlistItemRemoved": "{title} удалено",
+  "@wishlistItemRemoved": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "wishlistItemAddedToCart": "{title} добавлено в корзину",
+  "@wishlistItemAddedToCart": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "wishlistRestoreDemo": "Восстановить демо-список",
+  "ordersFailedToLoad": "Не удалось загрузить заказы",
+  "ordersPlacedOn": "Оформлен {when}",
+  "@ordersPlacedOn": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "ordersSheetSummaryLine": "{itemCount} товар(ов) · {total}",
+  "@ordersSheetSummaryLine": {
+    "placeholders": {
+      "itemCount": {
+        "type": "int"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "ordersSheetTrackingPlaceholder": "Полное отслеживание заказа появится здесь после подключения к бэкенду магазина.",
+  "ordersCountHeader": "{count} заказ(ов)",
+  "@ordersCountHeader": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ordersTitle": "Мои заказы",
+  "ordersRestoreDemo": "Восстановить демо-заказы",
+  "orderStatusProcessing": "В обработке",
+  "orderStatusShipped": "Отправлен",
+  "orderStatusDelivered": "Доставлен",
+  "orderStatusCancelled": "Отменён",
+  "orderItemsCount": "{count} товар(ов)",
+  "@orderItemsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeMarketplaceTitle": "Домашний маркетплейс",
+  "homeMarketSearchHint": "Поиск товаров, брендов, расходников...",
+  "homeMarketSearchPlaceholderShort": "Поиск",
+  "homeMarketCategoryFiltersTooltip": "Фильтры категорий",
+  "homeAppBarAiDesignTooltip": "AI-дизайн",
+  "homeAppBarServiceHubTooltip": "Сервис-хаб",
+  "homeMarketCategoryAll": "Все",
+  "homeMarketCategoryGroceries": "Продукты",
+  "homeMarketCategoryHomeGoods": "Товары для дома",
+  "homeMarketCategoryDecor": "Декор",
+  "homeMarketProductFreshFruitBasket": "Корзина свежих фруктов",
+  "homeMarketProductKitchenStorageSet": "Набор ёмкостей для кухни",
+  "homeMarketProductScentedCandleTrio": "Набор ароматических свечей",
+  "homeMarketProductLaundryOrganizer": "Органайзер для белья",
+  "homeMarketProductIndoorPlantKit": "Набор для комнатных растений",
+  "homeMarketProductOrganicDairyBundle": "Набор органических молочных продуктов",
+  "cartPromoCodeHint": "Введите код",
+  "productAddToCart": "В корзину",
+  "productAddToCartShort": "В корзину",
+  "productBuyNow": "Купить сейчас",
+  "productViewAllReviews": "Все отзывы",
+  "productSectionVariations": "Варианты",
+  "productSectionSpecifications": "Характеристики",
+  "productOrigin": "Происхождение",
+  "productDelivery": "Доставка",
+  "productRatingReviews": "Рейтинг и отзывы",
+  "productMostPopular": "Популярное",
+  "productYouMightLike": "Вам может понравиться",
+  "productSizeGuideFallback": "Таблица размеров",
+  "productNoReviewsYet": "Пока нет отзывов.",
+  "productOriginFallbackEu": "ЕС",
+  "productSpecLine": "{label}  {value}",
+  "@productSpecLine": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      },
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "categoryFilterAllCategoriesTitle": "Все категории",
+  "categoryFilterSearchHint": "Поиск категорий",
+  "categoryFilterEmpty": "Нет категорий",
+  "categoryFilterClearAllFilters": "Сбросить фильтры",
+  "categoryFilterApplyFilters": "Применить фильтры",
+  "paymentPageTitle": "Оплата",
+  "paymentShippingAddressCardTitle": "Адрес доставки",
+  "paymentContactInformationTitle": "Контактные данные",
+  "paymentItemsSectionTitle": "Товары",
+  "paymentShippingOptionsTitle": "Варианты доставки",
+  "paymentShippingStandard": "Стандарт",
+  "paymentShippingStandardEta": "5–7 дней",
+  "paymentShippingFree": "БЕСПЛАТНО",
+  "paymentShippingExpress": "Экспресс",
+  "paymentShippingExpressEta": "1–2 дня",
+  "paymentDeliverySampleNote": "Доставка не позже четверга, 23 апреля 2020",
+  "paymentMethodSectionTitle": "Способ оплаты",
+  "paymentAddVoucher": "Добавить ваучер",
+  "paymentProcessingTitle": "Обработка платежа",
+  "paymentProcessingSubtitle": "Подождите несколько секунд",
+  "paymentErrorTitle": "Не удалось выполнить оплату",
+  "paymentErrorBody": "Смените способ оплаты или попробуйте снова",
+  "paymentTryAgain": "Повторить",
+  "paymentChangeMethod": "Сменить",
+  "paymentSuccessTitle": "Готово!",
+  "paymentSuccessBody": "Оплата по карте прошла успешно",
+  "paymentTrackOrder": "Отследить заказ",
+  "paymentPercentDiscount": "Скидка {percent}%",
+  "@paymentPercentDiscount": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "paymentNamedDiscount": "Скидка: {name}",
+  "@paymentNamedDiscount": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "paymentTotalLabel": "Итого",
+  "paymentPayButton": "Оплатить",
+  "paymentCountryLabel": "Страна",
+  "paymentSaveChanges": "Сохранить изменения",
+  "paymentAddressLineLabel": "Адрес",
+  "paymentTownCityLabel": "Город",
+  "paymentPostcodeLabel": "Индекс",
+  "paymentPhoneLabel": "Телефон",
+  "paymentEmailLabelField": "Email",
+  "paymentMethodsSubtitle": "Выберите карту для этого заказа. Можно добавить новую или изменить сохранённую.",
+  "paymentEditTooltip": "Изменить",
+  "paymentAddPaymentMethod": "Добавить способ оплаты",
+  "paymentUseThisCard": "Использовать эту карту",
+  "paymentEditCardTitle": "Изменить карту",
+  "paymentAddCardTitle": "Добавить карту",
+  "paymentCardIntroEdit": "Имя и срок можно менять в любое время. Полный номер карты вводите только если хотите заменить карту.",
+  "paymentCardIntroAdd": "Введите данные карты. Это демо — списаний не будет.",
+  "paymentCardCurrentMasked": "Текущая: {masked}",
+  "@paymentCardCurrentMasked": {
+    "placeholders": {
+      "masked": {
+        "type": "String"
+      }
+    }
+  },
+  "paymentCardNumberLabel": "Номер карты",
+  "paymentCardNumberHintKeep": "Оставьте пустым, чтобы сохранить текущий",
+  "paymentCardNumberError": "Введите корректный номер карты",
+  "paymentCardHolderLabel": "Имя на карте",
+  "paymentCardHolderError": "Введите имя держателя",
+  "paymentCardExpiryLabel": "Срок (ММ/ГГ)",
+  "paymentCardExpiryFormatError": "Формат ММ/ГГ",
+  "paymentCardExpiryMonthError": "Неверный месяц",
+  "paymentCardCvvLabel": "CVV",
+  "paymentCardCvvError": "Введите CVV",
+  "paymentBrandVisa": "Visa",
+  "paymentBrandMastercard": "Mastercard",
+  "paymentVouchersActiveTitle": "Активные ваучеры",
+  "paymentVoucherLabel": "Ваучер",
+  "paymentVoucherValid": "Действителен",
+  "serviceHubTitle": "Сервис-хаб",
+  "serviceHubPostSuccess": "Проект успешно опубликован.",
+  "serviceHubPostProject": "Опубликовать проект",
+  "serviceHubBidApply": "Предложить / Откликнуться",
+  "serviceHubTabPostJob": "Разместить заказ",
+  "serviceHubTabBrowseRequests": "Заявки",
+  "serviceHubFormHeading": "Новый проект",
+  "serviceHubFormSubheading": "Опишите задачу и получите предложения от специалистов.",
+  "serviceHubFieldProjectTitle": "Название проекта",
+  "serviceHubFieldProjectTitleHint": "Ремонт сантехники на кухне",
+  "serviceHubFieldProjectTitleError": "Введите название проекта",
+  "serviceHubFieldDescription": "Подробное описание",
+  "serviceHubFieldDescriptionHint": "Опишите объём, сроки и особые пожелания...",
+  "serviceHubFieldDescriptionError": "Добавьте не менее 12 символов",
+  "serviceHubSampleJob1Customer": "Лера",
+  "serviceHubSampleJob1Title": "Ремонт квартиры",
+  "serviceHubSampleJob1Snippet": "Покраска, обновление пола и кухонных фасадов.",
+  "serviceHubSampleJob2Customer": "Аскар",
+  "serviceHubSampleJob2Title": "Генеральная уборка",
+  "serviceHubSampleJob2Snippet": "Уборка при выезде из двухкомнатной квартиры в эти выходные.",
+  "serviceHubSampleJob3Customer": "Дана",
+  "serviceHubSampleJob3Title": "Сборка мебели",
+  "serviceHubSampleJob3Snippet": "Собрать шкаф, стол и две тумбы.",
+  "profilePayNow": "Оплатить",
+  "profileTrack": "Отследить",
+  "profileReview": "Отзыв",
+  "profileOrderHistory": "История заказов",
+  "profileHistoryTitle": "История",
+  "profileTabToPay": "К оплате",
+  "profileTabToReceive": "К получению",
+  "profileTabToReview": "К отзыву",
+  "profileMyOrdersSubtitle": "Мои заказы",
+  "profileNothingHereYet": "Пока пусто",
+  "profilePaymentFlowSoon": "Оплата скоро",
+  "profileFailedToLoad": "Не удалось загрузить профиль",
+  "profileGreeting": "Здравствуйте, {name}!",
+  "@profileGreeting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "profileRecentlyViewed": "Недавно просмотренные",
+  "profileMyOrdersSection": "Мои заказы",
+  "profileStoriesSection": "Истории",
+  "profileMyActivity": "Моя активность",
+  "profileScannerSoon": "Сканер скоро",
+  "profileFiltersSoon": "Фильтры скоро",
+  "orderTrackingPageSubtitle": "Отследите заказ",
+  "orderTrackingNumberLabel": "Трек-номер",
+  "orderTrackingCopiedNumber": "Трек-номер скопирован",
+  "vouchersPageTitle": "Ваучеры",
+  "vouchersTabActiveRewards": "Активные награды",
+  "vouchersTabProgress": "Прогресс",
+  "settingsYourProfile": "Ваш профиль",
+  "settingsChooseCountryPlaceholder": "Выберите страну",
+  "validationFieldRequired": "Обязательно",
+  "settingsProfileDisplayNameEmpty": "Имя не может быть пустым.",
+  "settingsProfileEmailConfirmSent": "Мы отправили ссылку для подтверждения на {email}. Откройте её, чтобы завершить смену email.",
+  "@settingsProfileEmailConfirmSent": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsProfileNameLabel": "Имя",
+  "profileStatOrdered": "Заказано",
+  "profileStatReceived": "Получено",
+  "profileStatToReceive": "К получению",
+  "profileChatNow": "В чат",
+  "profileSayIt": "Написать!",
+  "profileReviewThankYou": "Спасибо за отзыв",
+  "profileNoItemsToReview": "Нет товаров для отзыва",
+  "profileReviewWhichItem": "Какой товар хотите оценить?",
+  "profileDeliveryNotSuccessful": "Доставка не удалась",
+  "profileDeliveryWhatToDo": "Что делать?",
+  "profileDeliveryFailureBody": "Не волнуйтесь, мы скоро свяжемся с вами, чтобы согласовать удобное время доставки. Также можно позвонить +00 000 000 000 или написать в чат поддержки.",
+  "voucherCollected": "Получено",
+  "validationChooseCountry": "Выберите страну",
+  "settingsSaveChanges": "Сохранить изменения",
+  "profilePhotoEditorSoon": "Редактор фото скоро",
+  "aiInteriorTitle": "AI-дизайн и расчёт",
+  "aiInteriorRoomInput": "Параметры комнаты",
+  "aiInteriorRecommendedFurniture": "Рекомендуемая мебель",
+  "aiInteriorSummaryReport": "Итоговый отчёт",
+  "aiInteriorStopScanning": "Остановить сканирование",
+  "aiInteriorStartAiScan": "Запустить AI-скан",
+  "aiInteriorUploadImage": "Загрузить изображение",
+  "aiInteriorUploadFormats": "PNG, JPG до 10 МБ",
+  "aiInteriorScanning": "Сканирование...",
+  "aiInteriorShopMarketplace": "Купить в маркетплейсе",
+  "aiInteriorMaterialsEstimate": "Оценка материалов",
+  "aiInteriorLaborEstimate": "Оценка работ",
+  "aiInteriorTotalEstimatedCost": "Итоговая ориентировочная стоимость",
+  "shoppingNotesTitle": "Заметки покупок",
+  "shoppingNotesChart": "График",
+  "shoppingNotesAllCategoriesSegment": "Все категории",
+  "shoppingNotesAddCategoryFirst": "Сначала добавьте категорию",
+  "shoppingNotesNewCategory": "Новая категория",
+  "shoppingNotesRenameCategory": "Переименовать категорию",
+  "shoppingNotesAddCategory": "Добавить категорию",
+  "shoppingNotesCannotDelete": "Нельзя удалить",
+  "shoppingNotesCategoryError": "Ошибка категории",
+  "shoppingNotesExportTooltip": "Экспорт",
+  "shoppingNotesManageCategoriesTooltip": "Управление категориями",
+  "shoppingNotesOnlineBanner": "Онлайн: изменения попытаются синхронизироваться (демо HTTP).",
+  "shoppingNotesOfflineBanner": "Офлайн: данные остаются на этом устройстве.",
+  "shoppingNotesSearchHint": "Фильтр по названию, деталям или категории",
+  "shoppingNotesCouldNotLoad": "Не удалось загрузить заметки.\n",
+  "shoppingNotesNoNotesYet": "Заметок пока нет. Нажмите +, чтобы добавить.",
+  "shoppingNotesNoMatchFilter": "Нет заметок по текущему фильтру.",
+  "shoppingNotesSyncStatusSynced": "синхр.",
+  "shoppingNotesSyncStatusLocal": "локально",
+  "shoppingNotesNeedCategoryBody": "Для заметок нужна категория. Откройте «Управление категориями» и создайте хотя бы одну.",
+  "shoppingNotesNewNoteTitle": "Новая заметка",
+  "shoppingNotesEditNoteTitle": "Редактировать заметку",
+  "shoppingNotesFieldTitle": "Название",
+  "shoppingNotesFieldDetails": "Детали",
+  "shoppingNotesFieldCategory": "Категория",
+  "shoppingNotesFieldAmount": "Сумма",
+  "shoppingNotesCategoriesSheetTitle": "Категории",
+  "shoppingNotesCouldNotLoadCategories": "Не удалось загрузить категории.\n",
+  "shoppingNotesNoCategoriesYet": "Категорий нет. Нажмите +, чтобы добавить.",
+  "shoppingNotesCategoryRowMeta": "id {id} · обновлено {date}",
+  "@shoppingNotesCategoryRowMeta": {
+    "placeholders": {
+      "id": {
+        "type": "int"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "shoppingNotesCannotDeleteBody": "Сначала удалите или переназначьте заметки, использующие эту категорию.\n",
+  "spendingByCategoryTitle": "Расходы по категориям",
+  "spendingAnalyticsLoadError": "Не удалось загрузить данные графика.\n",
+  "spendingAnalyticsEmptyPrompt": "Добавьте заметки с категориями и суммами, чтобы увидеть график.",
+  "spendingAnalyticsSubtitle": "Итоги по локальным заметкам (работает офлайн)."
 }

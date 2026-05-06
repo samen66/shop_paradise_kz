@@ -9,6 +9,15 @@
   "loginEmailLabel": "Электрондық пошта",
   "loginPasswordLabel": "Құпия сөз",
   "loginCloseAction": "Жабу",
+  "loginContinueWithGoogle": "Google арқылы жалғастыру",
+  "loginGoogleSignInFailed": "Google арқылы кіру сәтсіз аяқталды: {message}",
+  "@loginGoogleSignInFailed": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
   "webHeaderCatalog": "Каталог",
   "webHeaderSearchPlaceholder": "Сұрау енгізіңіз",
   "webHeaderLinkPromotions": "Акциялар",
@@ -91,5 +100,463 @@
   "createAccountSuccess": "Аккаунт деректері қабылданды. Кіру кейінірек қосылады.",
   "createAccountAvatarSemanticLabel": "Профиль фотосын қосу",
   "createAccountAvatarUnavailable": "Бұл нұсқада фото жүктеу қолжетімді емес.",
-  "loginCreateAccountLink": "Аккаунт құру"
+  "loginCreateAccountLink": "Аккаунт құру",
+  "settingsThemeSection": "Сыртқы түрі",
+  "themeModeSystem": "Жүйе бойынша",
+  "themeModeLight": "Жарық",
+  "themeModeDark": "Қараңғы",
+  "settingsDailyReminderTitle": "Күнделікті еске салу",
+  "settingsDailyReminderSubtitle": "Күніне бір рет 20:00-де (құрылғы уақыты)",
+  "onboardingSkip": "Өткізу",
+  "onboardingNext": "Келесі",
+  "onboardingStart": "Бастау",
+  "onboardingPage1Title": "Сенімді таңдаңыз",
+  "onboardingPage1Body": "Жиһаз бен декорды бір жерден табыңыз.",
+  "onboardingPage2Title": "Шығындарды есептеңіз",
+  "onboardingPage2Body": "Офлайн жазбалар — баға мен санат кез келген уақытта.",
+  "onboardingPage3Title": "Деректер сізде",
+  "onboardingPage3Body": "Жазбалар құрылғыда; бұлт қажет болса — кіріңіз.",
+  "exportShoppingNotesCsv": "CSV экспорт",
+  "exportShoppingNotesPdf": "PDF экспорт",
+  "exportShoppingNotesEmpty": "Экспорттауға жазба жоқ.",
+  "exportShoppingNotesFailed": "Экспорт сәтсіз: {message}",
+  "@exportShoppingNotesFailed": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "shoppingNotesCsvHeaderId": "id",
+  "shoppingNotesCsvHeaderTitle": "title",
+  "shoppingNotesCsvHeaderBody": "body",
+  "shoppingNotesCsvHeaderCategory": "category",
+  "shoppingNotesCsvHeaderCategoryId": "category_id",
+  "shoppingNotesCsvHeaderAmount": "amount",
+  "shoppingNotesCsvHeaderSynced": "synced_to_remote",
+  "shoppingNotesCsvHeaderCreated": "created_at_utc",
+  "shoppingNotesCsvHeaderUpdated": "updated_at_utc",
+  "shoppingNotesPdfTitle": "Shopping notes",
+  "shoppingNotesPdfHeaderId": "ID",
+  "shoppingNotesPdfHeaderTitle": "Title",
+  "shoppingNotesPdfHeaderCategory": "Category",
+  "shoppingNotesPdfHeaderAmount": "Amount",
+  "settingsTitle": "Параметрлер",
+  "settingsSectionPersonal": "Жеке",
+  "settingsSectionShop": "Дүкен",
+  "settingsSectionAccount": "Аккаунт",
+  "settingsRowProfile": "Профиль",
+  "settingsRowShippingAddress": "Жеткізу мекенжайы",
+  "settingsRowPaymentMethods": "Төлем тәсілдері",
+  "settingsRowShoppingNotes": "Сатып алу жазбалары (офлайн)",
+  "settingsRowSpendingChart": "Шығын графигі",
+  "settingsRowCountry": "Ел",
+  "settingsRowCurrency": "Валюта",
+  "settingsRowSizes": "Өлшемдер",
+  "settingsRowTerms": "Шарттар мен ережелер",
+  "settingsRowLanguage": "Тіл",
+  "settingsRowLogout": "Шығу",
+  "settingsRowAbout": "{appName} туралы",
+  "settingsDeleteAccountAction": "Аккаунтымды жою",
+  "settingsVersionLabel": "Нұсқа {version} · {buildDate}",
+  "settingsLogoutTitle": "Шығу",
+  "settingsLogoutMessage": "Аккаунттан шыққыңыз келе ме?",
+  "settingsDeleteAccountTitle": "Аккаунтты жою керек пе?",
+  "settingsDeleteAccountMessage": "Деректерді қалпына келтіре алмайсыз. Бұл тек демо нұсқа.",
+  "settingsDeleteAccountDemoMessage": "Демо нұсқада аккаунтты жою қолжетімді емес",
+  "settingsComingSoonMessage": "{feature} — жақында қолжетімді",
+  "commonCancel": "Болдырмау",
+  "commonLogout": "Шығу",
+  "commonDelete": "Жою",
+  "languagePageTitle": "Тіл",
+  "languageFollowSystem": "Жүйеге сәйкес",
+  "languageEnglish": "Ағылшын",
+  "languageKazakh": "Қазақ",
+  "languageRussian": "Орыс",
+  "appWindowTitle": "Shop Paradise",
+  "commonOk": "ОК",
+  "commonSave": "Сақтау",
+  "commonRetry": "Қайталау",
+  "commonSeeAll": "Барлығын көру",
+  "homeJustForYouRetryLoadingMore": "Көбірек жүктеуді қайталау",
+  "commonTryAgain": "Қайталау",
+  "commonApply": "Қолдану",
+  "commonDone": "Дайын",
+  "commonChange": "Өзгерту",
+  "commonClear": "Тазалау",
+  "commonCloseTooltip": "Жабу",
+  "commonSelectAll": "Барлығын таңдау",
+  "errorMessageWithDetails": "Қате: {message}",
+  "@errorMessageWithDetails": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "loginSubtitleWelcomeBack": "Қайта көргеніме қуаныштымын!  🖤",
+  "loginForgotPassword": "Құпия сөзді ұмыттыңыз ба?",
+  "loginChangeEmail": "Поштаны өзгерту",
+  "loginPasswordResetSent": "Құпия сөзді қалпына келтіру хаты жіберілді.",
+  "loginEnterEmail": "Электрондық поштаны енгізіңіз",
+  "loginEnterPassword": "Құпия сөзді енгізіңіз",
+  "loginEnterValidEmailFirst": "Алдымен жарамды пошта енгізіңіз",
+  "shopHomeTitle": "Дүкен",
+  "cartTitle": "Себетім",
+  "cartFailedToLoad": "Себетті жүктеу сәтсіз",
+  "cartRemovedSelected": "Таңдалғандар жойылды",
+  "cartBrowseHomeSnackbar": "Тауарларды қарау үшін Басты бет қойындысын ашыңыз.",
+  "cartItemRemoved": "{title} жойылды",
+  "@cartItemRemoved": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "cartTooltipDeleteSelected": "Таңдалғанды жою",
+  "cartTooltipSelectItems": "Тауарларды таңдау",
+  "cartCheckout": "Төлемге өту",
+  "cartSubtotal": "Аралық сома",
+  "cartDiscountRow": "Жеңілдік",
+  "cartTax": "Салық",
+  "cartFreeLabel": "Тегін",
+  "cartTotalRow": "Барлығы",
+  "cartStartShopping": "Сатып алуды бастау",
+  "wishlistFailedToLoad": "Таңдаулыларды жүктеу сәтсіз",
+  "wishlistSavedCount": "{count} сақталған тауар",
+  "@wishlistSavedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "wishlistTitle": "Таңдаулылар",
+  "wishlistItemRemoved": "{title} жойылды",
+  "@wishlistItemRemoved": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "wishlistItemAddedToCart": "{title} себетке қосылды",
+  "@wishlistItemAddedToCart": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "wishlistRestoreDemo": "Демо элементтерді қалпына келтіру",
+  "ordersFailedToLoad": "Тапсырыстарды жүктеу сәтсіз",
+  "ordersPlacedOn": "Орналастырылды {when}",
+  "@ordersPlacedOn": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "ordersSheetSummaryLine": "{itemCount} тауар · {total}",
+  "@ordersSheetSummaryLine": {
+    "placeholders": {
+      "itemCount": {
+        "type": "int"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "ordersSheetTrackingPlaceholder": "Толық бақылау дүкен бэкенді қосқаннан кейін осында көрінеді.",
+  "ordersCountHeader": "{count} тапсырыс",
+  "@ordersCountHeader": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ordersTitle": "Тапсырыстарым",
+  "ordersRestoreDemo": "Демо тапсырыстарды қалпына келтіру",
+  "orderStatusProcessing": "Өңделуде",
+  "orderStatusShipped": "Жіберілді",
+  "orderStatusDelivered": "Жеткізілді",
+  "orderStatusCancelled": "Болдырылды",
+  "orderItemsCount": "{count} тауар",
+  "@orderItemsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeMarketplaceTitle": "Үй маркетплейсі",
+  "homeMarketSearchHint": "Тауарларды, брендтерді, заттарды іздеу...",
+  "homeMarketSearchPlaceholderShort": "Іздеу",
+  "homeMarketCategoryFiltersTooltip": "Санат сүзгілері",
+  "homeAppBarAiDesignTooltip": "AI дизайн",
+  "homeAppBarServiceHubTooltip": "Қызмет орталығы",
+  "homeMarketCategoryAll": "Барлығы",
+  "homeMarketCategoryGroceries": "Азық-түлік",
+  "homeMarketCategoryHomeGoods": "Үй тауарлары",
+  "homeMarketCategoryDecor": "Декор",
+  "homeMarketProductFreshFruitBasket": "Жаңа жеміс себеті",
+  "homeMarketProductKitchenStorageSet": "Ас үй сақтау жиынтығы",
+  "homeMarketProductScentedCandleTrio": "Хош иісті шамдар (3 дана)",
+  "homeMarketProductLaundryOrganizer": "Кір жуу ұйымдастырушысы",
+  "homeMarketProductIndoorPlantKit": "Бөлме өсімдігі жиынтығы",
+  "homeMarketProductOrganicDairyBundle": "Органикалық сүт өнімдері",
+  "cartPromoCodeHint": "Кодты енгізіңіз",
+  "productAddToCart": "Себетке қосу",
+  "productAddToCartShort": "Себетке қосу",
+  "productBuyNow": "Қазір сатып алу",
+  "productViewAllReviews": "Барлық пікірлер",
+  "productSectionVariations": "Нұсқалар",
+  "productSectionSpecifications": "Сипаттамалары",
+  "productOrigin": "Шыққан жері",
+  "productDelivery": "Жеткізу",
+  "productRatingReviews": "Рейтинг және пікірлер",
+  "productMostPopular": "Ең танымал",
+  "productYouMightLike": "Сізге ұнауы мүмкін",
+  "productSizeGuideFallback": "Өлшем нұсқаулығы",
+  "productNoReviewsYet": "Әлі пікір жоқ.",
+  "productOriginFallbackEu": "ЕО",
+  "productSpecLine": "{label}  {value}",
+  "@productSpecLine": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      },
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "categoryFilterAllCategoriesTitle": "Барлық санаттар",
+  "categoryFilterSearchHint": "Санаттарды іздеу",
+  "categoryFilterEmpty": "Санат жоқ",
+  "categoryFilterClearAllFilters": "Сүзгілерді тазалау",
+  "categoryFilterApplyFilters": "Сүзгілерді қолдану",
+  "paymentPageTitle": "Төлем",
+  "paymentShippingAddressCardTitle": "Жеткізу мекенжайы",
+  "paymentContactInformationTitle": "Байланыс ақпараты",
+  "paymentItemsSectionTitle": "Тауарлар",
+  "paymentShippingOptionsTitle": "Жеткізу опциялары",
+  "paymentShippingStandard": "Қалыпты",
+  "paymentShippingStandardEta": "5–7 күн",
+  "paymentShippingFree": "ТЕГІН",
+  "paymentShippingExpress": "Жедел",
+  "paymentShippingExpressEta": "1–2 күн",
+  "paymentDeliverySampleNote": "2020 жылғы 23 сәуірден кешіктірмей жеткізу",
+  "paymentMethodSectionTitle": "Төлем тәсілі",
+  "paymentAddVoucher": "Ваучер қосу",
+  "paymentProcessingTitle": "Төлем орындалуда",
+  "paymentProcessingSubtitle": "Бірнеше секунд күтіңіз",
+  "paymentErrorTitle": "Төлемді аяқтау мүмкін болмады",
+  "paymentErrorBody": "Төлем тәсілін өзгертіп қайта көріңіз",
+  "paymentTryAgain": "Қайталау",
+  "paymentChangeMethod": "Өзгерту",
+  "paymentSuccessTitle": "Дайын!",
+  "paymentSuccessBody": "Картаңыздан сома алынды",
+  "paymentTrackOrder": "Тапсырысты бақылау",
+  "paymentPercentDiscount": "{percent}% жеңілдік",
+  "@paymentPercentDiscount": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "paymentNamedDiscount": "{name} жеңілдік",
+  "@paymentNamedDiscount": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "paymentTotalLabel": "Барлығы",
+  "paymentPayButton": "Төлеу",
+  "paymentCountryLabel": "Ел",
+  "paymentSaveChanges": "Өзгерістерді сақтау",
+  "paymentAddressLineLabel": "Мекенжай",
+  "paymentTownCityLabel": "Қала / ауыл",
+  "paymentPostcodeLabel": "Пошта индексі",
+  "paymentPhoneLabel": "Телефон",
+  "paymentEmailLabelField": "Эл. пошта",
+  "paymentMethodsSubtitle": "Осы тапсырыс үшін карта таңдаңыз. Жаңа карта қосуға немесе сақталғанын жаңартуға болады.",
+  "paymentEditTooltip": "Өңдеу",
+  "paymentAddPaymentMethod": "Төлем тәсілін қосу",
+  "paymentUseThisCard": "Осы картаны қолдану",
+  "paymentEditCardTitle": "Картаны өңдеу",
+  "paymentAddCardTitle": "Карта қосу",
+  "paymentCardIntroEdit": "Атын немесе мерзімін кез келген уақытта өзгертуге болады. Тек картаны ауыстырғыңыз келсе толық нөмірді енгізіңіз.",
+  "paymentCardIntroAdd": "Карта деректерін енгізіңіз. Бұл демо — нақты төлем жоқ.",
+  "paymentCardCurrentMasked": "Ағымдағы: {masked}",
+  "@paymentCardCurrentMasked": {
+    "placeholders": {
+      "masked": {
+        "type": "String"
+      }
+    }
+  },
+  "paymentCardNumberLabel": "Карта нөмірі",
+  "paymentCardNumberHintKeep": "Ағымдағыны сақтау үшін бос қалдырыңыз",
+  "paymentCardNumberError": "Жарамды карта нөмірін енгізіңіз",
+  "paymentCardHolderLabel": "Карта иесінің аты",
+  "paymentCardHolderError": "Карта иесінің атын енгізіңіз",
+  "paymentCardExpiryLabel": "Мерзімі (АА/ЖЖ)",
+  "paymentCardExpiryFormatError": "АА/ЖЖ пішімін қолданыңыз",
+  "paymentCardExpiryMonthError": "Жарамсыз ай",
+  "paymentCardCvvLabel": "CVV",
+  "paymentCardCvvError": "CVV енгізіңіз",
+  "paymentBrandVisa": "Visa",
+  "paymentBrandMastercard": "Mastercard",
+  "paymentVouchersActiveTitle": "Белсенді ваучерлер",
+  "paymentVoucherLabel": "Ваучер",
+  "paymentVoucherValid": "Жарамды",
+  "serviceHubTitle": "Қызмет орталығы",
+  "serviceHubPostSuccess": "Жоба сәтті жарияланды.",
+  "serviceHubPostProject": "Жоба жариялау",
+  "serviceHubBidApply": "Ұсыну / Қолдану",
+  "serviceHubTabPostJob": "Жұмыс жариялау",
+  "serviceHubTabBrowseRequests": "Сұраныстар",
+  "serviceHubFormHeading": "Жаңа жоба",
+  "serviceHubFormSubheading": "Талаптарыңызды сипаттаңыз да, мамандардан ұсыныс алыңыз.",
+  "serviceHubFieldProjectTitle": "Жоба атауы",
+  "serviceHubFieldProjectTitleHint": "Ас үй сантехникасын жөндеу",
+  "serviceHubFieldProjectTitleError": "Жоба атауын енгізіңіз",
+  "serviceHubFieldDescription": "Толық сипаттама",
+  "serviceHubFieldDescriptionHint": "Көлемін, уақытын және ерекше талаптарды түсіндіріңіз...",
+  "serviceHubFieldDescriptionError": "Кемінде 12 таңба енгізіңіз",
+  "serviceHubSampleJob1Customer": "Лера",
+  "serviceHubSampleJob1Title": "Пәтерді жөндеу",
+  "serviceHubSampleJob1Snippet": "Бояу, еден жаңарту және ас үй жиһазын жаңарту керек.",
+  "serviceHubSampleJob2Customer": "Асқар",
+  "serviceHubSampleJob2Title": "Терең үй тазалауы",
+  "serviceHubSampleJob2Snippet": "2 бөлмелі пәтерден көшу тазалауы осы демалыс.",
+  "serviceHubSampleJob3Customer": "Дана",
+  "serviceHubSampleJob3Title": "Жиһаз жинау",
+  "serviceHubSampleJob3Snippet": "Шкаф, үстел және екі тумбаны жинау.",
+  "profilePayNow": "Қазір төлеу",
+  "profileTrack": "Бақылау",
+  "profileReview": "Пікір",
+  "profileOrderHistory": "Тапсырыс тарихы",
+  "profileHistoryTitle": "Тарих",
+  "profileTabToPay": "Төлеуге",
+  "profileTabToReceive": "Қабылдауға",
+  "profileTabToReview": "Пікірге",
+  "profileMyOrdersSubtitle": "Тапсырыстарым",
+  "profileNothingHereYet": "Әзірге бос",
+  "profilePaymentFlowSoon": "Төлем ағыны жақында",
+  "profileFailedToLoad": "Профильді жүктеу сәтсіз",
+  "profileGreeting": "Сәлем, {name}!",
+  "@profileGreeting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "profileRecentlyViewed": "Жуырда көрілген",
+  "profileMyOrdersSection": "Тапсырыстарым",
+  "profileStoriesSection": "Оқиғалар",
+  "profileMyActivity": "Менің белсенділігім",
+  "profileScannerSoon": "Сканер жақында",
+  "profileFiltersSoon": "Сүзгілер жақында",
+  "orderTrackingPageSubtitle": "Тапсырысты бақылау",
+  "orderTrackingNumberLabel": "Бақылау нөмірі",
+  "orderTrackingCopiedNumber": "Бақылау нөмірі көшірілді",
+  "vouchersPageTitle": "Ваучерлер",
+  "vouchersTabActiveRewards": "Белсенді сыйлықтар",
+  "vouchersTabProgress": "Прогресс",
+  "settingsYourProfile": "Профиліңіз",
+  "settingsChooseCountryPlaceholder": "Еліңізді таңдаңыз",
+  "validationFieldRequired": "Міндетті",
+  "settingsProfileDisplayNameEmpty": "Көрсетілетін аты бос болмауы керек.",
+  "settingsProfileEmailConfirmSent": "Растау сілтемесін {email} адресіне жібердік. Электрондық поштаны өзгерту үшін оны ашыңыз.",
+  "@settingsProfileEmailConfirmSent": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsProfileNameLabel": "Аты",
+  "profileStatOrdered": "Тапсырыс берілді",
+  "profileStatReceived": "Қабылданды",
+  "profileStatToReceive": "Күтуде",
+  "profileChatNow": "Чатқа өту",
+  "profileSayIt": "Айтыңыз!",
+  "profileReviewThankYou": "Пікіріңіз үшін рахмет",
+  "profileNoItemsToReview": "Пікір қалдыратын тауар жоқ",
+  "profileReviewWhichItem": "Қай тауарға пікір қалдырғыңыз келеді?",
+  "profileDeliveryNotSuccessful": "Жеткізу сәтсіз аяқталды",
+  "profileDeliveryWhatToDo": "Не істеу керек?",
+  "profileDeliveryFailureBody": "Уайымдамаңыз, біз жақында сізбен байланысып, ыңғайлы жеткізу уақытын келісеміз. Сондай-ақ +00 000 000 000 нөміріне хабарласа немесе тұтынушыларға қызмет чатына жазыла аласыз.",
+  "voucherCollected": "Жиналды",
+  "validationChooseCountry": "Елді таңдаңыз",
+  "settingsSaveChanges": "Өзгерістерді сақтау",
+  "profilePhotoEditorSoon": "Фото редакторы жақында",
+  "aiInteriorTitle": "AI дизайн және баға",
+  "aiInteriorRoomInput": "Бөлме деректері",
+  "aiInteriorRecommendedFurniture": "Ұсынылған жиһаз",
+  "aiInteriorSummaryReport": "Қорытынды есеп",
+  "aiInteriorStopScanning": "Сканерлеуді тоқтату",
+  "aiInteriorStartAiScan": "AI сканерін бастау",
+  "aiInteriorUploadImage": "Сурет жүктеу",
+  "aiInteriorUploadFormats": "PNG, JPG, 10 МБ дейін",
+  "aiInteriorScanning": "Сканерленуде...",
+  "aiInteriorShopMarketplace": "Дүкенде сатып алу",
+  "aiInteriorMaterialsEstimate": "Материал бағасы",
+  "aiInteriorLaborEstimate": "Еңбек бағасы",
+  "aiInteriorTotalEstimatedCost": "Болжамды жалпы құн",
+  "shoppingNotesTitle": "Сатып алу жазбалары",
+  "shoppingNotesChart": "Диаграмма",
+  "shoppingNotesAllCategoriesSegment": "Барлық санаттар",
+  "shoppingNotesAddCategoryFirst": "Алдымен санат қосыңыз",
+  "shoppingNotesNewCategory": "Жаңа санат",
+  "shoppingNotesRenameCategory": "Санатты қайта атау",
+  "shoppingNotesAddCategory": "Санат қосу",
+  "shoppingNotesCannotDelete": "Жою мүмкін емес",
+  "shoppingNotesCategoryError": "Санат қатесі",
+  "shoppingNotesExportTooltip": "Экспорт",
+  "shoppingNotesManageCategoriesTooltip": "Санаттарды басқару",
+  "shoppingNotesOnlineBanner": "Онлайн: өзгерістер синхрондалуға тырысады (демо HTTP).",
+  "shoppingNotesOfflineBanner": "Офлайн: деректер осы құрылғыда қалады.",
+  "shoppingNotesSearchHint": "Тақырып, мәлімет немесе санат бойынша сүзу",
+  "shoppingNotesCouldNotLoad": "Жазбалар жүктелмеді.\n",
+  "shoppingNotesNoNotesYet": "Әзірге жазба жоқ. + басып қосыңыз.",
+  "shoppingNotesNoMatchFilter": "Ағымдағы сүзгіге сәйкес жазба жоқ.",
+  "shoppingNotesSyncStatusSynced": "синхрондалған",
+  "shoppingNotesSyncStatusLocal": "жергілікті",
+  "shoppingNotesNeedCategoryBody": "Жазбалар үшін санат керек. «Санаттарды басқару» бөлімін ашып, кемінде бір санат жасаңыз.",
+  "shoppingNotesNewNoteTitle": "Жаңа жазба",
+  "shoppingNotesEditNoteTitle": "Жазбаны өңдеу",
+  "shoppingNotesFieldTitle": "Тақырып",
+  "shoppingNotesFieldDetails": "Мәліметтер",
+  "shoppingNotesFieldCategory": "Санат",
+  "shoppingNotesFieldAmount": "Сома",
+  "shoppingNotesCategoriesSheetTitle": "Санаттар",
+  "shoppingNotesCouldNotLoadCategories": "Санаттар жүктелмеді.\n",
+  "shoppingNotesNoCategoriesYet": "Санат жоқ. + басып қосыңыз.",
+  "shoppingNotesCategoryRowMeta": "id {id} · жаңартылды {date}",
+  "@shoppingNotesCategoryRowMeta": {
+    "placeholders": {
+      "id": {
+        "type": "int"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "shoppingNotesCannotDeleteBody": "Алдымен осы санатты пайдаланатын жазбаларды жойыңыз немесе басқа санатқа ауырыңыз.\n",
+  "spendingByCategoryTitle": "Санат бойынша шығын",
+  "spendingAnalyticsLoadError": "Диаграмма деректері жүктелмеді.\n",
+  "spendingAnalyticsEmptyPrompt": "Диаграмманы көру үшін санат пен сомасы бар сатып алу жазбаларын қосыңыз.",
+  "spendingAnalyticsSubtitle": "Жергілікті жазбалардағы сомалар (офлайн жұмыс істейді)."
 }

@@ -16,6 +16,8 @@ import 'widgets/app_web_shell_header.dart';
 
 /// Main shell: [IndexedStack] + bottom bar (narrow) or top nav (wide);
 /// on web + wide, [AppWebShellHeader] instead of [AppTopNav].
+///
+/// Tabs are local state; top-level [GoRouter] uses a single `/shop` route.
 class AppShellPage extends ConsumerStatefulWidget {
   const AppShellPage({super.key});
 

@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../payment/presentation/payment_checkout_args.dart';
 import '../../domain/entities/order_entities.dart';
-
-String _statusLabel(OrderStatus status) {
-  return switch (status) {
-    OrderStatus.processing => 'Processing',
-    OrderStatus.shipped => 'Shipped',
-    OrderStatus.delivered => 'Delivered',
-    OrderStatus.cancelled => 'Cancelled',
-  };
-}
+import '../order_l10n.dart';
 
 Color _statusColor(ColorScheme scheme, OrderStatus status) {
   return switch (status) {
@@ -39,6 +33,7 @@ class OrderSummaryTile extends StatelessWidget {
     final BorderRadius radius = BorderRadius.circular(16);
     final String dateLabel = DateFormat.yMMMd().format(order.placedAt);
     final Color chipColor = _statusColor(colorScheme, order.status);
+    final AppLocalizations l10n = context.l10n;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
@@ -101,7 +96,7 @@ class OrderSummaryTile extends StatelessWidget {
                                 MaterialTapTargetSize.shrinkWrap,
                             padding: const EdgeInsets.symmetric(horizontal: 8),
                             label: Text(
-                              _statusLabel(order.status),
+                              l10n.orderStatusLabel(order.status),
                               style: textTheme.labelSmall?.copyWith(
                                 color: chipColor,
                                 fontWeight: FontWeight.w600,
@@ -111,7 +106,7 @@ class OrderSummaryTile extends StatelessWidget {
                             backgroundColor: chipColor.withValues(alpha: 0.12),
                           ),
                           Text(
-                            '${order.itemCount} items',
+                            l10n.orderItemsCount(order.itemCount),
                             style: textTheme.bodySmall?.copyWith(
                               color: colorScheme.onSurfaceVariant,
                             ),

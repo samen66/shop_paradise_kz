@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
+import '../../../../l10n/app_localizations.dart';
+
+import '../service_hub_sample_jobs_l10n.dart';
+
 class ServiceHubPage extends StatefulWidget {
   const ServiceHubPage({super.key});
 
@@ -11,24 +16,6 @@ class _ServiceHubPageState extends State<ServiceHubPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-
-  static const List<_JobRequest> _requests = <_JobRequest>[
-    _JobRequest(
-      customer: 'Lera',
-      title: 'Apartment Renovation',
-      snippet: 'Need painting, flooring refresh, and kitchen cabinet updates.',
-    ),
-    _JobRequest(
-      customer: 'Askar',
-      title: 'Deep Home Cleaning',
-      snippet: 'Move-out cleanup for a 2-bedroom apartment this weekend.',
-    ),
-    _JobRequest(
-      customer: 'Dana',
-      title: 'Furniture Assembly',
-      snippet: 'Assemble wardrobe, desk, and two side tables.',
-    ),
-  ];
 
   @override
   void dispose() {
@@ -42,7 +29,7 @@ class _ServiceHubPageState extends State<ServiceHubPage> {
       return;
     }
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Project posted successfully.')),
+      SnackBar(content: Text(context.l10n.serviceHubPostSuccess)),
     );
     _titleController.clear();
     _descriptionController.clear();
@@ -52,16 +39,17 @@ class _ServiceHubPageState extends State<ServiceHubPage> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colors = theme.colorScheme;
+    final AppLocalizations l10n = context.l10n;
 
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Service Hub'),
-          bottom: const TabBar(
+          title: Text(l10n.serviceHubTitle),
+          bottom: TabBar(
             tabs: <Tab>[
-              Tab(text: 'Post a Job'),
-              Tab(text: 'Browse Requests'),
+              Tab(text: l10n.serviceHubTabPostJob),
+              Tab(text: l10n.serviceHubTabBrowseRequests),
             ],
           ),
         ),
@@ -75,26 +63,26 @@ class _ServiceHubPageState extends State<ServiceHubPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      'Post a New Project',
+                      l10n.serviceHubFormHeading,
                       style: theme.textTheme.titleLarge,
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      'Describe your requirements and receive bids from pros.',
+                      l10n.serviceHubFormSubheading,
                       style: theme.textTheme.bodyMedium,
                     ),
                     const SizedBox(height: 16),
                     TextFormField(
                       controller: _titleController,
                       textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
-                        labelText: 'Project Title',
-                        hintText: 'Kitchen plumbing repair',
-                        prefixIcon: Icon(Icons.title),
+                      decoration: InputDecoration(
+                        labelText: l10n.serviceHubFieldProjectTitle,
+                        hintText: l10n.serviceHubFieldProjectTitleHint,
+                        prefixIcon: const Icon(Icons.title),
                       ),
                       validator: (String? value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'Please enter a project title';
+                          return l10n.serviceHubFieldProjectTitleError;
                         }
                         return null;
                       },
@@ -103,14 +91,14 @@ class _ServiceHubPageState extends State<ServiceHubPage> {
                     TextFormField(
                       controller: _descriptionController,
                       maxLines: 5,
-                      decoration: const InputDecoration(
-                        labelText: 'Detailed Description',
-                        hintText: 'Explain scope, timing, and special requests...',
+                      decoration: InputDecoration(
+                        labelText: l10n.serviceHubFieldDescription,
+                        hintText: l10n.serviceHubFieldDescriptionHint,
                         alignLabelWithHint: true,
                       ),
                       validator: (String? value) {
                         if (value == null || value.trim().length < 12) {
-                          return 'Please add at least 12 characters';
+                          return l10n.serviceHubFieldDescriptionError;
                         }
                         return null;
                       },
@@ -119,7 +107,7 @@ class _ServiceHubPageState extends State<ServiceHubPage> {
                     FilledButton.icon(
                       onPressed: _postProject,
                       icon: const Icon(Icons.publish_outlined),
-                      label: const Text('Post Project'),
+                      label: Text(l10n.serviceHubPostProject),
                     ),
                   ],
                 ),
@@ -127,10 +115,11 @@ class _ServiceHubPageState extends State<ServiceHubPage> {
             ),
             ListView.separated(
               padding: const EdgeInsets.all(16),
-              itemCount: _requests.length,
+              itemCount: ServiceHubSampleJobsL10n.sampleJobCount,
               separatorBuilder: (_, __) => const SizedBox(height: 12),
               itemBuilder: (BuildContext context, int index) {
-                final _JobRequest request = _requests[index];
+                final ({String customer, String title, String snippet}) job =
+                    l10n.serviceHubSampleJob(index);
                 return Card(
                   child: Padding(
                     padding: const EdgeInsets.all(14),
@@ -138,7 +127,7 @@ class _ServiceHubPageState extends State<ServiceHubPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          '${request.customer}: ${request.title}',
+                          '${job.customer}: ${job.title}',
                           style: theme.textTheme.titleMedium?.copyWith(
                             color: colors.onSurface,
                             fontWeight: FontWeight.w700,
@@ -146,7 +135,7 @@ class _ServiceHubPageState extends State<ServiceHubPage> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          request.snippet,
+                          job.snippet,
                           style: theme.textTheme.bodyMedium,
                         ),
                         const SizedBox(height: 12),
@@ -155,7 +144,7 @@ class _ServiceHubPageState extends State<ServiceHubPage> {
                           child: FilledButton.tonalIcon(
                             onPressed: () {},
                             icon: const Icon(Icons.handshake_outlined),
-                            label: const Text('Bid / Apply'),
+                            label: Text(l10n.serviceHubBidApply),
                           ),
                         ),
                       ],
@@ -169,16 +158,4 @@ class _ServiceHubPageState extends State<ServiceHubPage> {
       ),
     );
   }
-}
-
-class _JobRequest {
-  const _JobRequest({
-    required this.customer,
-    required this.title,
-    required this.snippet,
-  });
-
-  final String customer;
-  final String title;
-  final String snippet;
 }

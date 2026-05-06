@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../payment_card_option.dart';
 import '../payment_checkout_args.dart';
 import 'payment_methods_page.dart';
@@ -106,8 +108,9 @@ class _PaymentPageState extends State<PaymentPage> {
         if (applied.percentOff != null) {
           _extraVoucherDiscount =
               _merchandiseSubtotal * applied.percentOff! / 100;
-          _extraVoucherLabel =
-              '${applied.percentOff!.toStringAsFixed(0)}% Discount';
+          _extraVoucherLabel = context.l10n.paymentPercentDiscount(
+            applied.percentOff!.round(),
+          );
         } else {
           _extraVoucherDiscount = applied.amountOff ?? 0;
           _extraVoucherLabel = applied.title;
@@ -172,6 +175,7 @@ class _PaymentPageState extends State<PaymentPage> {
 
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations l10n = context.l10n;
     final TextTheme textTheme = Theme.of(context).textTheme;
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final int itemCount = widget.args.lines.length;
@@ -184,7 +188,7 @@ class _PaymentPageState extends State<PaymentPage> {
                 SliverAppBar(
                   pinned: true,
                   title: Text(
-                    'Payment',
+                    l10n.paymentPageTitle,
                     style: textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.w800,
                     ),
@@ -195,13 +199,13 @@ class _PaymentPageState extends State<PaymentPage> {
                   sliver: SliverList(
                     delegate: SliverChildListDelegate(<Widget>[
                       PaymentInfoCard(
-                        title: 'Shipping Address',
+                        title: l10n.paymentShippingAddressCardTitle,
                         body: _shippingAddress,
                         onEdit: _openAddressSheet,
                       ),
                       const SizedBox(height: 12),
                       PaymentInfoCard(
-                        title: 'Contact Information',
+                        title: l10n.paymentContactInformationTitle,
                         body: '$_phone\n$_email',
                         onEdit: _openContactSheet,
                       ),
@@ -210,7 +214,7 @@ class _PaymentPageState extends State<PaymentPage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           Text(
-                            'Items',
+                            l10n.paymentItemsSectionTitle,
                             style: textTheme.titleMedium?.copyWith(
                               fontWeight: FontWeight.w800,
                             ),
@@ -227,7 +231,7 @@ class _PaymentPageState extends State<PaymentPage> {
                               ),
                             ),
                             onPressed: _openVouchers,
-                            child: const Text('Add Voucher'),
+                            child: Text(l10n.paymentAddVoucher),
                           ),
                         ],
                       ),
@@ -239,7 +243,9 @@ class _PaymentPageState extends State<PaymentPage> {
                           child: _DiscountChip(
                             label: _extraVoucherLabel != null
                                 ? _extraVoucherLabel!
-                                : '${_cartDiscountLabel!} Discount',
+                                : l10n.paymentNamedDiscount(
+                                    _cartDiscountLabel!,
+                                  ),
                             onRemove: () {
                               setState(() {
                                 if (_extraVoucherLabel != null) {
@@ -272,7 +278,7 @@ class _PaymentPageState extends State<PaymentPage> {
                   padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
                   sliver: SliverToBoxAdapter(
                     child: Text(
-                      'Shipping Options',
+                      l10n.paymentShippingOptionsTitle,
                       style: textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w800,
                       ),
@@ -285,23 +291,23 @@ class _PaymentPageState extends State<PaymentPage> {
                     child: Column(
                       children: <Widget>[
                         PaymentShippingOptionTile(
-                          title: 'Standard',
-                          etaLabel: '5-7 days',
-                          priceLabel: 'FREE',
+                          title: l10n.paymentShippingStandard,
+                          etaLabel: l10n.paymentShippingStandardEta,
+                          priceLabel: l10n.paymentShippingFree,
                           selected: _shippingOptionIndex == 0,
                           onTap: () => setState(() => _shippingOptionIndex = 0),
                         ),
                         const SizedBox(height: 10),
                         PaymentShippingOptionTile(
-                          title: 'Express',
-                          etaLabel: '1-2 days',
+                          title: l10n.paymentShippingExpress,
+                          etaLabel: l10n.paymentShippingExpressEta,
                           priceLabel: formatPaymentMoney(_expressShipping),
                           selected: _shippingOptionIndex == 1,
                           onTap: () => setState(() => _shippingOptionIndex = 1),
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          'Delivered on or before Thursday, 23 April 2020',
+                          l10n.paymentDeliverySampleNote,
                           style: textTheme.bodySmall?.copyWith(
                             color: colorScheme.onSurfaceVariant,
                           ),
@@ -317,7 +323,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'Payment method',
+                          l10n.paymentMethodSectionTitle,
                           style: textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.w800,
                           ),
@@ -442,6 +448,7 @@ class _PaymentProcessingDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
+    final AppLocalizations l10n = context.l10n;
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
@@ -459,7 +466,7 @@ class _PaymentProcessingDialog extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Text(
-              'Payment is in progress',
+              l10n.paymentProcessingTitle,
               textAlign: TextAlign.center,
               style: textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w800,
@@ -467,7 +474,7 @@ class _PaymentProcessingDialog extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'Please, wait a few moments',
+              l10n.paymentProcessingSubtitle,
               textAlign: TextAlign.center,
               style: textTheme.bodyMedium?.copyWith(
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
@@ -492,6 +499,7 @@ class _PaymentErrorDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
+    final AppLocalizations l10n = context.l10n;
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
@@ -510,7 +518,7 @@ class _PaymentErrorDialog extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              "We couldn't proceed your payment",
+              l10n.paymentErrorTitle,
               textAlign: TextAlign.center,
               style: textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w800,
@@ -518,7 +526,7 @@ class _PaymentErrorDialog extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'Please, change your payment method or try again',
+              l10n.paymentErrorBody,
               textAlign: TextAlign.center,
               style: textTheme.bodyMedium?.copyWith(
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
@@ -534,7 +542,7 @@ class _PaymentErrorDialog extends StatelessWidget {
                       foregroundColor: Colors.white,
                     ),
                     onPressed: onTryAgain,
-                    child: const Text('Try Again'),
+                    child: Text(l10n.paymentTryAgain),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -547,7 +555,7 @@ class _PaymentErrorDialog extends StatelessWidget {
                       foregroundColor: Theme.of(context).colorScheme.onSurface,
                     ),
                     onPressed: onChangeMethod,
-                    child: const Text('Change'),
+                    child: Text(l10n.paymentChangeMethod),
                   ),
                 ),
               ],
@@ -568,6 +576,7 @@ class _PaymentSuccessDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
+    final AppLocalizations l10n = context.l10n;
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
@@ -597,14 +606,14 @@ class _PaymentSuccessDialog extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Text(
-              'Done!',
+              l10n.paymentSuccessTitle,
               style: textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.w800,
               ),
             ),
             const SizedBox(height: 8),
             Text(
-              'Your card has been successfully charged',
+              l10n.paymentSuccessBody,
               textAlign: TextAlign.center,
               style: textTheme.bodyMedium,
             ),
@@ -619,7 +628,7 @@ class _PaymentSuccessDialog extends StatelessWidget {
                   foregroundColor: Theme.of(context).colorScheme.onSurface,
                 ),
                 onPressed: onTrackOrder,
-                child: const Text('Track My Order'),
+                child: Text(l10n.paymentTrackOrder),
               ),
             ),
           ],

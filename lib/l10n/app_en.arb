@@ -12,6 +12,15 @@
   "loginEmailLabel": "Email",
   "loginPasswordLabel": "Password",
   "loginCloseAction": "Close",
+  "loginContinueWithGoogle": "Continue with Google",
+  "loginGoogleSignInFailed": "Google sign-in failed: {message}",
+  "@loginGoogleSignInFailed": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
   "webHeaderCatalog": "Catalog",
   "webHeaderSearchPlaceholder": "Enter query",
   "webHeaderLinkPromotions": "Promotions",
@@ -94,5 +103,500 @@
   "createAccountSuccess": "Account details look good. Sign-in will be wired next.",
   "createAccountAvatarSemanticLabel": "Add profile photo",
   "createAccountAvatarUnavailable": "Photo upload is not available in this build.",
-  "loginCreateAccountLink": "Create account"
+  "loginCreateAccountLink": "Create account",
+  "settingsThemeSection": "Appearance",
+  "themeModeSystem": "System",
+  "themeModeLight": "Light",
+  "themeModeDark": "Dark",
+  "settingsDailyReminderTitle": "Daily shopping-notes reminder",
+  "settingsDailyReminderSubtitle": "Once per day at 8:00 PM (device time)",
+  "onboardingSkip": "Skip",
+  "onboardingNext": "Next",
+  "onboardingStart": "Get started",
+  "onboardingPage1Title": "Browse with confidence",
+  "onboardingPage1Body": "Explore furniture and decor in one place, tailored for your home.",
+  "onboardingPage2Title": "Track what you spend",
+  "onboardingPage2Body": "Use offline shopping notes to log prices and categories anytime.",
+  "onboardingPage3Title": "Your data stays with you",
+  "onboardingPage3Body": "Notes are stored on this device; sign in when you want cloud features.",
+  "exportShoppingNotesCsv": "Export CSV",
+  "exportShoppingNotesPdf": "Export PDF",
+  "exportShoppingNotesEmpty": "No notes to export.",
+  "exportShoppingNotesFailed": "Export failed: {message}",
+  "@exportShoppingNotesFailed": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "shoppingNotesCsvHeaderId": "id",
+  "shoppingNotesCsvHeaderTitle": "title",
+  "shoppingNotesCsvHeaderBody": "body",
+  "shoppingNotesCsvHeaderCategory": "category",
+  "shoppingNotesCsvHeaderCategoryId": "category_id",
+  "shoppingNotesCsvHeaderAmount": "amount",
+  "shoppingNotesCsvHeaderSynced": "synced_to_remote",
+  "shoppingNotesCsvHeaderCreated": "created_at_utc",
+  "shoppingNotesCsvHeaderUpdated": "updated_at_utc",
+  "shoppingNotesPdfTitle": "Shopping notes",
+  "shoppingNotesPdfHeaderId": "ID",
+  "shoppingNotesPdfHeaderTitle": "Title",
+  "shoppingNotesPdfHeaderCategory": "Category",
+  "shoppingNotesPdfHeaderAmount": "Amount",
+  "settingsTitle": "Settings",
+  "@settingsTitle": {
+    "description": "Header title for the Settings hub page"
+  },
+  "settingsSectionPersonal": "Personal",
+  "settingsSectionShop": "Shop",
+  "settingsSectionAccount": "Account",
+  "settingsRowProfile": "Profile",
+  "settingsRowShippingAddress": "Shipping Address",
+  "settingsRowPaymentMethods": "Payment methods",
+  "settingsRowShoppingNotes": "Shopping notes (offline)",
+  "settingsRowSpendingChart": "Spending chart",
+  "settingsRowCountry": "Country",
+  "settingsRowCurrency": "Currency",
+  "settingsRowSizes": "Sizes",
+  "settingsRowTerms": "Terms and Conditions",
+  "settingsRowLanguage": "Language",
+  "settingsRowLogout": "Log out",
+  "settingsRowAbout": "About {appName}",
+  "@settingsRowAbout": {
+    "description": "Settings row that opens the About page",
+    "placeholders": {
+      "appName": {
+        "type": "String",
+        "example": "Shop Paradise"
+      }
+    }
+  },
+  "settingsDeleteAccountAction": "Delete My Account",
+  "settingsVersionLabel": "Version {version} · {buildDate}",
+  "@settingsVersionLabel": {
+    "description": "Version + build date footer on Settings",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0"
+      },
+      "buildDate": {
+        "type": "String",
+        "example": "April, 2026"
+      }
+    }
+  },
+  "settingsLogoutTitle": "Log out",
+  "settingsLogoutMessage": "Log out of your account?",
+  "settingsDeleteAccountTitle": "Delete account?",
+  "settingsDeleteAccountMessage": "You will not be able to restore your data. This is a demo only.",
+  "settingsDeleteAccountDemoMessage": "Account deletion is not available in demo",
+  "settingsComingSoonMessage": "{feature} — coming soon",
+  "@settingsComingSoonMessage": {
+    "description": "Snackbar shown when tapping a settings row that is not implemented yet",
+    "placeholders": {
+      "feature": {
+        "type": "String",
+        "example": "Country"
+      }
+    }
+  },
+  "commonCancel": "Cancel",
+  "commonLogout": "Log out",
+  "commonDelete": "Delete",
+  "languagePageTitle": "Language",
+  "languageFollowSystem": "Follow system",
+  "languageEnglish": "English",
+  "languageKazakh": "Kazakh",
+  "languageRussian": "Russian",
+  "appWindowTitle": "Shop Paradise",
+  "@appWindowTitle": {
+    "description": "OS task switcher / window title"
+  },
+  "commonOk": "OK",
+  "commonSave": "Save",
+  "commonRetry": "Retry",
+  "commonSeeAll": "See all",
+  "homeJustForYouRetryLoadingMore": "Retry loading more",
+  "commonTryAgain": "Try again",
+  "commonApply": "Apply",
+  "commonDone": "Done",
+  "commonChange": "Change",
+  "commonClear": "Clear",
+  "commonCloseTooltip": "Close",
+  "commonSelectAll": "Select all",
+  "errorMessageWithDetails": "Error: {message}",
+  "@errorMessageWithDetails": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "loginSubtitleWelcomeBack": "Good to see you back!  🖤",
+  "loginForgotPassword": "Forgot password?",
+  "loginChangeEmail": "Change email",
+  "loginPasswordResetSent": "Password reset email sent.",
+  "loginEnterEmail": "Enter your email",
+  "loginEnterPassword": "Enter password",
+  "loginEnterValidEmailFirst": "Enter a valid email first",
+  "shopHomeTitle": "Shop",
+  "cartTitle": "My cart",
+  "cartFailedToLoad": "Failed to load cart",
+  "cartRemovedSelected": "Removed selected items",
+  "cartBrowseHomeSnackbar": "Open the Home tab to browse products.",
+  "cartItemRemoved": "{title} removed",
+  "@cartItemRemoved": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "cartTooltipDeleteSelected": "Delete selected",
+  "cartTooltipSelectItems": "Select items",
+  "cartCheckout": "Checkout",
+  "cartSubtotal": "Subtotal",
+  "cartDiscountRow": "Discount",
+  "cartTax": "Tax",
+  "cartFreeLabel": "Free",
+  "cartTotalRow": "Total",
+  "cartStartShopping": "Start shopping",
+  "wishlistFailedToLoad": "Failed to load wishlist",
+  "wishlistSavedCount": "{count} saved items",
+  "@wishlistSavedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "wishlistTitle": "My Wishlist",
+  "wishlistItemRemoved": "{title} removed",
+  "@wishlistItemRemoved": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "wishlistItemAddedToCart": "{title} added to cart",
+  "@wishlistItemAddedToCart": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "wishlistRestoreDemo": "Restore demo items",
+  "ordersFailedToLoad": "Failed to load orders",
+  "ordersPlacedOn": "Placed {when}",
+  "@ordersPlacedOn": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "ordersSheetSummaryLine": "{itemCount} items · {total}",
+  "@ordersSheetSummaryLine": {
+    "placeholders": {
+      "itemCount": {
+        "type": "int"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "ordersSheetTrackingPlaceholder": "Full order tracking will appear here once connected to your store backend.",
+  "ordersCountHeader": "{count} orders",
+  "@ordersCountHeader": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ordersTitle": "My orders",
+  "ordersRestoreDemo": "Restore demo orders",
+  "orderStatusProcessing": "Processing",
+  "orderStatusShipped": "Shipped",
+  "orderStatusDelivered": "Delivered",
+  "orderStatusCancelled": "Cancelled",
+  "orderItemsCount": "{count} items",
+  "@orderItemsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeMarketplaceTitle": "Home Marketplace",
+  "homeMarketSearchHint": "Search products, brands, supplies...",
+  "homeMarketSearchPlaceholderShort": "Search",
+  "homeMarketCategoryFiltersTooltip": "Category filters",
+  "homeAppBarAiDesignTooltip": "AI Design",
+  "homeAppBarServiceHubTooltip": "Service Hub",
+  "homeMarketCategoryAll": "All",
+  "homeMarketCategoryGroceries": "Groceries",
+  "homeMarketCategoryHomeGoods": "Home Goods",
+  "homeMarketCategoryDecor": "Decor",
+  "homeMarketProductFreshFruitBasket": "Fresh Fruit Basket",
+  "homeMarketProductKitchenStorageSet": "Kitchen Storage Set",
+  "homeMarketProductScentedCandleTrio": "Scented Candle Trio",
+  "homeMarketProductLaundryOrganizer": "Laundry Organizer",
+  "homeMarketProductIndoorPlantKit": "Indoor Plant Kit",
+  "homeMarketProductOrganicDairyBundle": "Organic Dairy Bundle",
+  "cartPromoCodeHint": "Enter code",
+  "productAddToCart": "Add to cart",
+  "productAddToCartShort": "Add to Cart",
+  "productBuyNow": "Buy now",
+  "productViewAllReviews": "View All Reviews",
+  "productSectionVariations": "Variations",
+  "productSectionSpecifications": "Specifications",
+  "productOrigin": "Origin",
+  "productDelivery": "Delivery",
+  "productRatingReviews": "Rating & Reviews",
+  "productMostPopular": "Most Popular",
+  "productYouMightLike": "You Might Like",
+  "productSizeGuideFallback": "Size guide",
+  "productNoReviewsYet": "No reviews yet.",
+  "productOriginFallbackEu": "EU",
+  "productSpecLine": "{label}  {value}",
+  "@productSpecLine": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      },
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "categoryFilterAllCategoriesTitle": "All Categories",
+  "categoryFilterSearchHint": "Search categories",
+  "categoryFilterEmpty": "No categories",
+  "categoryFilterClearAllFilters": "Clear all filters",
+  "categoryFilterApplyFilters": "Apply filters",
+  "paymentPageTitle": "Payment",
+  "paymentShippingAddressCardTitle": "Shipping Address",
+  "paymentContactInformationTitle": "Contact Information",
+  "paymentItemsSectionTitle": "Items",
+  "paymentShippingOptionsTitle": "Shipping Options",
+  "paymentShippingStandard": "Standard",
+  "paymentShippingStandardEta": "5-7 days",
+  "paymentShippingFree": "FREE",
+  "paymentShippingExpress": "Express",
+  "paymentShippingExpressEta": "1-2 days",
+  "paymentDeliverySampleNote": "Delivered on or before Thursday, 23 April 2020",
+  "paymentMethodSectionTitle": "Payment method",
+  "paymentAddVoucher": "Add Voucher",
+  "paymentProcessingTitle": "Payment is in progress",
+  "paymentProcessingSubtitle": "Please, wait a few moments",
+  "paymentErrorTitle": "We couldn't proceed your payment",
+  "paymentErrorBody": "Please, change your payment method or try again",
+  "paymentTryAgain": "Try Again",
+  "paymentChangeMethod": "Change",
+  "paymentSuccessTitle": "Done!",
+  "paymentSuccessBody": "Your card has been successfully charged",
+  "paymentTrackOrder": "Track My Order",
+  "paymentPercentDiscount": "{percent}% discount",
+  "@paymentPercentDiscount": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "paymentNamedDiscount": "{name} discount",
+  "@paymentNamedDiscount": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "paymentTotalLabel": "Total",
+  "paymentPayButton": "Pay",
+  "paymentCountryLabel": "Country",
+  "paymentSaveChanges": "Save Changes",
+  "paymentAddressLineLabel": "Address",
+  "paymentTownCityLabel": "Town / City",
+  "paymentPostcodeLabel": "Postcode",
+  "paymentPhoneLabel": "Phone",
+  "paymentEmailLabelField": "Email",
+  "paymentMethodsSubtitle": "Choose a card for this order. You can add new cards or update saved ones.",
+  "paymentEditTooltip": "Edit",
+  "paymentAddPaymentMethod": "Add payment method",
+  "paymentUseThisCard": "Use this card",
+  "paymentEditCardTitle": "Edit card",
+  "paymentAddCardTitle": "Add card",
+  "paymentCardIntroEdit": "Change the name or expiry anytime. Enter a full card number only if you want to replace this card.",
+  "paymentCardIntroAdd": "Enter your card details. This is a demo — nothing is charged.",
+  "paymentCardCurrentMasked": "Current: {masked}",
+  "@paymentCardCurrentMasked": {
+    "placeholders": {
+      "masked": {
+        "type": "String"
+      }
+    }
+  },
+  "paymentCardNumberLabel": "Card number",
+  "paymentCardNumberHintKeep": "Leave blank to keep current",
+  "paymentCardNumberError": "Enter a valid card number",
+  "paymentCardHolderLabel": "Name on card",
+  "paymentCardHolderError": "Enter the cardholder name",
+  "paymentCardExpiryLabel": "Expiry (MM/YY)",
+  "paymentCardExpiryFormatError": "Use MM/YY",
+  "paymentCardExpiryMonthError": "Invalid month",
+  "paymentCardCvvLabel": "CVV",
+  "paymentCardCvvError": "Enter CVV",
+  "paymentBrandVisa": "Visa",
+  "paymentBrandMastercard": "Mastercard",
+  "paymentVouchersActiveTitle": "Active Vouchers",
+  "paymentVoucherLabel": "Voucher",
+  "paymentVoucherValid": "Valid",
+  "serviceHubTitle": "Service Hub",
+  "serviceHubPostSuccess": "Project posted successfully.",
+  "serviceHubPostProject": "Post Project",
+  "serviceHubBidApply": "Bid / Apply",
+  "serviceHubTabPostJob": "Post a Job",
+  "serviceHubTabBrowseRequests": "Browse Requests",
+  "serviceHubFormHeading": "Post a New Project",
+  "serviceHubFormSubheading": "Describe your requirements and receive bids from pros.",
+  "serviceHubFieldProjectTitle": "Project Title",
+  "serviceHubFieldProjectTitleHint": "Kitchen plumbing repair",
+  "serviceHubFieldProjectTitleError": "Please enter a project title",
+  "serviceHubFieldDescription": "Detailed Description",
+  "serviceHubFieldDescriptionHint": "Explain scope, timing, and special requests...",
+  "serviceHubFieldDescriptionError": "Please add at least 12 characters",
+  "serviceHubSampleJob1Customer": "Lera",
+  "serviceHubSampleJob1Title": "Apartment Renovation",
+  "serviceHubSampleJob1Snippet": "Need painting, flooring refresh, and kitchen cabinet updates.",
+  "serviceHubSampleJob2Customer": "Askar",
+  "serviceHubSampleJob2Title": "Deep Home Cleaning",
+  "serviceHubSampleJob2Snippet": "Move-out cleanup for a 2-bedroom apartment this weekend.",
+  "serviceHubSampleJob3Customer": "Dana",
+  "serviceHubSampleJob3Title": "Furniture Assembly",
+  "serviceHubSampleJob3Snippet": "Assemble wardrobe, desk, and two side tables.",
+  "profilePayNow": "Pay now",
+  "profileTrack": "Track",
+  "profileReview": "Review",
+  "profileOrderHistory": "Order History",
+  "profileHistoryTitle": "History",
+  "profileTabToPay": "To Pay",
+  "profileTabToReceive": "To Receive",
+  "profileTabToReview": "To Review",
+  "profileMyOrdersSubtitle": "My Orders",
+  "profileNothingHereYet": "Nothing here yet",
+  "profilePaymentFlowSoon": "Payment flow coming soon",
+  "profileFailedToLoad": "Failed to load profile",
+  "profileGreeting": "Hello, {name}!",
+  "@profileGreeting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "profileRecentlyViewed": "Recently viewed",
+  "profileMyOrdersSection": "My Orders",
+  "profileStoriesSection": "Stories",
+  "profileMyActivity": "My Activity",
+  "profileScannerSoon": "Scanner coming soon",
+  "profileFiltersSoon": "Filters coming soon",
+  "orderTrackingPageSubtitle": "Track Your Order",
+  "orderTrackingNumberLabel": "Tracking Number",
+  "orderTrackingCopiedNumber": "Copied tracking number",
+  "vouchersPageTitle": "Vouchers",
+  "vouchersTabActiveRewards": "Active Rewards",
+  "vouchersTabProgress": "Progress",
+  "settingsYourProfile": "Your Profile",
+  "settingsChooseCountryPlaceholder": "Choose your country",
+  "validationFieldRequired": "Required",
+  "settingsProfileDisplayNameEmpty": "Display name cannot be empty.",
+  "settingsProfileEmailConfirmSent": "We sent a confirmation link to {email}. Open it to complete the email change.",
+  "@settingsProfileEmailConfirmSent": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsProfileNameLabel": "Name",
+  "profileStatOrdered": "Ordered",
+  "profileStatReceived": "Received",
+  "profileStatToReceive": "To Receive",
+  "profileChatNow": "Chat Now",
+  "profileSayIt": "Say it!",
+  "profileReviewThankYou": "Thank you for your review",
+  "profileNoItemsToReview": "No items to review",
+  "profileReviewWhichItem": "Which item do you want to review?",
+  "profileDeliveryNotSuccessful": "Delivery was not successful",
+  "profileDeliveryWhatToDo": "What should I do?",
+  "profileDeliveryFailureBody": "Don't worry, we will shortly contact you to arrange a more suitable time for the delivery. You can also contact us at +00 000 000 000 or chat with customer care.",
+  "voucherCollected": "Collected",
+  "validationChooseCountry": "Please choose a country",
+  "settingsSaveChanges": "Save changes",
+  "profilePhotoEditorSoon": "Photo editor coming soon",
+  "aiInteriorTitle": "AI Design & Quote",
+  "aiInteriorRoomInput": "Room Input",
+  "aiInteriorRecommendedFurniture": "Recommended Furniture",
+  "aiInteriorSummaryReport": "Summary Report",
+  "aiInteriorStopScanning": "Stop Scanning",
+  "aiInteriorStartAiScan": "Start AI Scan",
+  "aiInteriorUploadImage": "Upload Image",
+  "aiInteriorUploadFormats": "PNG, JPG up to 10 MB",
+  "aiInteriorScanning": "Scanning...",
+  "aiInteriorShopMarketplace": "Shop in Marketplace",
+  "aiInteriorMaterialsEstimate": "Materials Estimate",
+  "aiInteriorLaborEstimate": "Labor Estimate",
+  "aiInteriorTotalEstimatedCost": "Total Estimated Cost",
+  "shoppingNotesTitle": "Shopping notes",
+  "shoppingNotesChart": "Chart",
+  "shoppingNotesAllCategoriesSegment": "All categories",
+  "shoppingNotesAddCategoryFirst": "Add a category first",
+  "shoppingNotesNewCategory": "New category",
+  "shoppingNotesRenameCategory": "Rename category",
+  "shoppingNotesAddCategory": "Add category",
+  "shoppingNotesCannotDelete": "Cannot delete",
+  "shoppingNotesCategoryError": "Category error",
+  "shoppingNotesExportTooltip": "Export",
+  "shoppingNotesManageCategoriesTooltip": "Manage categories",
+  "shoppingNotesOnlineBanner": "Online: changes will try to sync (demo HTTP).",
+  "shoppingNotesOfflineBanner": "Offline: data stays on this device.",
+  "shoppingNotesSearchHint": "Filter by title, details, or category",
+  "shoppingNotesCouldNotLoad": "Could not load notes.\n",
+  "shoppingNotesNoNotesYet": "No notes yet. Tap + to add one.",
+  "shoppingNotesNoMatchFilter": "No notes match the current filter.",
+  "shoppingNotesSyncStatusSynced": "synced",
+  "shoppingNotesSyncStatusLocal": "local",
+  "shoppingNotesNeedCategoryBody": "Notes require a category. Open \"Manage categories\" and create at least one.",
+  "shoppingNotesNewNoteTitle": "New note",
+  "shoppingNotesEditNoteTitle": "Edit note",
+  "shoppingNotesFieldTitle": "Title",
+  "shoppingNotesFieldDetails": "Details",
+  "shoppingNotesFieldCategory": "Category",
+  "shoppingNotesFieldAmount": "Amount",
+  "shoppingNotesCategoriesSheetTitle": "Categories",
+  "shoppingNotesCouldNotLoadCategories": "Could not load categories.\n",
+  "shoppingNotesNoCategoriesYet": "No categories. Tap + to add one.",
+  "shoppingNotesCategoryRowMeta": "id {id} · updated {date}",
+  "@shoppingNotesCategoryRowMeta": {
+    "placeholders": {
+      "id": {
+        "type": "int"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "shoppingNotesCannotDeleteBody": "Remove or reassign notes that use this category first.\n",
+  "spendingByCategoryTitle": "Spending by category",
+  "spendingAnalyticsLoadError": "Failed to load chart data.\n",
+  "spendingAnalyticsEmptyPrompt": "Add shopping notes with categories and amounts to see the chart.",
+  "spendingAnalyticsSubtitle": "Totals from your local notes (works offline)."
 }

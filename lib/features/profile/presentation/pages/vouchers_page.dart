@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../domain/entities/profile_entities.dart';
 import '../providers/profile_providers.dart';
 import '../widgets/profile_icon_actions.dart';
@@ -26,6 +28,7 @@ class _VouchersPageState extends ConsumerState<VouchersPage> {
 
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations l10n = context.l10n;
     final AsyncValue<ProfileHubEntity> hub = ref.watch(profileHubProvider);
     final AsyncValue<VouchersHubEntity> vouchersState =
         ref.watch(vouchersHubProvider);
@@ -34,7 +37,17 @@ class _VouchersPageState extends ConsumerState<VouchersPage> {
       body: SafeArea(
         child: hub.when(
           loading: () => const Center(child: CircularProgressIndicator()),
-          error: (Object e, StackTrace _) => Center(child: Text('$e')),
+          error: (Object e, StackTrace _) => Center(
+            child: SelectableText.rich(
+              TextSpan(
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.error,
+                ),
+                text: l10n.errorMessageWithDetails(e.toString()),
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
           data: (ProfileHubEntity h) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -57,15 +70,15 @@ class _VouchersPageState extends ConsumerState<VouchersPage> {
                       Expanded(
                         child: Text(
                           key: const Key('vouchers_page_title'),
-                          'Vouchers',
+                          l10n.vouchersPageTitle,
                           style: Theme.of(context).textTheme.titleLarge?.copyWith(
                                 fontWeight: FontWeight.w800,
                               ),
                         ),
                       ),
                       ProfileIconActions(
-                        onScan: () => _snack('Scanner coming soon'),
-                        onFilter: () => _snack('Filters coming soon'),
+                        onScan: () => _snack(l10n.profileScannerSoon),
+                        onFilter: () => _snack(l10n.profileFiltersSoon),
                         onSettings: () => openAppSettings(context),
                         filterHasBadge: h.voucherSummary.showReminder,
                       ),
@@ -78,6 +91,8 @@ class _VouchersPageState extends ConsumerState<VouchersPage> {
                   child: _SegmentTabs(
                     selectedIndex: _segment,
                     onChanged: (int i) => setState(() => _segment = i),
+                    activeRewardsLabel: l10n.vouchersTabActiveRewards,
+                    progressLabel: l10n.vouchersTabProgress,
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -85,8 +100,17 @@ class _VouchersPageState extends ConsumerState<VouchersPage> {
                   child: vouchersState.when(
                     loading: () =>
                         const Center(child: CircularProgressIndicator()),
-                    error: (Object e, StackTrace _) =>
-                        Center(child: Text('$e')),
+                    error: (Object e, StackTrace _) => Center(
+                      child: SelectableText.rich(
+                        TextSpan(
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.error,
+                          ),
+                          text: l10n.errorMessageWithDetails(e.toString()),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                     data: (VouchersHubEntity v) {
                       if (_segment == 0) {
                         return ListView.builder(
@@ -132,10 +156,14 @@ class _SegmentTabs extends StatelessWidget {
   const _SegmentTabs({
     required this.selectedIndex,
     required this.onChanged,
+    required this.activeRewardsLabel,
+    required this.progressLabel,
   });
 
   final int selectedIndex;
   final ValueChanged<int> onChanged;
+  final String activeRewardsLabel;
+  final String progressLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +179,7 @@ class _SegmentTabs extends StatelessWidget {
           Expanded(
             child: _SegmentChip(
               key: const Key('vouchers_tab_active_rewards'),
-              label: 'Active Rewards',
+              label: activeRewardsLabel,
               selected: selectedIndex == 0,
               onTap: () => onChanged(0),
             ),
@@ -159,7 +187,7 @@ class _SegmentTabs extends StatelessWidget {
           Expanded(
             child: _SegmentChip(
               key: const Key('vouchers_tab_progress'),
-              label: 'Progress',
+              label: progressLabel,
               selected: selectedIndex == 1,
               onTap: () => onChanged(1),
             ),

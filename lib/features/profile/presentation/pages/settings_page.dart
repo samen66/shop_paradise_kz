@@ -1,19 +1,75 @@
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../../core/currency/app_currency_provider.dart';
-import '../../../../core/l10n/l10n_helpers.dart';
-import '../../../../core/locale/app_locale_override_provider.dart';
+import '../../../../core/locale/app_locale_provider.dart';
+import '../../../../core/notifications/daily_reminder_provider.dart';
+import '../../../../core/session/session_started_provider.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/theme_mode_provider.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../../auth/presentation/auth_providers.dart';
 import '../../../customer_care_chat/presentation/pages/customer_care_chat_page.dart';
 import '../../domain/entities/profile_entities.dart';
+import '../providers/profile_providers.dart';
 import 'settings_currency_page.dart';
 import 'settings_language_page.dart';
 import 'settings_payment_methods_page.dart';
 import 'settings_profile_page.dart';
 import 'settings_shipping_address_page.dart';
-import '../providers/profile_providers.dart';
+
+const String _kAppDisplayName = 'Shop Paradise';
+const String _kAppVersion = '1.0.0';
+const String _kAppBuildDate = 'April, 2026';
+const String _kSettingsCountryDemoValue = 'Vietnam';
+const String _kSettingsSizesDemoValue = 'UK';
+
+/// Confirms sign-out, clears Google + Firebase sessions, returns to Welcome.
+Future<void> _confirmLogoutFromSettings(
+  BuildContext context,
+  WidgetRef ref,
+  AppLocalizations l10n,
+) async {
+  final bool? ok = await showDialog<bool>(
+    context: context,
+    builder: (BuildContext ctx) => AlertDialog(
+      title: Text(l10n.settingsLogoutTitle),
+      content: Text(l10n.settingsLogoutMessage),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () => Navigator.of(ctx).pop(false),
+          child: Text(l10n.commonCancel),
+        ),
+        TextButton(
+          onPressed: () => Navigator.of(ctx).pop(true),
+          child: Text(l10n.commonLogout),
+        ),
+      ],
+    ),
+  );
+  if (ok != true || !context.mounted) {
+    return;
+  }
+  if (Firebase.apps.isNotEmpty) {
+    try {
+      await GoogleSignIn.instance.signOut();
+    } on Object {
+      // Best-effort; Firebase sign-out still runs.
+    }
+    await FirebaseAuth.instance.signOut();
+  }
+  ref.read(sessionStartedProvider.notifier).state = false;
+  if (!context.mounted) {
+    return;
+  }
+  context.go('/welcome');
+}
 
 /// Opens the settings hub from anywhere in the app (profile tab flows).
 void openAppSettings(BuildContext context) {
@@ -26,65 +82,69 @@ void openAppSettings(BuildContext context) {
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
 
-  static const String _appDisplayName = 'Shop Paradise';
-  static const String _versionLabel = 'Version 1.0.0 · April, 2026';
-
-  void _comingSoon(BuildContext context, String feature) {
+  void _comingSoon(
+    BuildContext context,
+    AppLocalizations l10n,
+    String feature,
+  ) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('$feature — coming soon')),
+      SnackBar(content: Text(l10n.settingsComingSoonMessage(feature))),
     );
   }
 
-  Future<void> _confirmDeleteAccount(BuildContext context) async {
+  Future<void> _confirmDeleteAccount(
+    BuildContext context,
+    AppLocalizations l10n,
+  ) async {
     final bool? ok = await showDialog<bool>(
       context: context,
       builder: (BuildContext ctx) => AlertDialog(
-        title: const Text('Delete account?'),
-        content: const Text(
-          'You will not be able to restore your data. This is a demo only.',
-        ),
+        title: Text(l10n.settingsDeleteAccountTitle),
+        content: Text(l10n.settingsDeleteAccountMessage),
         actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('Cancel'),
+            child: Text(l10n.commonCancel),
           ),
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(true),
             style: TextButton.styleFrom(foregroundColor: AppColors.error),
-            child: const Text('Delete'),
+            child: Text(l10n.commonDelete),
           ),
         ],
       ),
     );
     if (ok == true && context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Account deletion is not available in demo')),
+        SnackBar(content: Text(l10n.settingsDeleteAccountDemoMessage)),
       );
     }
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final AppLocalizations? l10n = tryAppLocalizations(context);
+    final AppLocalizations l10n = AppLocalizations.of(context)!;
     final TextTheme textTheme = Theme.of(context).textTheme;
     final ColorScheme scheme = Theme.of(context).colorScheme;
-    final Locale effectiveLocale =
-        ref.watch(appLocaleOverrideProvider) ?? Localizations.localeOf(context);
+    final Locale? overrideLocale = ref.watch(appLocaleProvider);
     final String currencyCode = ref.watch(appCurrencyCodeProvider);
+    final User? signedInUser = ref.watch(authStateProvider).valueOrNull;
 
+    final ThemeMode themeMode = ref.watch(themeModeProvider);
+    final bool reminderOn = ref.watch(dailyReminderEnabledProvider);
     return Scaffold(
       key: const Key('settings_page'),
-      backgroundColor: AppColors.surface,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(0, 8, 0, 32),
           children: <Widget>[
-            const _SettingsPageHeader(),
+            _SettingsPageHeader(title: l10n.settingsTitle),
             const SizedBox(height: 8),
-            _SectionTitle(text: 'Personal'),
+            _SectionTitle(text: l10n.settingsSectionPersonal),
             _SettingsRow(
               key: const Key('settings_tile_profile'),
-              label: 'Profile',
+              label: l10n.settingsRowProfile,
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute<void>(
@@ -96,7 +156,7 @@ class SettingsPage extends ConsumerWidget {
             _Divider(color: scheme.outlineVariant),
             _SettingsRow(
               key: const Key('settings_tile_shipping_address'),
-              label: 'Shipping Address',
+              label: l10n.settingsRowShippingAddress,
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute<void>(
@@ -108,7 +168,7 @@ class SettingsPage extends ConsumerWidget {
             _Divider(color: scheme.outlineVariant),
             _SettingsRow(
               key: const Key('settings_tile_payment_methods'),
-              label: 'Payment methods',
+              label: l10n.settingsRowPaymentMethods,
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute<void>(
@@ -118,17 +178,29 @@ class SettingsPage extends ConsumerWidget {
               },
             ),
             _Divider(color: scheme.outlineVariant),
-            _SectionTitle(text: 'Shop'),
+            _SectionTitle(text: l10n.settingsSectionShop),
+            _SettingsRow(
+              key: const Key('settings_tile_shopping_notes'),
+              label: l10n.settingsRowShoppingNotes,
+              onTap: () => context.push('/notes'),
+            ),
+            _Divider(color: scheme.outlineVariant),
+            _SettingsRow(
+              key: const Key('settings_tile_spending_chart'),
+              label: l10n.settingsRowSpendingChart,
+              onTap: () => context.push('/analytics'),
+            ),
+            _Divider(color: scheme.outlineVariant),
             _SettingsRow(
               key: const Key('settings_tile_country'),
-              label: 'Country',
-              value: 'Vietnam',
-              onTap: () => _comingSoon(context, 'Country'),
+              label: l10n.settingsRowCountry,
+              value: _kSettingsCountryDemoValue,
+              onTap: () => _comingSoon(context, l10n, l10n.settingsRowCountry),
             ),
             _Divider(color: scheme.outlineVariant),
             _SettingsRow(
               key: const Key('settings_tile_currency'),
-              label: 'Currency',
+              label: l10n.settingsRowCurrency,
               value: settingsCurrencyDisplayLabel(currencyCode),
               onTap: () {
                 Navigator.of(context).push(
@@ -141,42 +213,85 @@ class SettingsPage extends ConsumerWidget {
             _Divider(color: scheme.outlineVariant),
             _SettingsRow(
               key: const Key('settings_tile_sizes'),
-              label: 'Sizes',
-              value: 'UK',
-              onTap: () => _comingSoon(context, 'Sizes'),
+              label: l10n.settingsRowSizes,
+              value: _kSettingsSizesDemoValue,
+              onTap: () => _comingSoon(context, l10n, l10n.settingsRowSizes),
             ),
             _Divider(color: scheme.outlineVariant),
             _SettingsRow(
               key: const Key('settings_tile_terms'),
-              label: 'Terms and Conditions',
-              onTap: () => _comingSoon(context, 'Terms and Conditions'),
+              label: l10n.settingsRowTerms,
+              onTap: () => _comingSoon(context, l10n, l10n.settingsRowTerms),
             ),
             _Divider(color: scheme.outlineVariant),
-            _SectionTitle(text: 'Account'),
-            if (l10n != null)
-              _SettingsRow(
-                key: const Key('settings_tile_customer_care'),
-                label: l10n.customerCareSettingsRow,
-                onTap: () async {
-                  final ProfileHubEntity hub =
-                      await ref.read(profileHubProvider.future);
-                  if (!context.mounted) {
-                    return;
+            _SectionTitle(text: l10n.settingsThemeSection),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: DropdownButton<ThemeMode>(
+                isExpanded: true,
+                value: themeMode,
+                items: <DropdownMenuItem<ThemeMode>>[
+                  DropdownMenuItem<ThemeMode>(
+                    value: ThemeMode.system,
+                    child: Text(l10n.themeModeSystem),
+                  ),
+                  DropdownMenuItem<ThemeMode>(
+                    value: ThemeMode.light,
+                    child: Text(l10n.themeModeLight),
+                  ),
+                  DropdownMenuItem<ThemeMode>(
+                    value: ThemeMode.dark,
+                    child: Text(l10n.themeModeDark),
+                  ),
+                ],
+                onChanged: (ThemeMode? next) {
+                  if (next != null) {
+                    unawaited(
+                      ref.read(themeModeProvider.notifier).setThemeMode(next),
+                    );
                   }
-                  await Navigator.of(context).push<void>(
-                    MaterialPageRoute<void>(
-                      builder: (_) => CustomerCareChatPage(
-                        displayName: hub.user.displayName,
-                      ),
-                    ),
-                  );
                 },
               ),
-            if (l10n != null) _Divider(color: scheme.outlineVariant),
+            ),
+            _Divider(color: scheme.outlineVariant),
+            SwitchListTile(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 24),
+              title: Text(l10n.settingsDailyReminderTitle),
+              subtitle: Text(l10n.settingsDailyReminderSubtitle),
+              value: reminderOn,
+              onChanged: (bool v) {
+                unawaited(
+                  ref
+                      .read(dailyReminderEnabledProvider.notifier)
+                      .setEnabled(v),
+                );
+              },
+            ),
+            _Divider(color: scheme.outlineVariant),
+            _SectionTitle(text: l10n.settingsSectionAccount),
+            _SettingsRow(
+              key: const Key('settings_tile_customer_care'),
+              label: l10n.customerCareSettingsRow,
+              onTap: () async {
+                final ProfileHubEntity hub =
+                    await ref.read(profileHubProvider.future);
+                if (!context.mounted) {
+                  return;
+                }
+                await Navigator.of(context).push<void>(
+                  MaterialPageRoute<void>(
+                    builder: (_) => CustomerCareChatPage(
+                      displayName: hub.user.displayName,
+                    ),
+                  ),
+                );
+              },
+            ),
+            _Divider(color: scheme.outlineVariant),
             _SettingsRow(
               key: const Key('settings_tile_language'),
-              label: 'Language',
-              value: settingsLanguageDisplayLabel(effectiveLocale),
+              label: l10n.settingsRowLanguage,
+              value: settingsLanguageDisplayLabel(l10n, overrideLocale),
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute<void>(
@@ -186,23 +301,37 @@ class SettingsPage extends ConsumerWidget {
               },
             ),
             _Divider(color: scheme.outlineVariant),
+            if (signedInUser != null) ...<Widget>[
+              _SettingsRow(
+                key: const Key('settings_tile_log_out'),
+                label: l10n.settingsRowLogout,
+                value: signedInUser.email,
+                onTap: () =>
+                    _confirmLogoutFromSettings(context, ref, l10n),
+              ),
+              _Divider(color: scheme.outlineVariant),
+            ],
             _SettingsRow(
               key: const Key('settings_tile_about'),
-              label: 'About $_appDisplayName',
-              onTap: () => _comingSoon(context, 'About'),
+              label: l10n.settingsRowAbout(_kAppDisplayName),
+              onTap: () => _comingSoon(
+                context,
+                l10n,
+                l10n.settingsRowAbout(_kAppDisplayName),
+              ),
             ),
             _Divider(color: scheme.outlineVariant),
             const SizedBox(height: 16),
             Center(
               child: TextButton(
                 key: const Key('settings_delete_account'),
-                onPressed: () => _confirmDeleteAccount(context),
+                onPressed: () => _confirmDeleteAccount(context, l10n),
                 style: TextButton.styleFrom(
                   foregroundColor: const Color(0xFFE57373),
                 ),
-                child: const Text(
-                  'Delete My Account',
-                  style: TextStyle(fontWeight: FontWeight.w600),
+                child: Text(
+                  l10n.settingsDeleteAccountAction,
+                  style: const TextStyle(fontWeight: FontWeight.w600),
                 ),
               ),
             ),
@@ -213,7 +342,7 @@ class SettingsPage extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    _appDisplayName,
+                    _kAppDisplayName,
                     textAlign: TextAlign.center,
                     style: textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w800,
@@ -221,7 +350,7 @@ class SettingsPage extends ConsumerWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    _versionLabel,
+                    l10n.settingsVersionLabel(_kAppVersion, _kAppBuildDate),
                     textAlign: TextAlign.center,
                     style: textTheme.bodySmall?.copyWith(
                       color: scheme.onSurfaceVariant,
@@ -238,7 +367,9 @@ class SettingsPage extends ConsumerWidget {
 }
 
 class _SettingsPageHeader extends StatelessWidget {
-  const _SettingsPageHeader();
+  const _SettingsPageHeader({required this.title});
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -253,7 +384,7 @@ class _SettingsPageHeader extends StatelessWidget {
           ),
           Expanded(
             child: Text(
-              'Settings',
+              title,
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                 fontWeight: FontWeight.w800,
                 color: AppColors.onSurface,

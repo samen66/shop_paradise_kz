@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/theme/app_colors.dart';
@@ -18,6 +20,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   final TextEditingController _phoneController = TextEditingController();
 
   bool _obscurePassword = true;
+  bool _submitting = false;
+  String? _submitError;
   _CountryDial _country = _kDefaultCountry;
 
   static const _CountryDial _kDefaultCountry = _CountryDial(
@@ -67,15 +71,37 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
     return null;
   }
 
-  void _onDone(AppLocalizations l10n) {
+  Future<void> _onDone(AppLocalizations l10n) async {
     FocusScope.of(context).unfocus();
     if (!(_formKey.currentState?.validate() ?? false)) {
       return;
     }
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(l10n.createAccountSuccess)),
-    );
-    Navigator.of(context).pop(true);
+    if (Firebase.apps.isEmpty) {
+      setState(() => _submitError = 'Firebase is not available.');
+      return;
+    }
+    setState(() {
+      _submitting = true;
+      _submitError = null;
+    });
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text,
+      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(l10n.createAccountSuccess)),
+        );
+        Navigator.of(context).pop(true);
+      }
+    } on FirebaseAuthException catch (e) {
+      setState(() => _submitError = e.message ?? e.code);
+    } finally {
+      if (mounted) {
+        setState(() => _submitting = false);
+      }
+    }
   }
 
   Future<void> _pickCountry() async {
@@ -214,9 +240,26 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                         validator: (String? v) => _validatePhone(v, l10n),
                       ),
                       const SizedBox(height: 32),
+                      if (_submitError != null) ...<Widget>[
+                        SelectableText.rich(
+                          TextSpan(
+                            text: _submitError,
+                            style: TextStyle(color: scheme.error),
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                      ],
                       FilledButton(
-                        onPressed: () => _onDone(l10n),
-                        child: Text(l10n.createAccountDone),
+                        onPressed: _submitting ? null : () => _onDone(l10n),
+                        child: _submitting
+                            ? const SizedBox(
+                                height: 22,
+                                width: 22,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            : Text(l10n.createAccountDone),
                       ),
                       const SizedBox(height: 16),
                       Center(

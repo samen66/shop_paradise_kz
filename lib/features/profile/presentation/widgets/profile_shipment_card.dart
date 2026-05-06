@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
+
 import '../../../../core/theme/app_colors.dart';
 import '../../domain/entities/profile_entities.dart';
 
@@ -149,7 +151,7 @@ class _ActionForStatus extends StatelessWidget {
           ),
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
         ),
-        child: const Text('Pay now'),
+        child: Text(context.l10n.profilePayNow),
       ),
       ShipmentUiStatus.packed || ShipmentUiStatus.shipped => FilledButton(
         onPressed: onTrack,
@@ -160,7 +162,7 @@ class _ActionForStatus extends StatelessWidget {
             borderRadius: BorderRadius.circular(24),
           ),
         ),
-        child: const Text('Track'),
+        child: Text(context.l10n.profileTrack),
       ),
       ShipmentUiStatus.delivered => OutlinedButton(
         onPressed: onReview,
@@ -172,7 +174,7 @@ class _ActionForStatus extends StatelessWidget {
           ),
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
         ),
-        child: const Text('Review'),
+        child: Text(context.l10n.profileReview),
       ),
     };
   }

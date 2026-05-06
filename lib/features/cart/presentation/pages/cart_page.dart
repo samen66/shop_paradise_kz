@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
 import '../../../payment/presentation/pages/payment_page.dart';
 import '../../../payment/presentation/payment_checkout_args.dart';
 import '../../domain/entities/cart_entities.dart';
@@ -47,7 +48,7 @@ class _CartPageState extends ConsumerState<CartPage> {
                 const Icon(Icons.error_outline, size: 48),
                 const SizedBox(height: 12),
                 Text(
-                  'Failed to load cart',
+                  context.l10n.cartFailedToLoad,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(height: 8),
@@ -57,7 +58,7 @@ class _CartPageState extends ConsumerState<CartPage> {
                   onPressed: () {
                     ref.read(cartControllerProvider.notifier).refreshCart();
                   },
-                  child: const Text('Try again'),
+                  child: Text(context.l10n.commonTryAgain),
                 ),
               ],
             ),
@@ -73,11 +74,11 @@ class _CartPageState extends ConsumerState<CartPage> {
                   slivers: <Widget>[
                     SliverAppBar(
                       pinned: true,
-                      title: const Text('My cart'),
+                      title: Text(context.l10n.cartTitle),
                       actions: <Widget>[
                         if (!data.isEmpty && data.selectionMode)
                           IconButton(
-                            tooltip: 'Delete selected',
+                            tooltip: context.l10n.cartTooltipDeleteSelected,
                             onPressed: data.selectedCount == 0
                                 ? null
                                 : () async {
@@ -88,8 +89,10 @@ class _CartPageState extends ConsumerState<CartPage> {
                                       return;
                                     }
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text('Removed selected items'),
+                                      SnackBar(
+                                        content: Text(
+                                          context.l10n.cartRemovedSelected,
+                                        ),
                                       ),
                                     );
                                   },
@@ -102,11 +105,11 @@ class _CartPageState extends ConsumerState<CartPage> {
                                   .read(cartControllerProvider.notifier)
                                   .setSelectionMode(false);
                             },
-                            child: const Text('Done'),
+                            child: Text(context.l10n.commonDone),
                           ),
                         if (!data.isEmpty && !data.selectionMode)
                           IconButton(
-                            tooltip: 'Select items',
+                            tooltip: context.l10n.cartTooltipSelectItems,
                             onPressed: () {
                               ref
                                   .read(cartControllerProvider.notifier)
@@ -134,9 +137,9 @@ class _CartPageState extends ConsumerState<CartPage> {
                         child: CartEmptyState(
                           onBrowse: () {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
+                              SnackBar(
                                 content: Text(
-                                  'Open the Home tab to browse products.',
+                                  context.l10n.cartBrowseHomeSnackbar,
                                 ),
                               ),
                             );
@@ -216,7 +219,11 @@ class _CartPageState extends ConsumerState<CartPage> {
                                   return;
                                 }
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('${item.title} removed')),
+                                  SnackBar(
+                                    content: Text(
+                                      context.l10n.cartItemRemoved(item.title),
+                                    ),
+                                  ),
                                 );
                               },
                             );

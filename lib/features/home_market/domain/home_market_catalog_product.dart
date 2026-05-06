@@ -5,26 +5,28 @@ class HomeMarketCatalogProduct {
   const HomeMarketCatalogProduct({
     required this.id,
     required this.image,
-    required this.title,
     required this.price,
-    required this.category,
+    required this.categoryId,
   });
 
   final String id;
   final String image;
-  final String title;
   final double price;
-  final String category;
+  /// Mock category key (e.g. groceries); not `all`.
+  final String categoryId;
 
   /// Minimal [HomeItemEntity] for [ProductDetailsPage] (uses fallback details).
-  HomeItemEntity toHomeItemEntity() {
+  HomeItemEntity toHomeItemEntity({
+    required String localizedTitle,
+    required String localizedCategoryLabel,
+  }) {
     return HomeItemEntity(
       id: id,
-      title: title,
+      title: localizedTitle,
       imageUrl:
           'https://placehold.co/600x600/png?text=${Uri.encodeComponent(image)}',
       price: price,
-      categoryIds: <String>[category],
+      categoryIds: <String>[localizedCategoryLabel],
     );
   }
 }

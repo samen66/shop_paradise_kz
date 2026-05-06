@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../domain/entities/profile_entities.dart' show ShippingAddressEntity;
 import '../providers/profile_providers.dart';
 import '../widgets/settings_subpage_header.dart';
@@ -67,8 +69,9 @@ class _SettingsShippingAddressPageState
       return;
     }
     if (_countryName.trim().isEmpty) {
+      final AppLocalizations l10n = context.l10n;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please choose a country')),
+        SnackBar(content: Text(l10n.validationChooseCountry)),
       );
       return;
     }
@@ -122,20 +125,31 @@ class _SettingsShippingAddressPageState
         body: Center(child: CircularProgressIndicator()),
       ),
       error: (Object e, StackTrace _) => Scaffold(
-        body: Center(child: Text('Error: $e')),
+        body: Center(
+          child: SelectableText.rich(
+            TextSpan(
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.error,
+              ),
+              text: context.l10n.errorMessageWithDetails(e.toString()),
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
       ),
       data: (_) => _buildForm(context),
     );
   }
 
   Widget _buildForm(BuildContext context) {
+    final AppLocalizations l10n = context.l10n;
     return Scaffold(
       backgroundColor: AppColors.surface,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            const SettingsSubpageHeader(subtitle: 'Shipping Address'),
+            SettingsSubpageHeader(subtitle: l10n.settingsRowShippingAddress),
             Expanded(
               child: Form(
                 key: _formKey,
@@ -143,7 +157,7 @@ class _SettingsShippingAddressPageState
                   padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
                   children: <Widget>[
                     Text(
-                      'Country',
+                      l10n.settingsRowCountry,
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
@@ -166,7 +180,7 @@ class _SettingsShippingAddressPageState
                               Expanded(
                                 child: Text(
                                   _countryName.trim().isEmpty
-                                      ? 'Choose your country'
+                                      ? l10n.settingsChooseCountryPlaceholder
                                       : _countryName.trim(),
                                   style: Theme.of(context)
                                       .textTheme
@@ -202,38 +216,55 @@ class _SettingsShippingAddressPageState
                     TextFormField(
                       key: const Key('settings_shipping_address_field'),
                       controller: _addressCtrl,
-                      decoration: _fieldDecoration('Address', hint: 'Required'),
+                      decoration: _fieldDecoration(
+                        l10n.paymentAddressLineLabel,
+                        hint: l10n.validationFieldRequired,
+                      ),
                       validator: (String? v) =>
-                          (v == null || v.trim().isEmpty) ? 'Required' : null,
+                          (v == null || v.trim().isEmpty)
+                          ? l10n.validationFieldRequired
+                          : null,
                     ),
                     const SizedBox(height: 16),
                     TextFormField(
                       key: const Key('settings_shipping_town_field'),
                       controller: _townCtrl,
-                      decoration:
-                          _fieldDecoration('Town / City', hint: 'Required'),
+                      decoration: _fieldDecoration(
+                        l10n.paymentTownCityLabel,
+                        hint: l10n.validationFieldRequired,
+                      ),
                       validator: (String? v) =>
-                          (v == null || v.trim().isEmpty) ? 'Required' : null,
+                          (v == null || v.trim().isEmpty)
+                          ? l10n.validationFieldRequired
+                          : null,
                     ),
                     const SizedBox(height: 16),
                     TextFormField(
                       key: const Key('settings_shipping_postcode_field'),
                       controller: _postcodeCtrl,
                       keyboardType: TextInputType.text,
-                      decoration:
-                          _fieldDecoration('Postcode', hint: 'Required'),
+                      decoration: _fieldDecoration(
+                        l10n.paymentPostcodeLabel,
+                        hint: l10n.validationFieldRequired,
+                      ),
                       validator: (String? v) =>
-                          (v == null || v.trim().isEmpty) ? 'Required' : null,
+                          (v == null || v.trim().isEmpty)
+                          ? l10n.validationFieldRequired
+                          : null,
                     ),
                     const SizedBox(height: 16),
                     TextFormField(
                       key: const Key('settings_shipping_phone_field'),
                       controller: _phoneCtrl,
                       keyboardType: TextInputType.phone,
-                      decoration:
-                          _fieldDecoration('Phone Number', hint: 'Required'),
+                      decoration: _fieldDecoration(
+                        l10n.paymentPhoneLabel,
+                        hint: l10n.validationFieldRequired,
+                      ),
                       validator: (String? v) =>
-                          (v == null || v.trim().isEmpty) ? 'Required' : null,
+                          (v == null || v.trim().isEmpty)
+                          ? l10n.validationFieldRequired
+                          : null,
                     ),
                     const SizedBox(height: 32),
                     FilledButton(
@@ -254,7 +285,7 @@ class _SettingsShippingAddressPageState
                                 color: AppColors.onPrimary,
                               ),
                             )
-                          : const Text('Save changes'),
+                          : Text(l10n.settingsSaveChanges),
                     ),
                   ],
                 ),

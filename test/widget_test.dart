@@ -3,7 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:shop_paradise_kz/core/prefs/app_preferences_keys.dart';
+import 'package:shop_paradise_kz/core/prefs/shared_preferences_provider.dart';
 import 'package:shop_paradise_kz/features/cart/presentation/pages/cart_page.dart';
 import 'package:shop_paradise_kz/features/login/presentation/pages/login_page.dart';
 import 'package:shop_paradise_kz/features/orders/presentation/pages/orders_page.dart';
@@ -18,7 +21,18 @@ void main() {
     WidgetTester tester, {
     required ShopParadiseApp app,
   }) async {
-    await tester.pumpWidget(ProviderScope(child: app));
+    SharedPreferences.setMockInitialValues(<String, Object>{
+      AppPreferencesKeys.onboardingCompleted: true,
+    });
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: <Override>[
+          sharedPreferencesProvider.overrideWithValue(prefs),
+        ],
+        child: app,
+      ),
+    );
   }
 
   testWidgets('Welcome shows Russian CTA when locale is ru', (
@@ -91,9 +105,10 @@ void main() {
       app: const ShopParadiseApp(
         locale: Locale('en'),
         themeMode: ThemeMode.light,
-        initialSessionStarted: true,
       ),
     );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Browse catalog'));
     await tester.pumpAndSettle();
     expect(find.byType(AppBottomNav), findsOneWidget);
     await tester.tap(find.byKey(const Key('bottom_nav_1')));
@@ -112,9 +127,10 @@ void main() {
       app: const ShopParadiseApp(
         locale: Locale('en'),
         themeMode: ThemeMode.light,
-        initialSessionStarted: true,
       ),
     );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Browse catalog'));
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('bottom_nav_3')));
     await tester.pumpAndSettle();
@@ -134,9 +150,10 @@ void main() {
       app: const ShopParadiseApp(
         locale: Locale('en'),
         themeMode: ThemeMode.light,
-        initialSessionStarted: true,
       ),
     );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Browse catalog'));
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('bottom_nav_2')));
     await tester.pumpAndSettle();
@@ -182,7 +199,7 @@ void main() {
     await tester.tap(find.byIcon(Icons.arrow_forward));
     await tester.pumpAndSettle();
     expect(find.byType(LoginPage), findsOneWidget);
-    expect(find.text('Login'), findsOneWidget);
+    expect(find.text('Sign in'), findsOneWidget);
   });
 
   testWidgets('Wide layout uses top nav and hides bottom nav', (
@@ -197,9 +214,10 @@ void main() {
       app: const ShopParadiseApp(
         locale: Locale('en'),
         themeMode: ThemeMode.light,
-        initialSessionStarted: true,
       ),
     );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Browse catalog'));
     await tester.pumpAndSettle();
     expect(find.byType(AppTopNav), findsOneWidget);
     expect(find.byType(AppBottomNav), findsNothing);
@@ -220,9 +238,10 @@ void main() {
       app: const ShopParadiseApp(
         locale: Locale('en'),
         themeMode: ThemeMode.light,
-        initialSessionStarted: true,
       ),
     );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Browse catalog'));
     await tester.pumpAndSettle();
     final Finder firstProduct = find.byKey(
       const Key('home_market_product_fresh-fruit-basket'),

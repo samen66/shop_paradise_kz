@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
+
 class PaymentFooterBar extends StatelessWidget {
   const PaymentFooterBar({
     super.key,
@@ -32,7 +34,7 @@ class PaymentFooterBar extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Text(
-                      'Total',
+                      context.l10n.paymentTotalLabel,
                       style: textTheme.bodySmall?.copyWith(
                         color: colorScheme.onSurfaceVariant,
                       ),
@@ -59,7 +61,7 @@ class PaymentFooterBar extends StatelessWidget {
                       vertical: 16,
                     ),
                     child: Text(
-                      'Pay',
+                      context.l10n.paymentPayButton,
                       style: textTheme.titleMedium?.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.w700,

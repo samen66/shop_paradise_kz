@@ -2,6 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
+import '../../../../l10n/app_localizations.dart';
+
 class AiInteriorPage extends StatefulWidget {
   const AiInteriorPage({super.key});
 
@@ -21,6 +24,7 @@ class _AiInteriorPageState extends State<AiInteriorPage> {
 
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations l10n = context.l10n;
     final ThemeData theme = Theme.of(context);
     final ColorScheme colors = theme.colorScheme;
 
@@ -29,7 +33,7 @@ class _AiInteriorPageState extends State<AiInteriorPage> {
     final double total = materialCost + laborCost;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('AI Design & Quote')),
+      appBar: AppBar(title: Text(l10n.aiInteriorTitle)),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -49,7 +53,10 @@ class _AiInteriorPageState extends State<AiInteriorPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('Room Input', style: theme.textTheme.titleLarge),
+                  Text(
+                    l10n.aiInteriorRoomInput,
+                    style: theme.textTheme.titleLarge,
+                  ),
                   const SizedBox(height: 10),
                   Container(
                     height: 150,
@@ -71,11 +78,11 @@ class _AiInteriorPageState extends State<AiInteriorPage> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          'Upload Image',
+                          l10n.aiInteriorUploadImage,
                           style: theme.textTheme.titleMedium,
                         ),
                         Text(
-                          'PNG, JPG up to 10 MB',
+                          l10n.aiInteriorUploadFormats,
                           style: theme.textTheme.bodySmall,
                         ),
                       ],
@@ -91,14 +98,18 @@ class _AiInteriorPageState extends State<AiInteriorPage> {
                     icon: Icon(
                       _isScanning ? Icons.stop_circle_outlined : Icons.auto_awesome,
                     ),
-                    label: Text(_isScanning ? 'Stop Scanning' : 'Start AI Scan'),
+                    label: Text(
+                      _isScanning
+                          ? l10n.aiInteriorStopScanning
+                          : l10n.aiInteriorStartAiScan,
+                    ),
                   ),
                   if (_isScanning) ...<Widget>[
                     const SizedBox(height: 10),
                     Row(
                       children: <Widget>[
                         Text(
-                          'Scanning...',
+                          l10n.aiInteriorScanning,
                           style: theme.textTheme.bodyMedium?.copyWith(
                             fontWeight: FontWeight.w600,
                           ),
@@ -116,7 +127,10 @@ class _AiInteriorPageState extends State<AiInteriorPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('Recommended Furniture', style: theme.textTheme.titleMedium),
+                  Text(
+                    l10n.aiInteriorRecommendedFurniture,
+                    style: theme.textTheme.titleMedium,
+                  ),
                   const SizedBox(height: 10),
                   SizedBox(
                     height: 136,
@@ -152,10 +166,16 @@ class _AiInteriorPageState extends State<AiInteriorPage> {
                                       fontWeight: FontWeight.w700,
                                     ),
                                   ),
-                                  const Spacer(),
-                                  Text(
-                                    'Shop in Marketplace',
-                                    style: theme.textTheme.labelSmall,
+                                  Expanded(
+                                    child: Align(
+                                      alignment: Alignment.bottomLeft,
+                                      child: Text(
+                                        l10n.aiInteriorShopMarketplace,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: theme.textTheme.labelSmall,
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -173,13 +193,21 @@ class _AiInteriorPageState extends State<AiInteriorPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('Summary Report', style: theme.textTheme.titleMedium),
+                  Text(
+                    l10n.aiInteriorSummaryReport,
+                    style: theme.textTheme.titleMedium,
+                  ),
                   const SizedBox(height: 10),
-                  _summaryRow(context, 'Materials Estimate', materialCost),
+                  _summaryRow(context, l10n.aiInteriorMaterialsEstimate, materialCost),
                   const SizedBox(height: 6),
-                  _summaryRow(context, 'Labor Estimate', laborCost),
+                  _summaryRow(context, l10n.aiInteriorLaborEstimate, laborCost),
                   const Divider(height: 22),
-                  _summaryRow(context, 'Total Estimated Cost', total, emphasize: true),
+                  _summaryRow(
+                    context,
+                    l10n.aiInteriorTotalEstimatedCost,
+                    total,
+                    emphasize: true,
+                  ),
                 ],
               ),
             ),

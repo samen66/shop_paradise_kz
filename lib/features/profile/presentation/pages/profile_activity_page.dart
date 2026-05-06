@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../domain/entities/profile_entities.dart';
 import '../providers/profile_providers.dart';
@@ -40,7 +41,9 @@ class _ProfileActivityPageState extends ConsumerState<ProfileActivityPage> {
       body: SafeArea(
         child: hub.when(
           loading: () => const Center(child: CircularProgressIndicator()),
-          error: (Object e, _) => Center(child: Text('$e')),
+          error: (Object e, _) => Center(
+            child: Text(context.l10n.errorMessageWithDetails(e.toString())),
+          ),
           data: (ProfileHubEntity hubData) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -61,7 +64,7 @@ class _ProfileActivityPageState extends ConsumerState<ProfileActivityPage> {
                       const SizedBox(width: 10),
                       Expanded(
                         child: Text(
-                          'My Activity',
+                          context.l10n.profileMyActivity,
                           key: const Key('profile_activity_title'),
                           style: Theme.of(context).textTheme.titleLarge?.copyWith(
                             fontWeight: FontWeight.w800,
@@ -69,8 +72,10 @@ class _ProfileActivityPageState extends ConsumerState<ProfileActivityPage> {
                         ),
                       ),
                       ProfileIconActions(
-                        onScan: () => _snack(context, 'Scanner coming soon'),
-                        onFilter: () => _snack(context, 'Filters coming soon'),
+                        onScan: () =>
+                            _snack(context, context.l10n.profileScannerSoon),
+                        onFilter: () =>
+                            _snack(context, context.l10n.profileFiltersSoon),
                         onSettings: () => openAppSettings(context),
                       ),
                     ],
@@ -81,7 +86,11 @@ class _ProfileActivityPageState extends ConsumerState<ProfileActivityPage> {
                     loading: () => const Center(
                       child: CircularProgressIndicator(),
                     ),
-                    error: (Object e, _) => Center(child: Text('$e')),
+                    error: (Object e, _) => Center(
+                      child: Text(
+                        context.l10n.errorMessageWithDetails(e.toString()),
+                      ),
+                    ),
                     data: (ActivityMonthEntity data) {
                       final NumberFormat money = NumberFormat.currency(
                         locale: 'en_US',
@@ -108,7 +117,7 @@ class _ProfileActivityPageState extends ConsumerState<ProfileActivityPage> {
                               ProfileDonutChart(
                                 key: const Key('profile_activity_donut'),
                                 segments: data.segments,
-                                totalLabel: 'Total',
+                                totalLabel: context.l10n.paymentTotalLabel,
                                 totalAmountText: money.format(data.totalAmount),
                               ),
                               IconButton(
@@ -147,19 +156,19 @@ class _ProfileActivityPageState extends ConsumerState<ProfileActivityPage> {
                               Expanded(
                                 child: _StatOrb(
                                   value: '${data.orderedCount}',
-                                  caption: 'Ordered',
+                                  caption: context.l10n.profileStatOrdered,
                                 ),
                               ),
                               Expanded(
                                 child: _StatOrb(
                                   value: '${data.receivedCount}',
-                                  caption: 'Received',
+                                  caption: context.l10n.profileStatReceived,
                                 ),
                               ),
                               Expanded(
                                 child: _StatOrb(
                                   value: '${data.toReceiveCount}',
-                                  caption: 'To Receive',
+                                  caption: context.l10n.profileStatToReceive,
                                 ),
                               ),
                             ],
@@ -174,7 +183,7 @@ class _ProfileActivityPageState extends ConsumerState<ProfileActivityPage> {
                                 ),
                               );
                             },
-                            child: const Text('Order History'),
+                            child: Text(context.l10n.profileOrderHistory),
                           ),
                         ],
                       );

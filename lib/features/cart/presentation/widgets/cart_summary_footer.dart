@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
+
 import '../../domain/entities/cart_entities.dart';
 
 class CartSummaryFooter extends StatelessWidget {
@@ -33,29 +35,29 @@ class CartSummaryFooter extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               _SummaryRow(
-                label: 'Subtotal',
+                label: context.l10n.cartSubtotal,
                 value: '\$${summary.subtotal.toStringAsFixed(0)}',
               ),
               if (summary.discount != null && summary.discount! > 0)
                 _SummaryRow(
-                  label: 'Discount',
+                  label: context.l10n.cartDiscountRow,
                   value: '-\$${summary.discount!.toStringAsFixed(0)}',
                   valueColor: colorScheme.primary,
                 ),
               _SummaryRow(
                 label: summary.shippingLabel,
                 value: summary.shipping <= 0 && summary.subtotal > 0
-                    ? 'Free'
+                    ? context.l10n.cartFreeLabel
                     : '\$${summary.shipping.toStringAsFixed(0)}',
               ),
               if (summary.tax != null)
                 _SummaryRow(
-                  label: 'Tax',
+                  label: context.l10n.cartTax,
                   value: '\$${summary.tax!.toStringAsFixed(2)}',
                 ),
               const Divider(height: 24),
               _SummaryRow(
-                label: 'Total',
+                label: context.l10n.cartTotalRow,
                 value: '\$${summary.total.toStringAsFixed(2)}',
                 emphasize: true,
               ),
@@ -71,7 +73,7 @@ class CartSummaryFooter extends StatelessWidget {
                 height: 52,
                 child: FilledButton(
                   onPressed: checkoutEnabled ? onCheckout : null,
-                  child: const Text('Checkout'),
+                  child: Text(context.l10n.cartCheckout),
                 ),
               ),
             ],

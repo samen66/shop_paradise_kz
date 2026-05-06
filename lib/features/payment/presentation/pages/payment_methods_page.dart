@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../payment_card_option.dart';
 import '../payment_demo_cards.dart';
 import '../widgets/payment_card_brand_mark.dart';
@@ -89,6 +91,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations l10n = context.l10n;
     final TextTheme textTheme = Theme.of(context).textTheme;
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     return PopScope(
@@ -104,7 +107,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
             icon: const Icon(Icons.arrow_back),
             onPressed: _popWithSelection,
           ),
-          title: const Text('Payment methods'),
+          title: Text(l10n.settingsRowPaymentMethods),
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -112,7 +115,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
               child: Text(
-                'Choose a card for this order. You can add new cards or update saved ones.',
+                l10n.paymentMethodsSubtitle,
                 style: textTheme.bodyMedium?.copyWith(
                   color: colorScheme.onSurfaceVariant,
                 ),
@@ -178,7 +181,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
                                   ),
                                 ),
                                 IconButton(
-                                  tooltip: 'Edit',
+                                  tooltip: l10n.paymentEditTooltip,
                                   onPressed: () => _openEdit(card),
                                   icon: Icon(
                                     Icons.edit_outlined,
@@ -199,7 +202,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
               child: OutlinedButton.icon(
                 onPressed: _openAdd,
                 icon: const Icon(Icons.add),
-                label: const Text('Add payment method'),
+                label: Text(l10n.paymentAddPaymentMethod),
                 style: OutlinedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 14),
                   shape: RoundedRectangleBorder(
@@ -212,7 +215,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
               child: FilledButton(
                 onPressed: _popWithSelection,
-                child: const Text('Use this card'),
+                child: Text(l10n.paymentUseThisCard),
               ),
             ),
           ],

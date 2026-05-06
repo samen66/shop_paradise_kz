@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
 import '../../../home/presentation/providers/just_for_you_pagination_controller.dart';
 import '../../domain/entities/category_filter_entities.dart';
 import '../providers/category_filter_providers.dart';
@@ -75,13 +76,13 @@ class _CategoryFilterPageState extends ConsumerState<CategoryFilterPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'All Categories',
+          context.l10n.categoryFilterAllCategoriesTitle,
           style: Theme.of(context).textTheme.titleLarge,
         ),
         leading: IconButton(
           icon: const Icon(Icons.close),
           onPressed: () => Navigator.of(context).pop(),
-          tooltip: 'Close',
+          tooltip: context.l10n.commonCloseTooltip,
         ),
         actions: <Widget>[
           TextButton(
@@ -90,9 +91,12 @@ class _CategoryFilterPageState extends ConsumerState<CategoryFilterPage> {
                   () => _toggleSelectAll(roots),
               orElse: () => null,
             ),
-            child: const Text('Select all'),
+            child: Text(context.l10n.commonSelectAll),
           ),
-          TextButton(onPressed: _onClearDraft, child: const Text('Clear')),
+          TextButton(
+            onPressed: _onClearDraft,
+            child: Text(context.l10n.commonClear),
+          ),
         ],
       ),
       body: GestureDetector(
@@ -107,9 +111,9 @@ class _CategoryFilterPageState extends ConsumerState<CategoryFilterPage> {
                 controller: _searchController,
                 textInputAction: TextInputAction.search,
                 textCapitalization: TextCapitalization.words,
-                decoration: const InputDecoration(
-                  hintText: 'Search categories',
-                  prefixIcon: Icon(Icons.search),
+                decoration: InputDecoration(
+                  hintText: context.l10n.categoryFilterSearchHint,
+                  prefixIcon: const Icon(Icons.search),
                 ),
                 onChanged: (_) => setState(() {}),
               ),
@@ -143,7 +147,7 @@ class _CategoryFilterPageState extends ConsumerState<CategoryFilterPage> {
                         FilledButton(
                           onPressed: () =>
                               ref.read(categoryTreeProvider.notifier).reload(),
-                          child: const Text('Retry'),
+                          child: Text(context.l10n.commonRetry),
                         ),
                       ],
                     ),
@@ -153,7 +157,7 @@ class _CategoryFilterPageState extends ConsumerState<CategoryFilterPage> {
                   if (roots.isEmpty) {
                     return Center(
                       child: Text(
-                        'No categories',
+                        context.l10n.categoryFilterEmpty,
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     );
@@ -186,12 +190,12 @@ class _CategoryFilterPageState extends ConsumerState<CategoryFilterPage> {
                       onPressed: () {
                         _onClearAppliedAndDraft();
                       },
-                      child: const Text('Clear all filters'),
+                      child: Text(context.l10n.categoryFilterClearAllFilters),
                     ),
                     const SizedBox(height: 8),
                     FilledButton(
                       onPressed: _onApply,
-                      child: const Text('Apply filters'),
+                      child: Text(context.l10n.categoryFilterApplyFilters),
                     ),
                   ],
                 ),

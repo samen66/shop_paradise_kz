@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
 import '../../domain/entities/profile_entities.dart'
     show ProfileHubEntity, ShipmentCardEntity;
 import '../../domain/repositories/profile_repository.dart';
@@ -40,7 +41,9 @@ class ProfileOrdersTabPage extends ConsumerWidget {
       body: SafeArea(
         child: hub.when(
           loading: () => const Center(child: CircularProgressIndicator()),
-          error: (Object e, _) => Center(child: Text('$e')),
+          error: (Object e, _) => Center(
+            child: Text(context.l10n.errorMessageWithDetails(e.toString())),
+          ),
           data: (ProfileHubEntity hubData) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -65,7 +68,7 @@ class ProfileOrdersTabPage extends ConsumerWidget {
                           children: <Widget>[
                             Text(
                               title,
-                              key: title == 'To Receive'
+                              key: tab == ProfileOrdersTab.toReceive
                                   ? const Key('profile_to_receive_title')
                                   : null,
                               style: Theme.of(context).textTheme.titleLarge
@@ -85,8 +88,10 @@ class ProfileOrdersTabPage extends ConsumerWidget {
                         ),
                       ),
                       ProfileIconActions(
-                        onScan: () => _snack(context, 'Scanner coming soon'),
-                        onFilter: () => _snack(context, 'Filters coming soon'),
+                        onScan: () =>
+                            _snack(context, context.l10n.profileScannerSoon),
+                        onFilter: () =>
+                            _snack(context, context.l10n.profileFiltersSoon),
                         onSettings: () => openAppSettings(context),
                       ),
                     ],
@@ -97,12 +102,16 @@ class ProfileOrdersTabPage extends ConsumerWidget {
                     loading: () => const Center(
                       child: CircularProgressIndicator(),
                     ),
-                    error: (Object e, _) => Center(child: Text('$e')),
+                    error: (Object e, _) => Center(
+                      child: Text(
+                        context.l10n.errorMessageWithDetails(e.toString()),
+                      ),
+                    ),
                     data: (List<ShipmentCardEntity> list) {
                       if (list.isEmpty) {
                         return Center(
                           child: Text(
-                            'Nothing here yet',
+                            context.l10n.profileNothingHereYet,
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
                         );
@@ -117,7 +126,7 @@ class ProfileOrdersTabPage extends ConsumerWidget {
                             shipment: s,
                             onPay: () => _snack(
                               context,
-                              'Payment flow coming soon',
+                              context.l10n.profilePaymentFlowSoon,
                             ),
                             onTrack: () {
                               Navigator.of(context).push(

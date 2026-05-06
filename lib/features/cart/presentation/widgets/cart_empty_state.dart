@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
+
 class CartEmptyState extends StatelessWidget {
   const CartEmptyState({super.key, required this.onBrowse});
 
@@ -37,7 +39,7 @@ class CartEmptyState extends StatelessWidget {
             const SizedBox(height: 24),
             FilledButton(
               onPressed: onBrowse,
-              child: const Text('Start shopping'),
+              child: Text(context.l10n.cartStartShopping),
             ),
           ],
         ),

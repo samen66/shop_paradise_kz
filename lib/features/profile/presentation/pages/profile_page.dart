@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../domain/entities/profile_entities.dart';
 import '../../domain/repositories/profile_repository.dart';
 import '../providers/profile_providers.dart';
@@ -25,6 +27,7 @@ class ProfilePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final AppLocalizations l10n = context.l10n;
     final AsyncValue<ProfileHubEntity> hub = ref.watch(profileHubProvider);
     return hub.when(
       loading: () => const Center(child: CircularProgressIndicator()),
@@ -37,11 +40,19 @@ class ProfilePage extends ConsumerWidget {
               const Icon(Icons.error_outline, size: 48),
               const SizedBox(height: 12),
               Text(
-                'Failed to load profile',
+                l10n.profileFailedToLoad,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 8),
-              Text(e.toString(), textAlign: TextAlign.center),
+              SelectableText.rich(
+                TextSpan(
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.error,
+                  ),
+                  text: l10n.errorMessageWithDetails(e.toString()),
+                ),
+                textAlign: TextAlign.center,
+              ),
             ],
           ),
         ),
@@ -81,8 +92,8 @@ class ProfilePage extends ConsumerWidget {
                                   borderRadius: BorderRadius.circular(28),
                                 ),
                               ),
-                              child: const Text(
-                                'My Activity',
+                              child: Text(
+                                l10n.profileMyActivity,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -91,9 +102,9 @@ class ProfilePage extends ConsumerWidget {
                           const SizedBox(width: 8),
                           ProfileIconActions(
                             onScan: () =>
-                                _snack(context, 'Scanner coming soon'),
+                                _snack(context, l10n.profileScannerSoon),
                             onFilter: () =>
-                                _snack(context, 'Filters coming soon'),
+                                _snack(context, l10n.profileFiltersSoon),
                             onSettings: () => openAppSettings(context),
                             filterHasBadge: data.voucherSummary.showReminder,
                             settingsButtonKey: const Key('profile_header_settings'),
@@ -110,7 +121,7 @@ class ProfilePage extends ConsumerWidget {
                 padding: const EdgeInsets.fromLTRB(16, 20, 16, 8),
                 child: Text(
                   key: const Key('profile_greeting'),
-                  'Hello, ${data.user.displayName}!',
+                  l10n.profileGreeting(data.user.displayName),
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.w800,
                   ),
@@ -136,7 +147,7 @@ class ProfilePage extends ConsumerWidget {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
                 child: Text(
-                  'Recently viewed',
+                  l10n.profileRecentlyViewed,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w800,
                   ),
@@ -163,7 +174,7 @@ class ProfilePage extends ConsumerWidget {
                 padding: const EdgeInsets.fromLTRB(16, 20, 16, 8),
                 child: Text(
                   key: const Key('profile_my_orders_section'),
-                  'My Orders',
+                  l10n.profileMyOrdersSection,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w800,
                   ),
@@ -177,14 +188,14 @@ class ProfilePage extends ConsumerWidget {
                   children: <Widget>[
                     _OrderFunnelChip(
                       key: const Key('profile_chip_to_pay'),
-                      label: 'To Pay',
+                      label: l10n.profileTabToPay,
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute<void>(
-                            builder: (_) => const ProfileOrdersTabPage(
+                            builder: (_) => ProfileOrdersTabPage(
                               tab: ProfileOrdersTab.toPay,
-                              title: 'To Pay',
-                              subtitle: 'My Orders',
+                              title: l10n.profileTabToPay,
+                              subtitle: l10n.profileMyOrdersSubtitle,
                             ),
                           ),
                         );
@@ -193,7 +204,7 @@ class ProfilePage extends ConsumerWidget {
                     const SizedBox(width: 10),
                     _OrderFunnelChip(
                       key: const Key('profile_chip_to_receive'),
-                      label: 'To Receive',
+                      label: l10n.profileTabToReceive,
                       showDot: data.funnelCounts.toReceiveHasBadge,
                       onTap: () {
                         Navigator.of(context).push(
@@ -206,14 +217,14 @@ class ProfilePage extends ConsumerWidget {
                     const SizedBox(width: 10),
                     _OrderFunnelChip(
                       key: const Key('profile_chip_to_review'),
-                      label: 'To Review',
+                      label: l10n.profileTabToReview,
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute<void>(
-                            builder: (_) => const ProfileOrdersTabPage(
+                            builder: (_) => ProfileOrdersTabPage(
                               tab: ProfileOrdersTab.toReview,
-                              title: 'To Review',
-                              subtitle: 'My Orders',
+                              title: l10n.profileTabToReview,
+                              subtitle: l10n.profileMyOrdersSubtitle,
                             ),
                           ),
                         );
@@ -228,7 +239,7 @@ class ProfilePage extends ConsumerWidget {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
                 child: Text(
-                  'Stories',
+                  l10n.profileStoriesSection,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w800,
                   ),

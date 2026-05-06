@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
 import '../../../home/domain/entities/home_entities.dart';
 
 class ProductDetailsPage extends StatelessWidget {
@@ -57,12 +58,12 @@ class ProductDetailsPage extends StatelessWidget {
                 _ReviewSection(reviewPreview: details.reviewPreview),
                 const SizedBox(height: 20),
                 _RelatedHorizontalSection(
-                  title: 'Most Popular',
+                  title: context.l10n.productMostPopular,
                   items: details.mostPopularItems,
                 ),
                 const SizedBox(height: 18),
                 _RelatedGridSection(
-                  title: 'You Might Like',
+                  title: context.l10n.productYouMightLike,
                   items: details.youMightLikeItems,
                 ),
               ],
@@ -96,7 +97,7 @@ class ProductDetailsPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(11),
                     ),
                   ),
-                  child: const Text('Add to cart'),
+                  child: Text(context.l10n.productAddToCart),
                 ),
               ),
               const SizedBox(width: 10),
@@ -110,7 +111,7 @@ class ProductDetailsPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(11),
                     ),
                   ),
-                  child: const Text('Buy now'),
+                  child: Text(context.l10n.productBuyNow),
                 ),
               ),
             ],
@@ -195,7 +196,7 @@ class _VariationsSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         _SectionTitle(
-          title: 'Variations',
+          title: context.l10n.productSectionVariations,
           trailing: const _CircleActionButton(),
         ),
         const SizedBox(height: 8),
@@ -252,7 +253,7 @@ class _SpecificationsSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          'Specifications',
+          context.l10n.productSectionSpecifications,
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
             fontSize: 20,
             fontWeight: FontWeight.w800,
@@ -303,19 +304,19 @@ class _OriginSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          'Origin',
+          context.l10n.productOrigin,
           style: Theme.of(
             context,
           ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
         ),
         const SizedBox(height: 6),
         _PlainChip(
-          label: originLabel ?? 'EU',
+          label: originLabel ?? context.l10n.productOriginFallbackEu,
           background: const Color(0xFFE5EBFC),
         ),
         const SizedBox(height: 8),
         _SectionTitle(
-          title: sizeGuideLabel ?? 'Size guide',
+          title: sizeGuideLabel ?? context.l10n.productSizeGuideFallback,
           trailing: const _CircleActionButton(),
         ),
       ],
@@ -334,7 +335,7 @@ class _DeliverySection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          'Delivery',
+          context.l10n.productDelivery,
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
             fontSize: 20,
             fontWeight: FontWeight.w800,
@@ -393,18 +394,18 @@ class _ReviewSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final ProductReviewPreviewEntity review =
         reviewPreview ??
-        const ProductReviewPreviewEntity(
+        ProductReviewPreviewEntity(
           overallRatingText: '4/5',
           authorName: 'Veronika',
           authorAvatarUrl: '',
-          comment: 'No reviews yet.',
+          comment: context.l10n.productNoReviewsYet,
           rating: 4,
         );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          'Rating & Reviews',
+          context.l10n.productRatingReviews,
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
             fontSize: 20,
             fontWeight: FontWeight.w800,
@@ -476,7 +477,7 @@ class _ReviewSection extends StatelessWidget {
                 borderRadius: BorderRadius.circular(11),
               ),
             ),
-            child: const Text('View All Reviews'),
+            child: Text(context.l10n.productViewAllReviews),
           ),
         ),
       ],
@@ -682,7 +683,7 @@ class _InfoChip extends StatelessWidget {
         color: const Color(0xFFF9F9F9),
         borderRadius: BorderRadius.circular(4),
       ),
-      child: Text('$label  $value'),
+      child: Text(context.l10n.productSpecLine(label, value)),
     );
   }
 }

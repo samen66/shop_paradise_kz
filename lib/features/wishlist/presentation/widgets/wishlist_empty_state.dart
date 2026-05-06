@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
+
 class WishlistEmptyState extends StatelessWidget {
   const WishlistEmptyState({super.key, required this.onRestore});
 
@@ -35,7 +37,7 @@ class WishlistEmptyState extends StatelessWidget {
             const SizedBox(height: 16),
             FilledButton(
               onPressed: onRestore,
-              child: const Text('Restore demo items'),
+              child: Text(context.l10n.wishlistRestoreDemo),
             ),
           ],
         ),

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/l10n/l10n_helpers.dart';
+import '../../../../l10n/app_localizations.dart';
+
 class PaymentVoucher {
   const PaymentVoucher({
     required this.title,
@@ -32,6 +35,7 @@ class PaymentActiveVouchersSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations l10n = context.l10n;
     final TextTheme textTheme = Theme.of(context).textTheme;
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final double inset = MediaQuery.viewInsetsOf(context).bottom;
@@ -62,7 +66,7 @@ class PaymentActiveVouchersSheet extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Active Vouchers',
+                  l10n.paymentVouchersActiveTitle,
                   style: textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.w800,
                   ),
@@ -96,6 +100,7 @@ class _VoucherTicketCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations l10n = context.l10n;
     final TextTheme textTheme = Theme.of(context).textTheme;
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Material(
@@ -109,7 +114,7 @@ class _VoucherTicketCard extends StatelessWidget {
             Row(
               children: <Widget>[
                 Text(
-                  'Voucher',
+                  l10n.paymentVoucherLabel,
                   style: textTheme.labelLarge?.copyWith(
                     color: colorScheme.primary,
                     fontWeight: FontWeight.w800,
@@ -126,7 +131,7 @@ class _VoucherTicketCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
-                    'Valid',
+                    l10n.paymentVoucherValid,
                     style: textTheme.labelSmall?.copyWith(
                       color: Colors.pink.shade700,
                       fontWeight: FontWeight.w700,
@@ -168,7 +173,7 @@ class _VoucherTicketCard extends StatelessWidget {
               alignment: Alignment.centerRight,
               child: FilledButton(
                 onPressed: onApply,
-                child: const Text('Apply'),
+                child: Text(l10n.commonApply),
               ),
             ),
           ],
