@@ -11,6 +11,17 @@ class AiHubScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          tooltip: 'Назад',
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+              return;
+            }
+            context.go('/shop');
+          },
+          icon: const Icon(Icons.arrow_back),
+        ),
         title: const Text('AI Дизайн'),
         actions: <Widget>[
           IconButton(

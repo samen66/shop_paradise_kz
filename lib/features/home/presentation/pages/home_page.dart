@@ -8,7 +8,6 @@ import '../../../home_market/domain/home_market_catalog_product.dart';
 import '../../../home_market/presentation/widgets/home_market_catalog_view.dart';
 import '../../../product_details/presentation/pages/product_details_page.dart';
 import '../../../home_market/presentation/home_market_catalog_l10n.dart';
-import '../../../service_hub/presentation/pages/service_hub_page.dart';
 
 /// Home tab: marketplace catalog with search and filters; AI and Service Hub
 /// in the app bar.
@@ -20,11 +19,7 @@ class HomePage extends StatelessWidget {
   }
 
   void _openServiceHub(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (_) => const ServiceHubPage(),
-      ),
-    );
+    context.push('/services');
   }
 
   void _openProductDetails(
@@ -37,8 +32,9 @@ class HomePage extends StatelessWidget {
         builder: (_) => ProductDetailsPage(
           item: product.toHomeItemEntity(
             localizedTitle: l10n.homeMarketProductTitle(product.id),
-            localizedCategoryLabel:
-                l10n.homeMarketCategoryLabel(product.categoryId),
+            localizedCategoryLabel: l10n.homeMarketCategoryLabel(
+              product.categoryId,
+            ),
           ),
         ),
       ),

@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/l10n/l10n_helpers.dart';
 import '../../../../l10n/app_localizations.dart';
@@ -14,12 +15,21 @@ class AiInteriorPage extends StatefulWidget {
 
 class _AiInteriorPageState extends State<AiInteriorPage> {
   bool _isScanning = false;
+  final Set<String> _cartItemIds = <String>{};
 
   static const List<_FurnitureRecommendation> _furniture = <_FurnitureRecommendation>[
-    _FurnitureRecommendation(name: 'Nordic Sofa', price: 449),
-    _FurnitureRecommendation(name: 'Aura Floor Lamp', price: 89),
-    _FurnitureRecommendation(name: 'Oak Coffee Table', price: 175),
-    _FurnitureRecommendation(name: 'Wall Art Set', price: 120),
+    _FurnitureRecommendation(id: 'nordic-sofa', name: 'Nordic Sofa', price: 449),
+    _FurnitureRecommendation(
+      id: 'aura-floor-lamp',
+      name: 'Aura Floor Lamp',
+      price: 89,
+    ),
+    _FurnitureRecommendation(
+      id: 'oak-coffee-table',
+      name: 'Oak Coffee Table',
+      price: 175,
+    ),
+    _FurnitureRecommendation(id: 'wall-art-set', name: 'Wall Art Set', price: 120),
   ];
 
   @override
@@ -140,6 +150,7 @@ class _AiInteriorPageState extends State<AiInteriorPage> {
                       separatorBuilder: (_, __) => const SizedBox(width: 10),
                       itemBuilder: (BuildContext context, int index) {
                         final _FurnitureRecommendation item = _furniture[index];
+                        final bool isAdded = _cartItemIds.contains(item.id);
                         return SizedBox(
                           width: 168,
                           child: Card(
@@ -169,11 +180,33 @@ class _AiInteriorPageState extends State<AiInteriorPage> {
                                   Expanded(
                                     child: Align(
                                       alignment: Alignment.bottomLeft,
-                                      child: Text(
-                                        l10n.aiInteriorShopMarketplace,
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: theme.textTheme.labelSmall,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: Text(
+                                              l10n.aiInteriorShopMarketplace,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: theme.textTheme.labelSmall,
+                                            ),
+                                          ),
+                                          IconButton(
+                                            visualDensity: VisualDensity.compact,
+                                            tooltip: l10n.productAddToCartShort,
+                                            onPressed: () => _toggleCartItem(
+                                              context: context,
+                                              item: item,
+                                            ),
+                                            icon: Icon(
+                                              isAdded
+                                                  ? Icons.check_circle
+                                                  : Icons.add_shopping_cart_outlined,
+                                              color: isAdded
+                                                  ? colors.primary
+                                                  : colors.onSurfaceVariant,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -207,6 +240,22 @@ class _AiInteriorPageState extends State<AiInteriorPage> {
                     l10n.aiInteriorTotalEstimatedCost,
                     total,
                     emphasize: true,
+                  ),
+                  const SizedBox(height: 12),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: FilledButton.icon(
+                          onPressed: _cartItemIds.isEmpty
+                              ? null
+                              : () => _openCart(context),
+                          icon: const Icon(Icons.shopping_cart_outlined),
+                          label: Text(
+                            '${l10n.cartTitle} (${_cartItemIds.length})',
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -246,6 +295,37 @@ class _AiInteriorPageState extends State<AiInteriorPage> {
       ],
     );
   }
+
+  void _toggleCartItem({
+    required BuildContext context,
+    required _FurnitureRecommendation item,
+  }) {
+    final bool isAdded = _cartItemIds.contains(item.id);
+    setState(() {
+      if (isAdded) {
+        _cartItemIds.remove(item.id);
+      } else {
+        _cartItemIds.add(item.id);
+      }
+    });
+    if (!isAdded) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            context.l10n.wishlistItemAddedToCart(item.name),
+          ),
+          action: SnackBarAction(
+            label: context.l10n.cartTitle,
+            onPressed: () => _openCart(context),
+          ),
+        ),
+      );
+    }
+  }
+
+  void _openCart(BuildContext context) {
+    context.go('/shop?tab=cart');
+  }
 }
 
 class _GlassCard extends StatelessWidget {
@@ -276,10 +356,12 @@ class _GlassCard extends StatelessWidget {
 
 class _FurnitureRecommendation {
   const _FurnitureRecommendation({
+    required this.id,
     required this.name,
     required this.price,
   });
 
+  final String id;
   final String name;
   final double price;
 }
